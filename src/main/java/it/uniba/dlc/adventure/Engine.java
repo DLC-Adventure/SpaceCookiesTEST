@@ -55,7 +55,7 @@ public class Engine {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Engine engine = new Engine(new FireHouseGame());
+        Engine engine = new Engine(new Game());
         engine.run();
     }
 

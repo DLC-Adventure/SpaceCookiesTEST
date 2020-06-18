@@ -19,14 +19,14 @@ import java.util.List;
  */
 public abstract class GameDescription {
 
-    private final List<Room> rooms = new ArrayList<>();
+    private final List<Room> rooms = new ArrayList<>(); // Lista contenente le stanze
 
-    private final List<Command> commands = new ArrayList<>();
+    private final List<Command> commands = new ArrayList<>(); // Lista contenente i comandi
 
-    private final List<Item> inventory = new ArrayList<>();
+    private final List<Item> inventory = new ArrayList<>(); // Lista degli oggetti nell'inventario
 
-    private Room currentRoom;
-
+    private Room currentRoom; // Stanza attuale
+    
     public List<Room> getRooms() {
         return rooms;
     }
@@ -39,6 +39,7 @@ public abstract class GameDescription {
         return inventory;
     }
 
+    // Stanza attuale
     public Room getCurrentRoom() {
         return currentRoom;
     }

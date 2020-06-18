@@ -18,7 +18,7 @@ public class Parser {
 
     private int checkForCommand(String token, List<Command> commands) {
 	for (int i = 0; i < commands.size(); i++) {
-	    if (commands.get(i).getName().equals(token) || commands.get(i).getAlias().contains(token)) {
+	    if (commands.get(i).getAlias().contains(token)) {
 		return i;
 	    }
 	}

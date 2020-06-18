@@ -10,28 +10,30 @@ import java.util.List;
 
 /**
  *
- * @author Donatello
+ * @author pierpaolo
  */
 public class Inventory {
-    
-    List<Item> list = new ArrayList<>();
-    
-    public List<Item> getList(){
+
+    private List<Item> list = new ArrayList<>(); // Lista degli oggetti nell'inventario
+
+    // Restituisci oggetti nell'inventario
+    public List<Item> getList() {
 	return list;
     }
-    
-    public void setList(List<Item> list){
+
+    // Imposta oggetti nell'inventario
+    public void setList(List<Item> list) {
 	this.list = list;
     }
-	
-    public void add(Item item){
+
+    // Aggiungi oggetto nell'inventario
+    public void add(Item item) {
 	list.add(item);
     }
-    
-    public void remove(Item item){
+
+    // Rimuovi oggetto dall'inventario
+    public void remove(Item item) {
 	list.remove(item);
     }
-    
-    
-    
+
 }

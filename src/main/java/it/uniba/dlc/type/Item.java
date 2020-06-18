@@ -5,27 +5,26 @@
  */
 package it.uniba.dlc.type;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
  *
- * @author DLC
+ * @author pierpaolo
  */
 public class Item {
 
     private final int id;
-
     private String name;
-
     private String description;
-
     private Set<String> alias;
 
     private boolean openable = false;
-
     private boolean pickupable = true;
-
+    private boolean pushable = false;
     private boolean open = false;
+    private boolean push = false;
 
     public Item(int id) {
 	this.id = id;
@@ -49,10 +48,12 @@ public class Item {
 	this.alias = alias;
     }
 
+    // Id dell'oggetto
     public int getId() {
 	return id;
     }
 
+    // Nome dell'oggetto
     public String getName() {
 	return name;
     }
@@ -61,6 +62,7 @@ public class Item {
 	this.name = name;
     }
 
+    // Descrizione dell'oggetto
     public String getDescription() {
 	return description;
     }
@@ -69,6 +71,7 @@ public class Item {
 	this.description = description;
     }
 
+    // Alias dell'oggetto
     public Set<String> getAlias() {
 	return alias;
     }
@@ -77,21 +80,17 @@ public class Item {
 	this.alias = alias;
     }
 
+    public void setAlias(String[] alias) {
+	this.alias = new HashSet<>(Arrays.asList(alias));
+    }
+
+    // Apribile (oggetto contenitore)
     public boolean isOpenable() {
 	return openable;
     }
 
     public void setOpenable(boolean openable) {
 	this.openable = openable;
-    }
-
-    public boolean isPickupable() {
-
-	return pickupable;
-    }
-
-    public void setPickupable(boolean pickupable) {
-	this.pickupable = pickupable;
     }
 
     public boolean isOpen() {
@@ -102,10 +101,37 @@ public class Item {
 	this.open = open;
     }
 
+    // Prendibile (oggetto inventario)
+    public boolean isPickupable() {
+	return pickupable;
+    }
+
+    public void setPickupable(boolean pickupable) {
+	this.pickupable = pickupable;
+    }
+
+    // Premibile
+    public boolean isPushable() {
+	return pushable;
+    }
+
+    public void setPushable(boolean pushable) {
+	this.pushable = pushable;
+    }
+
+    public boolean isPush() {
+	return push;
+    }
+
+    public void setPush(boolean push) {
+	this.push = push;
+    }
+
+    // EQUALS + HASH CODE
     @Override
     public int hashCode() {
-	int hash = 3;
-	hash = 53 * hash + this.id;
+	int hash = 7;
+	hash = 37 * hash + this.id;
 	return hash;
     }
 
@@ -127,4 +153,4 @@ public class Item {
 	return true;
     }
 
-}
+} // fine della classe principale "Item"

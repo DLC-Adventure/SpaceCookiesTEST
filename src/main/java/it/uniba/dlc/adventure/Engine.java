@@ -1,12 +1,22 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package it.uniba.dlc.adventure;
 
-import di.uniba.map.b.adventure.games.FireHouseGame;
-import di.uniba.map.b.adventure.parser.Parser;
-import di.uniba.map.b.adventure.parser.ParserOutput;
-import di.uniba.map.b.adventure.type.CommandType;
+import it.uniba.dlc.parser.Parser;
+import it.uniba.dlc.parser.ParserOutput;
+import it.uniba.dlc.type.CommandType;
 import java.util.Scanner;
 
-
+/**
+ * ATTENZIONE: l'Engine è molto spartano, in realtà demanda la logica alla
+ * classe che implementa GameDescription e si occupa di gestire I/O sul
+ * terminale.
+ *
+ * @author pierpaolo
+ */
 public class Engine {
 
     private final GameDescription game;
@@ -29,8 +39,8 @@ public class Engine {
         System.out.println(game.getCurrentRoom().getDescription());
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNextLine()) {
-            String command = scanner.nextLine();
-            ParserOutput p = parser.parse(command, game.getCommands(), game.getCurrentRoom().getObjects(), game.getInventory());
+            String command = scanner.nextLine(); // Quando premo INVIO, tutto ciò che ho scritto viene passato alla stringa "command"
+            ParserOutput p = parser.parse(command, game.getCommands(), game.getCurrentRoom().getItems(), game.getInventory());
             if (p.getCommand() != null && p.getCommand().getType() == CommandType.END) {
                 System.out.println("Addio!");
                 break;

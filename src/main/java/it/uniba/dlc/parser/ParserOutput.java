@@ -14,47 +14,43 @@ import it.uniba.dlc.type.Command;
  */
 public class ParserOutput {
 
-    private Command command;
+    private Command command; // Comando in input
+    private Item item; // Oggetto in input
+    private Item inventoryItem; // Oggetto inventario in input
 
-    private Item object;
-    
-    private Item invObject;
-
-    
-    
-    public ParserOutput(Command command, Item object) {
-        this.command = command;
-        this.object = object;
+    public ParserOutput(Command command, Item item) {
+	this.command = command;
+	this.item = item;
     }
 
-    public ParserOutput(Command command, Item object, Item invObejct) {
-        this.command = command;
-        this.object = object;
-        this.invObject = invObejct;
+    public ParserOutput(Command command, Item item, Item inventoryItem) {
+	this.command = command;
+	this.item = item;
+	this.inventoryItem = inventoryItem;
     }
 
     public Command getCommand() {
-        return command;
+	return command;
     }
 
     public void setCommand(Command command) {
-        this.command = command;
+	this.command = command;
     }
 
-    public Item getObject() {
-        return object;
+    public Item getItem() {
+	return item;
     }
 
-    public void setObject(Item object) {
-        this.object = object;
+    public void setItem(Item item) {
+	this.item = item;
     }
 
-    public Item getInvObject() {
-        return invObject;
+    public Item getInventoryItem() {
+	return inventoryItem;
     }
 
-    public void setInvObject(Item invObject) {
-        this.invObject = invObject;
+    public void setinventoryItem(Item inventoryItem) {
+	this.inventoryItem = inventoryItem;
     }
 
 }

@@ -7,8 +7,8 @@ package it.uniba.dlc.type;
 
 /**
  *
- * @author DLC
+ * @author pierpaolo
  */
-public enum GenericCommand {
-     END, INVENTORY, NORD, SOUTH, WEST, EAST, OPEN, CLOSE, PICK_UP, TALK_TO, GIVE, USE, LOOK_AT, TURN_ON, TURN_OFF
+public enum CommandType {
+    END, INVENTORY, NORD, SOUTH, WEST, EAST, OPEN, CLOSE, PUSH, PULL, WALK_TO, PICK_UP, TALK_TO, GIVE, USE, LOOK_AT, TURN_ON, TURN_OFF
 }

@@ -53,7 +53,7 @@ public class Engine {
     public static void main(String[] args) {
         //Inizializzo musica gioco
         String filepath ="song.wav";
-        musicStuff musicObject = new musicStuff();
+        Music musicObject = new Music();
         musicObject.playMusic(filepath);
         
         Engine engine = new Engine(new Game());

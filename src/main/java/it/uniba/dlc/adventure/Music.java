@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  *
  * @author Ego
  */
-public class musicStuff {
+public class Music {
 
     public void playMusic(String musicLocation) {
 

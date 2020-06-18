@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 package it.uniba.dlc.adventure;
 
 import it.uniba.dlc.parser.Parser;
@@ -10,19 +10,15 @@ import it.uniba.dlc.parser.ParserOutput;
 import it.uniba.dlc.type.CommandType;
 import java.util.Scanner;
 
-/**
- * ATTENZIONE: l'Engine è molto spartano, in realtà demanda la logica alla
- * classe che implementa GameDescription e si occupa di gestire I/O sul
- * terminale.
- *
- * @author pierpaolo
+/*
+ * @author dlc
  */
 public class Engine {
-
+    
     private final GameDescription game;
-
+    
     private final Parser parser;
-
+    
     public Engine(GameDescription game) {
         this.game = game;
         try {
@@ -32,7 +28,7 @@ public class Engine {
         }
         parser = new Parser();
     }
-
+    
     public void run() {
         System.out.println(game.getCurrentRoom().getName());
         System.out.println("================================================");
@@ -50,13 +46,18 @@ public class Engine {
             }
         }
     }
-
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        //Inizializzo musica gioco
+        String filepath ="menu.wav";
+        musicStuff musicObject = new musicStuff();
+        musicObject.playMusic(filepath);
+        
         Engine engine = new Engine(new Game());
         engine.run();
     }
-
+    
 }

@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * SPACE COOKIES by DLC © 2020
  */
 package it.uniba.dlc.parser;
 
@@ -9,8 +7,7 @@ import it.uniba.dlc.type.Item;
 import it.uniba.dlc.type.Command;
 
 /**
- *
- * @author pierpaolo
+ * Classe che elabora l'output del parser.
  */
 public class ParserOutput {
 
@@ -18,17 +15,20 @@ public class ParserOutput {
     private Item item; // Oggetto in input
     private Item inventoryItem; // Oggetto inventario in input
 
+    // Comando + oggetto
     public ParserOutput(Command command, Item item) {
 	this.command = command;
 	this.item = item;
     }
 
+    // Comando + oggetto + oggetto inventario
     public ParserOutput(Command command, Item item, Item inventoryItem) {
 	this.command = command;
 	this.item = item;
 	this.inventoryItem = inventoryItem;
     }
 
+    // Comando
     public Command getCommand() {
 	return command;
     }
@@ -37,6 +37,7 @@ public class ParserOutput {
 	this.command = command;
     }
 
+    // Oggetto
     public Item getItem() {
 	return item;
     }
@@ -45,6 +46,7 @@ public class ParserOutput {
 	this.item = item;
     }
 
+    // Oggetto inventario
     public Item getInventoryItem() {
 	return inventoryItem;
     }
@@ -53,4 +55,4 @@ public class ParserOutput {
 	this.inventoryItem = inventoryItem;
     }
 
-}
+} // fine della classe principale "ParserOutput"

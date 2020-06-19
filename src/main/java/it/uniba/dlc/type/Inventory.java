@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  *
- * @author pierpaolo
+ * @author DLC
  */
 public class Inventory {
 

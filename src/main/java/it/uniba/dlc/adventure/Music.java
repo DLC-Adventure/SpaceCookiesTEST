@@ -34,19 +34,16 @@ public class Music {
                         message, "",
                         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                         options, options[1]);
-                if (n == JOptionPane.OK_OPTION) { // Afirmative
+                if (n == JOptionPane.OK_OPTION) { // Risposta affermativa
                     clip.start();
 
                 }
-                if (n == JOptionPane.NO_OPTION) { // negative
+                if (n == JOptionPane.NO_OPTION) { // risposta negativa
                     clip.stop();
                 }
-                if (n == JOptionPane.CLOSED_OPTION) { // closed the dialog
-
-                }
-
+           
             } else {
-                System.out.println("Can't find file");
+                System.out.println("File non trovato");
             }
         } catch (Exception ex) {
             ex.printStackTrace();

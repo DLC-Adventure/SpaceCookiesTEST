@@ -8,8 +8,8 @@ import it.uniba.dlc.type.Room;
 import java.io.PrintStream;
 
 /**
- *
- * @author DLC
+ * Classe principale del gioco.
+ * Contiene l'inizializzazione del gioco, ovvero stanze, comandi, oggetti...
  */
 public class Game extends GameDescription {
     

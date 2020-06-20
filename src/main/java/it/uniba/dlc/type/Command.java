@@ -10,23 +10,30 @@ import java.util.Set;
 
 /**
  *
- * @author DLC
+ * Metodi dei comandi.
  */
 public class Command {
 
-    private final CommandType type;
+    private final CommandType type; // Tipo di comando
 
     private Set<String> alias; // Nome e alias del comando
 
+    // Tipo di comando
     public Command(CommandType type) {
 	this.type = type;
     }
+    
+    public CommandType getType() {
+	return type;
+    }
 
+    // Tipo di comando + alias
     public Command(CommandType type, Set<String> alias) {
 	this.type = type;
 	this.alias = alias;
     }
 
+    // Alias
     public Set<String> getAlias() {
 	return alias;
     }
@@ -37,10 +44,6 @@ public class Command {
 
     public void setAlias(String[] alias) {
 	this.alias = new HashSet<>(Arrays.asList(alias));
-    }
-
-    public CommandType getType() {
-	return type;
     }
 
     // EQUALS + HASH CODE

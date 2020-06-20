@@ -8,13 +8,13 @@ import java.util.List;
 import java.util.Set;
 
 /**
- *
- * @author DLC
+ * Metodi degli oggetti di tipo contenitore.
  */
 public class ItemContainer extends Item {
 
-    private List<Item> list = new ArrayList<>();
+    private List<Item> list = new ArrayList<>(); // Lista degli oggetti contenitore
 
+    // Oggetto contenitore
     public ItemContainer(int id) {
         super(id);
     }
@@ -31,6 +31,7 @@ public class ItemContainer extends Item {
         super(id, name, description, alias);
     }
 
+    // Lista degli oggetti contenitore
     public List<Item> getList() {
         return list;
     }
@@ -39,6 +40,7 @@ public class ItemContainer extends Item {
         this.list = list;
     }
 
+    // Aggiunta e rimozione dalla lista
     public void add(Item o) {
         list.add(o);
     }

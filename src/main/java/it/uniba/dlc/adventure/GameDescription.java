@@ -12,8 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author pierpaolo
+ * Metodi che gestiscono il gioco.
  */
 public abstract class GameDescription {
 

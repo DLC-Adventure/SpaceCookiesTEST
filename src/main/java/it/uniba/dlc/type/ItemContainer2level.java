@@ -10,11 +10,8 @@ import java.util.List;
 import java.util.Set;
 
 /**
- *
- * @author DLC
+ * Oggetto contenitore contenuto a sua volta in un altro contenitore.
  */
-
-// Oggetti contenitore contenuto a sua volta in un altro contenitore 
 public class ItemContainer2level extends ItemContainer{
     
     private List<ItemContainer> list2 = new ArrayList<>();

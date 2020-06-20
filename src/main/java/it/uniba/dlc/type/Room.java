@@ -7,25 +7,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author DLC
+ * Metodi delle stanze.
  */
 public class Room {
 
-    private final int id;
-    private String name;
-    private String description;
-    private String look;
+    private final int id; // Id della stanza
+    private String name; // Nome della stanza
+    private String description; // Descrizione della stanza
+    private String look; // Contenuto del comando "GUARDA"
 
-    private boolean visible = true; // La stanza ha le luci accese
+    private boolean visible = true; // La stanza è visibile (ha le luci accese)
 
     private Room north = null;
     private Room south = null;
     private Room west = null;
     private Room east = null;
 
-    private final List<Item> items = new ArrayList<>(); // Oggetti presenti nella stanza
+    private final List<Item> list = new ArrayList<>(); // Oggetti presenti nella stanza
 
+    // Stanza
     public Room(int id) {
 	this.id = id;
     }
@@ -54,7 +54,7 @@ public class Room {
 	this.description = description;
     }
 
-    // Comando "guarda"
+    // Comando "GUARDA"
     public String getLook() {
 	return look;
     }
@@ -110,7 +110,7 @@ public class Room {
 
     // Oggetti presenti nella stanza
     public List<Item> getItems() {
-	return items;
+	return list;
     }
 
     // EQUALS + HASH CODE

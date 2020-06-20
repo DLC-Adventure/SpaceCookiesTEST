@@ -8,8 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- *
- * @author DLC
+ * Metodi degli oggetti.
  */
 public class Item {
 

@@ -7,11 +7,13 @@ package it.uniba.dlc.type;
  * Elenco dei tipi di comando presenti nel gioco.
  */
 public enum CommandType {
-    NORD, SOUTH, WEST, EAST,
+    NORTH, SOUTH, WEST, EAST,
     HELP,
+    END,
     INVENTORY,
-    LOOK, // Osserva
-    EXAMINE, // Esamina (oggetto)
-    TAKE, // Prendi (oggetto)
-    END, OPEN, CLOSE, PUSH, PULL, WALK_TO, PICK_UP, TALK_TO, GIVE, USE, LOOK_AT, TURN_ON, TURN_OFF
+    LOOK, EXAMINE,
+    TAKE, USE,
+    OPEN, CLOSE,
+    PUSH, PULL,
+    WALK_TO, TALK_TO, TURN_ON, TURN_OFF
 }

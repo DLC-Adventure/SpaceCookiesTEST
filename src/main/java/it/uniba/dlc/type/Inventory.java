@@ -33,4 +33,4 @@ public class Inventory {
 	list.remove(item);
     }
 
-}
+} // fine della classe principale "Inventory"

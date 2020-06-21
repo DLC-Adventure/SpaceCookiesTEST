@@ -23,30 +23,37 @@ public abstract class GameDescription {
     private final List<Item> inventory = new ArrayList<>(); // Lista degli oggetti nell'inventario
 
     private Room currentRoom; // Stanza attuale
-    
+
+    // Restituisci l'elenco delle stanze
     public List<Room> getRooms() {
-        return rooms;
+	return rooms;
     }
 
+    // Restituisci l'elenco dei comandi
     public List<Command> getCommands() {
-        return commands;
+	return commands;
     }
-    
+
+    // Restituisci l'elenco degli oggetti nell'inventario
     public List<Item> getInventory() {
-        return inventory;
+	return inventory;
     }
 
-    // Stanza attuale
+    // Restituisci la stanza attuale
     public Room getCurrentRoom() {
-        return currentRoom;
+	return currentRoom;
     }
 
+    // Imposta la stanza attuale
     public void setCurrentRoom(Room currentRoom) {
-        this.currentRoom = currentRoom;
+	this.currentRoom = currentRoom;
     }
 
-    public abstract void init() throws Exception;
+    
+    public abstract void intro(); // Introduzione del gioco
+    
+    public abstract void init() throws Exception; // Inizializzazione del gioco
 
-    public abstract void nextMove(ParserOutput p, PrintStream out);
+    public abstract void nextMove(ParserOutput p, PrintStream out); // Prossima mossa
 
-}
+} // fine della classe principale "GameDescription"

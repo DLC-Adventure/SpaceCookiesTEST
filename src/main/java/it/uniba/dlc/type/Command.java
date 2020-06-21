@@ -9,7 +9,6 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- *
  * Metodi dei comandi.
  */
 public class Command {
@@ -22,7 +21,7 @@ public class Command {
     public Command(CommandType type) {
 	this.type = type;
     }
-    
+
     public CommandType getType() {
 	return type;
     }
@@ -72,4 +71,4 @@ public class Command {
 	return true;
     }
 
-}
+} // fine della classe principale "Command"

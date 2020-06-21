@@ -7,7 +7,6 @@ import it.uniba.dlc.type.Item;
 import it.uniba.dlc.type.Command;
 import java.util.List;
 
-
 /**
  * Gestione del parser.
  */
@@ -22,7 +21,7 @@ public class Parser {
 	}
 	return -1; // Comando non trovato
     }
-    
+
     // Cerca l'oggetto
     private int checkForItem(String token, List<Item> items) {
 	for (int i = 0; i < items.size(); i++) {
@@ -64,16 +63,18 @@ public class Parser {
      * <comando> <articolo> <oggetto> <preposizione> <articolo> <oggetto inventario> // Esempio: "apri (la) porta con (la) chiave"
      * L'articolo è opzionale. Nel caso venissero inserite parole strane o non riconosciute, verrà restituito "Non ho capito"
      *
-     * @param command
-     * @param commands
-     * @param items
-     * @param inventory
+     * @param console Stringa inserita in input
+     * @param commands Lista dei comandi
+     * @param items Lista degli oggetti
+     * @param inventory Oggetti nell'inventario
      * @return
      */
-    public ParserOutput parse(String command, List<Command> commands, List<Item> items, List<Item> inventory) {
-	String phrase = command.toLowerCase().trim(); // Rendi la frase digitata minuscola e togli spazi iniziali e finali
+    public ParserOutput parse(String console, List<Command> commands, List<Item> items, List<Item> inventory) {
+	
+	String consoleLower = console.toLowerCase().trim(); // Trasforma la frase digitata in minuscolo e togli spazi iniziali e finali
 
-	String[] token = phrase.split("\\s+|\\'"); // Dividi la frase in più parole (token)
+	String[] token = consoleLower.split("\\s+|\\'"); // Dividi la frase digitata in più parole (token)
+	
 	int nToken = token.length; // Numero di parole presenti
 	int i = 0; // Posizione della parola in esaminazione
 	int inputPreposition = 0; // Non è ancora passato da una preposizione. [1 = trovato, -1 = inesistente]

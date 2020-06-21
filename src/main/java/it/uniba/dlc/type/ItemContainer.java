@@ -49,4 +49,4 @@ public class ItemContainer extends Item {
         list.remove(o);
     }
 
-}
+} // fine della classe principale "ItemContainer"

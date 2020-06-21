@@ -7,8 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author DLC
+ * Metodi dell'inventario.
  */
 public class Inventory {
 

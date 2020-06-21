@@ -7,7 +7,7 @@ import it.uniba.dlc.type.Item;
 import it.uniba.dlc.type.Command;
 
 /**
- * Classe che elabora l'output del parser.
+ * Metodi che elaborano l'output del parser.
  */
 public class ParserOutput {
 

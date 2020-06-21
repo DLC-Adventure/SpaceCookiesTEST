@@ -55,8 +55,14 @@ public class Engine {
 	    // Stringa inserita + comando trovato + oggetti nella stanza + inventario
 	    ParserOutput p = parser.parse(console, game.getCommands(), game.getCurrentRoom().getItems(), game.getInventory());
 
-	    if (p.getCommand() != null && p.getCommand().getType() == CommandType.END) {
+	    if (p.getCommand() == null) { // Se non ho trovato il comando
+		System.out.println("================================================");
+		System.out.println("Non ho capito.");
+		System.out.println("================================================");
+	    } else if (p.getCommand().getType() == CommandType.END) {
+		System.out.println("================================================");
 		System.out.println("Addio!");
+		System.out.println("================================================");
 		break;
 	    } else {
 		game.nextMove(p, System.out);

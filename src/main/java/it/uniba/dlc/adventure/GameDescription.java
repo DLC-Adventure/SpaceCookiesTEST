@@ -17,9 +17,7 @@ import java.util.List;
 public abstract class GameDescription {
 
     private final List<Room> rooms = new ArrayList<>(); // Lista contenente le stanze
-
     private final List<Command> commands = new ArrayList<>(); // Lista contenente i comandi
-
     private final List<Item> inventory = new ArrayList<>(); // Lista degli oggetti nell'inventario
 
     private Room currentRoom; // Stanza attuale
@@ -49,11 +47,8 @@ public abstract class GameDescription {
 	this.currentRoom = currentRoom;
     }
 
-    
     public abstract void intro(); // Introduzione del gioco
-    
     public abstract void init() throws Exception; // Inizializzazione del gioco
-
     public abstract void nextMove(ParserOutput p, PrintStream out); // Prossima mossa
 
 } // fine della classe principale "GameDescription"

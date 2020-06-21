@@ -14,7 +14,7 @@ public class Room {
     private final int id; // Id della stanza
     private String name; // Nome della stanza
     private String description; // Descrizione della stanza
-    private String look; // Contenuto del comando "GUARDA"
+    private String look; // Contenuto del comando "OSSERVA"
 
     private boolean visible = true; // La stanza è visibile (ha le luci accese)
 
@@ -25,11 +25,12 @@ public class Room {
 
     private final List<Item> list = new ArrayList<>(); // Oggetti presenti nella stanza
 
-    // Stanza
+    // Id
     public Room(int id) {
 	this.id = id;
     }
 
+    // Id + nome + descrizione
     public Room(int id, String name, String description) {
 	this.id = id;
 	this.name = name;
@@ -54,7 +55,7 @@ public class Room {
 	this.description = description;
     }
 
-    // Comando "GUARDA"
+    // Comando "OSSERVA"
     public String getLook() {
 	return look;
     }
@@ -63,7 +64,7 @@ public class Room {
 	this.look = look;
     }
 
-    // Visibile (luci accese)
+    // Se visibile (luci accese)
     public boolean isVisible() {
 	return visible;
     }

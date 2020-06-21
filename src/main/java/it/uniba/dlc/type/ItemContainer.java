@@ -14,19 +14,22 @@ public class ItemContainer extends Item {
 
     private List<Item> list = new ArrayList<>(); // Lista degli oggetti contenitore
 
-    // Oggetto contenitore
+    // Id
     public ItemContainer(int id) {
 	super(id);
     }
 
+    // Id + nome
     public ItemContainer(int id, String name) {
 	super(id, name);
     }
 
+    // Id + nome + descrizione
     public ItemContainer(int id, String name, String description) {
 	super(id, name, description);
     }
 
+    // Id + nome + descrizione + alias
     public ItemContainer(int id, String name, String description, Set<String> alias) {
 	super(id, name, description, alias);
     }
@@ -40,13 +43,13 @@ public class ItemContainer extends Item {
 	this.list = list;
     }
 
-    // Aggiunta e rimozione dalla lista
-    public void add(Item o) {
-	list.add(o);
+    // Aggiunta e rimozione dell'oggetto dal contenitore
+    public void add(Item item) {
+	list.add(item);
     }
 
-    public void remove(Item o) {
-	list.remove(o);
+    public void remove(Item item) {
+	list.remove(item);
     }
 
 } // fine della classe principale "ItemContainer"

@@ -14,7 +14,6 @@ import java.util.Set;
 public class Command {
 
     private final CommandType type; // Tipo di comando
-
     private Set<String> alias; // Nome e alias del comando
 
     // Tipo di comando

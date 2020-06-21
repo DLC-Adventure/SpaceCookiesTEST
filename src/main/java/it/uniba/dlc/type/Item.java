@@ -12,32 +12,37 @@ import java.util.Set;
  */
 public class Item {
 
-    private final int id;
-    private String name;
-    private String description;
-    private Set<String> alias;
+    private final int id; // Id dell'oggetto
+    private String name; // Nome dell'oggetto
+    private String description; // Descrizione dell'oggetto
+    private Set<String> alias; // Alias dell'oggetto
 
-    private boolean openable = false;
-    private boolean pickupable = true;
-    private boolean pushable = false;
-    private boolean open = false;
-    private boolean push = false;
+    private boolean openable = false; // Se si può aprire
+    private boolean pickupable = true; // Se si può prendere
+    private boolean pushable = false; // Se si può premere
+    
+    private boolean open = false; // Se è aperto
+    private boolean push = false; // Se è premuto
 
+    // Id
     public Item(int id) {
 	this.id = id;
     }
 
+    // Id + nome
     public Item(int id, String name) {
 	this.id = id;
 	this.name = name;
     }
 
+    // Id + nome + descrizione
     public Item(int id, String name, String description) {
 	this.id = id;
 	this.name = name;
 	this.description = description;
     }
 
+    // Id + nome + descrizione + alias
     public Item(int id, String name, String description, Set<String> alias) {
 	this.id = id;
 	this.name = name;
@@ -81,7 +86,7 @@ public class Item {
 	this.alias = new HashSet<>(Arrays.asList(alias));
     }
 
-    // Apribile (oggetto contenitore)
+    // Se si può aprire (oggetto contenitore)
     public boolean isOpenable() {
 	return openable;
     }
@@ -90,15 +95,7 @@ public class Item {
 	this.openable = openable;
     }
 
-    public boolean isOpen() {
-	return open;
-    }
-
-    public void setOpen(boolean open) {
-	this.open = open;
-    }
-
-    // Prendibile (oggetto inventario)
+    // Se si può prendere (oggetto inventario)
     public boolean isPickupable() {
 	return pickupable;
     }
@@ -107,7 +104,7 @@ public class Item {
 	this.pickupable = pickupable;
     }
 
-    // Premibile
+    // Se si può premere
     public boolean isPushable() {
 	return pushable;
     }
@@ -115,7 +112,17 @@ public class Item {
     public void setPushable(boolean pushable) {
 	this.pushable = pushable;
     }
+    
+    // Se è aperto
+    public boolean isOpen() {
+	return open;
+    }
 
+    public void setOpen(boolean open) {
+	this.open = open;
+    }
+
+    // Se è premuto
     public boolean isPush() {
 	return push;
     }

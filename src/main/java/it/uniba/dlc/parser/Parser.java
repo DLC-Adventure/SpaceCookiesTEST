@@ -9,10 +9,11 @@ import java.util.List;
 
 
 /**
- * Classe Parser.
+ * Gestione del parser.
  */
 public class Parser {
 
+    // Cerca il comando
     private int checkForCommand(String token, List<Command> commands) {
 	for (int i = 0; i < commands.size(); i++) {
 	    if (commands.get(i).getAlias().contains(token)) {
@@ -21,7 +22,18 @@ public class Parser {
 	}
 	return -1; // Comando non trovato
     }
+    
+    // Cerca l'oggetto
+    private int checkForItem(String token, List<Item> items) {
+	for (int i = 0; i < items.size(); i++) {
+	    if (items.get(i).getName().equals(token) || items.get(i).getAlias().contains(token)) {
+		return i;
+	    }
+	}
+	return -1; // Oggetto non trovato
+    }
 
+    // Cerca l'articolo
     private int checkForArticle(String token) {
 	String[] articles = {"il", "lo", "la", "i", "gli", "le", "l"};
 	for (String article : articles) {
@@ -32,15 +44,7 @@ public class Parser {
 	return -1; // Articolo non trovato
     }
 
-    private int checkForItem(String token, List<Item> items) {
-	for (int i = 0; i < items.size(); i++) {
-	    if (items.get(i).getName().equals(token) || items.get(i).getAlias().contains(token)) {
-		return i;
-	    }
-	}
-	return -1; // Oggetto non trovato
-    }
-
+    // Cerca la preposizione
     private int checkForPreposition(String token) {
 	String[] prepositions = {"con", "nel", "in"};
 	for (String preposition : prepositions) {

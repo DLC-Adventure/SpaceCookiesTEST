@@ -8,8 +8,8 @@ import it.uniba.dlc.parser.ParserOutput;
 import it.uniba.dlc.type.CommandType;
 import java.util.Scanner;
 
-/*
- * @author dlc
+/**
+ * Motore di gioco.
  */
 public class Engine {
     
@@ -17,6 +17,10 @@ public class Engine {
     
     private final Parser parser;
     
+    /**
+     * 
+     * @param game 
+     */
     public Engine(GameDescription game) {
         this.game = game;
         try {
@@ -27,6 +31,9 @@ public class Engine {
         parser = new Parser();
     }
     
+    /**
+     * 
+     */
     public void run() {
         System.out.println(game.getCurrentRoom().getName());
         System.out.println("================================================");
@@ -46,10 +53,11 @@ public class Engine {
     }
     
     /**
-     * @param args the command line arguments
+     * 
+     * @param args 
      */
     public static void main(String[] args) {
-        //Inizializzo musica gioco
+        // Inizializzo musica gioco
         String filepath ="song.wav";
         Music musicObject = new Music();
         musicObject.playMusic(filepath);

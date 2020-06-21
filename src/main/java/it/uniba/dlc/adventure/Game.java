@@ -25,6 +25,7 @@ public class Game extends GameDescription {
 
     /**
      * Inizializzazione del gioco.
+     *
      * @throws Exception
      */
     @Override
@@ -347,56 +348,52 @@ public class Game extends GameDescription {
 
     /**
      * Prossima mossa.
+     *
      * @param p
      * @param out
      */
     @Override
     public void nextMove(ParserOutput p, PrintStream out) {
 
-	if (p.getCommand() != null) { // Se hai digitato qualcosa
+	boolean move = false; // Mosso
 
-	    boolean move = false; // Mosso
+	switch (p.getCommand().getType()) { // Se il comando inserito corrisponde a...
 
-	    switch (p.getCommand().getType()) { // Se il comando inserito corrisponde a...
+	    case NORTH:
+		if (getCurrentRoom().getNorth() != null) { // Se c'è una stanza a nord
+		    setCurrentRoom(getCurrentRoom().getNorth()); // Imposta la stanza a nord come attuale
+		    move = true; // Ti sei spostato
+		}
+		break;
 
-		case NORTH:
-		    if (getCurrentRoom().getNorth() != null) { // Se c'è una stanza a nord
-			setCurrentRoom(getCurrentRoom().getNorth()); // Imposta la stanza a nord come attuale
-			move = true; // Ti sei spostato
-		    }
-		    break;
+	    case SOUTH:
+		if (getCurrentRoom().getSouth() != null) { // Se c'è una stanza a sud
+		    setCurrentRoom(getCurrentRoom().getSouth()); // Imposta la stanza a sud come attuale
+		    move = true; // Ti sei spostato
+		}
+		break;
 
-		case SOUTH:
-		    if (getCurrentRoom().getSouth() != null) { // Se c'è una stanza a sud
-			setCurrentRoom(getCurrentRoom().getSouth()); // Imposta la stanza a sud come attuale
-			move = true; // Ti sei spostato
-		    }
-		    break;
+	    case WEST:
+		if (getCurrentRoom().getWest() != null) { // Se c'è una stanza a ovest
+		    setCurrentRoom(getCurrentRoom().getWest()); // Imposta la stanza a ovest come attuale
+		    move = true; // Ti sei spostato
+		}
+		break;
 
-		case WEST:
-		    if (getCurrentRoom().getWest() != null) { // Se c'è una stanza a ovest
-			setCurrentRoom(getCurrentRoom().getWest()); // Imposta la stanza a ovest come attuale
-			move = true; // Ti sei spostato
-		    }
-		    break;
-
-		case EAST:
-		    if (getCurrentRoom().getEast() != null) { // Se c'è una stanza a est
-			setCurrentRoom(getCurrentRoom().getEast()); // Imposta la stanza a est come attuale
-			move = true; // Ti sei spostato
-		    }
-		    break;
-	    } // fine switch
-
-	} else {
-	    out.println("Digita qualcosa!"); // Se non hai digitato niente
-	}
+	    case EAST:
+		if (getCurrentRoom().getEast() != null) { // Se c'è una stanza a est
+		    setCurrentRoom(getCurrentRoom().getEast()); // Imposta la stanza a est come attuale
+		    move = true; // Ti sei spostato
+		}
+		break;
+	} // fine switch
 
     } // fine funzione "nextMove"
 
     /**
      * Fine del gioco.
-     * @param out 
+     *
+     * @param out
      */
     private void end(PrintStream out) {
 	out.println("Premi il pulsante del giocattolo e in seguito ad una forte esplosione la tua casa prende fuoco...tu e tuoi famigliari cercate invano di salvarvi e venite avvolti dalle fiamme...è stata una morte CALOROSA...addio!");

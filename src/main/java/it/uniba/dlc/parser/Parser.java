@@ -13,7 +13,7 @@ import java.util.List;
 public class Parser {
 
     // Cerca il comando
-    private int checkForCommand(String token, List<Command> commands) {
+    private int searchCommand(String token, List<Command> commands) {
 	for (int i = 0; i < commands.size(); i++) {
 	    if (commands.get(i).getAlias().contains(token)) {
 		return i;
@@ -23,7 +23,7 @@ public class Parser {
     }
 
     // Cerca l'oggetto
-    private int checkForItem(String token, List<Item> items) {
+    private int searchItem(String token, List<Item> items) {
 	for (int i = 0; i < items.size(); i++) {
 	    if (items.get(i).getName().equals(token) || items.get(i).getAlias().contains(token)) {
 		return i;
@@ -33,7 +33,7 @@ public class Parser {
     }
 
     // Cerca l'articolo
-    private int checkForArticle(String token) {
+    private int searchArticle(String token) {
 	String[] articles = {"il", "lo", "la", "i", "gli", "le", "l"};
 	for (String article : articles) {
 	    if (article.equals(token)) {
@@ -44,7 +44,7 @@ public class Parser {
     }
 
     // Cerca la preposizione
-    private int checkForPreposition(String token) {
+    private int searchPreposition(String token) {
 	String[] prepositions = {"con", "nel", "in"};
 	for (String preposition : prepositions) {
 	    if (preposition.equals(token)) {
@@ -67,7 +67,7 @@ public class Parser {
      * @param commands Lista dei comandi
      * @param items Lista degli oggetti
      * @param inventory Oggetti nell'inventario
-     * @return
+     * @return comando + oggetto + oggetto inventario
      */
     public ParserOutput parse(String console, List<Command> commands, List<Item> items, List<Item> inventory) {
 	
@@ -81,15 +81,15 @@ public class Parser {
 
 	if (nToken > i) { // Se c'è almeno una parola
 
-	    int inputCommand = checkForCommand(token[i], commands); // Restituisce l'elemento (i) oppure -1 (non trovato)
+	    int inputCommand = searchCommand(token[i], commands); // Restituisce l'elemento (i) oppure -1 (non trovato)
 
 	    if (inputCommand > -1) { // Se il comando è stato trovato
 		if (nToken > i + 1) { // Se c'è una parola successiva
 		    i++; // Passa alla parola successiva
 
-		    int inputArticle = checkForArticle(token[i]); // Restituisce 1 (trovato) oppure -1 (non trovato)
-		    int inputItem = checkForItem(token[i], items); // Restituisce l'elemento (i) oppure -1 (non trovato)
-		    int inputItemInventory = checkForItem(token[i], inventory); // Restituisce 1 (trovato) oppure -1 (non trovato)
+		    int inputArticle = searchArticle(token[i]); // Restituisce 1 (trovato) oppure -1 (non trovato)
+		    int inputItem = searchItem(token[i], items); // Restituisce l'elemento (i) oppure -1 (non trovato)
+		    int inputItemInventory = searchItem(token[i], inventory); // Restituisce 1 (trovato) oppure -1 (non trovato)
 
 		    do {
 			if (inputItem > -1 || inputArticle > -1 || inputItemInventory > -1) { // Se ha trovato l'articolo, l'oggetto o l'oggetto nell'inventario
@@ -98,15 +98,15 @@ public class Parser {
 			    }
 
 			    if (inputPreposition > -1) { // Se non sono passato dalla preposizione, vuol dire che devo trovare l'oggetto
-				inputItem = checkForItem(token[i], items); // Restituisce l'elemento (i) oppure -1 (non trovato)
+				inputItem = searchItem(token[i], items); // Restituisce l'elemento (i) oppure -1 (non trovato)
 			    } else { // Altrimenti devo trovare l'oggetto inventario
-				inputItemInventory = checkForItem(token[i], inventory); // Restituisce l'elemento (i) oppure -1 (non trovato)
+				inputItemInventory = searchItem(token[i], inventory); // Restituisce l'elemento (i) oppure -1 (non trovato)
 			    }
 
 			    if (inputItem > -1 && inputPreposition > -1) { // Se si tratta di un oggetto e non sono passato dalla preposizione
 				if (nToken > i + 1) { // Se c'è una parola successiva
 				    i++; // Passa alla parola successiva
-				    inputPreposition = checkForPreposition(token[i]); // Restituisce 1 (trovato) oppure -1 (non trovato)
+				    inputPreposition = searchPreposition(token[i]); // Restituisce 1 (trovato) oppure -1 (non trovato)
 
 				    if (inputPreposition < 0) { // Se la parola non è una preposizione
 					return new ParserOutput(null, null); // Parola non riconosciuta
@@ -130,14 +130,14 @@ public class Parser {
 		}
 
 	    } else {
-		return new ParserOutput(null, null); // Comando non trovato
+		return new ParserOutput(null); // Comando non trovato
 	    }
 	} else {
-	    return null; // Non ho inserito niente
+	    return new ParserOutput(null); // Non ho inserito niente
 	}
 
-	return null; // Non ho inserito niente
+	return new ParserOutput(null); // Non ho inserito niente
 
-    } // fine della classe "ParserOutput"
+    } // fine della funzione "parse"
 
 } // fine della classe principale "Parser"

@@ -15,18 +15,7 @@ public class ParserOutput {
     private Item item; // Oggetto in input
     private Item inventoryItem; // Oggetto inventario in input
 
-    // Comando
-    public ParserOutput(Command command) {
-	this.command = command;
-    }
-    
-    // Comando + oggetto
-    public ParserOutput(Command command, Item item) {
-	this.command = command;
-	this.item = item;
-    }
-
-    // Comando + oggetto + oggetto inventario
+    // Ritorna comando + oggetto + oggetto inventario
     public ParserOutput(Command command, Item item, Item inventoryItem) {
 	this.command = command;
 	this.item = item;

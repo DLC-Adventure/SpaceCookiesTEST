@@ -110,34 +110,34 @@ public class ParserOLD {
 
 				    if (inputPreposition < 0) { // Se la parola non è una preposizione
 					//return new ParserOutput(null, null); // Parola non riconosciuta
-					return new ParserOutput(commands.get(inputCommand), items.get(inputItem)); // Ritorna comando + oggetto
+					return new ParserOutput(commands.get(inputCommand), items.get(inputItem), null); // Ritorna comando + oggetto
 				    }
 				} else {
-				    return new ParserOutput(commands.get(inputCommand), items.get(inputItem)); // Ritorna comando + oggetto
+				    return new ParserOutput(commands.get(inputCommand), items.get(inputItem), null); // Ritorna comando + oggetto
 				}
 			    } else if (inputItemInventory > -1) { // Se ho trovato l'oggetto inventario
 				return new ParserOutput(commands.get(inputCommand), null, inventory.get(inputItemInventory)); // Ritorna comando + oggetto inventario
 			    } else {
-				return new ParserOutput(null, null); // Oggetto non trovato
+				return new ParserOutput(null, null, null); // Oggetto non trovato
 			    }
 			} else {
-			    return new ParserOutput(null, null); // Articolo, oggetto o oggetto inventario non trovati
+			    return new ParserOutput(null, null, null); // Articolo, oggetto o oggetto inventario non trovati
 			}
 
 		    } while (inputPreposition < 1); // Cicla fintantoché non ho trovato una preposizione (inputPreposition = -1)
 
 		} else {
-		    return new ParserOutput(commands.get(inputCommand), null); // Trovato solo il comando
+		    return new ParserOutput(commands.get(inputCommand), null, null); // Trovato solo il comando
 		}
 
 	    } else {
-		return new ParserOutput(null); // Comando non trovato
+		return new ParserOutput(null, null, null); // Comando non trovato
 	    }
 	} else {
-	    return new ParserOutput(null); // Non ho inserito niente
+	    return new ParserOutput(null, null, null); // Non ho inserito niente
 	}
 
-	return new ParserOutput(null); // Non ho inserito niente
+	return new ParserOutput(null, null, null); // Non ho inserito niente
 
     } // fine della funzione "parse"
 

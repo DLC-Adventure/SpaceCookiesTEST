@@ -20,7 +20,23 @@ public class Game extends GameDescription {
      */
     @Override
     public void intro() {
-	System.out.println("INTRO DEL GIOCO");
+	System.out.println("Hai commesso un crimine sulla Terra e sei stato condannato a vivere in isolamento per 5 anni in una navicella spaziale, obbligato a svolgere le faccende “di casa” e riparare i circuiti danneggiati dell’astronave.\n"
+		+ "La prigionia è dura e snervante, tuttavia hai visto una teca contenente dei biscotti che potrebbero sollevarti un po’ il morale. Chissà come si apre!\n"
+		+ "L’astronave è gestita da un’intelligenza artificiale che esegue i tuoi comandi.");
+    }
+
+    /**
+     * Testo introduttivo del gioco.
+     */
+    @Override
+    public void help() {
+	System.out.println("Ricordati che per utilizzare le tue funzioni motorie dovrai utilizzare i seguenti comandi:\n"
+		+ "NORD, SUD, OVEST, EST per spostarti. O più semplicemente N, S, O, E.\n"
+		+ "Per usare gli occhi digita il comando GUARDA o OSSERVA.\n"
+		+ "Se vuoi sembrare arguto digita il comando ESAMINA (QUALCOSA).\n"
+		+ "Inoltre la tua tuta spaziale può contenere vari oggetti, per vederne il contenuto digita il comando INVENTARIO o ‘I’.\n"
+		+ "Se hai una memoria di pochi byte e ti dovessi dimenticare tutto, digita il comando ‘?’ per rivedere questi comandi.\n"
+		+ "Probabilmente ce ne sono altri… Ma di certo non te li posso dire tutti io!");
     }
 
     /**
@@ -123,15 +139,15 @@ public class Game extends GameDescription {
 	Command kick = new Command(CommandType.KICK);
 	kick.setAlias(new String[]{"caccia", "espelli", "manda", "scaccia"});
 	getCommands().add(kick);
-	
+
 	Command exit = new Command(CommandType.EXIT);
 	exit.setAlias(new String[]{"esci"});
 	getCommands().add(exit);
-	
+
 	Command sit = new Command(CommandType.SIT);
 	sit.setAlias(new String[]{"siediti"});
 	getCommands().add(sit);
-	
+
 	Command sleep = new Command(CommandType.SLEEP);
 	exit.setAlias(new String[]{"dormi"});
 	getCommands().add(sleep);
@@ -396,7 +412,6 @@ public class Game extends GameDescription {
 
 	// Oggetti contenitori
 	// (Oggetti che possono essere presi)
-	
 	// Stanza di inizio gioco
 	setCurrentRoom(module1);
 
@@ -442,6 +457,110 @@ public class Game extends GameDescription {
 		    move = true; // Ti sei spostato
 		}
 		break;
+
+	    case HELP:
+		help();
+		break;
+
+	    case END:
+		out.println("L'avventura per te... FINISCE QUI!");
+		break;
+
+	    case INVENTORY:
+		out.println("Nel tuo inventario ci sono:");
+		int i = 0;
+		for (Item item : getInventory()) {
+		    out.println(item.getName()); // Nome dell'oggetto
+		    i++;
+		}
+		if (i == 0) {
+		    out.println("NIENTE");
+		}
+		break;
+
+	    case LOOK:
+		if (getCurrentRoom().getLook() != null) { // Se il comando "OSSERVA" della stanza attuale contiene una descrizione
+		    out.println(getCurrentRoom().getLook()); // Contenuto del comando "OSSERVA"
+		} else {
+		    out.println("Non c'è niente di interessante qui."); // Se non c'è
+		}
+		break;
+
+	    case EXAMINE:
+		if (p.getItem() != null) { // Se l'oggetto è nella stanza
+		    if (p.getItem().getDescription() != null) { // Se l'oggetto ha una descrizione
+			out.println(p.getItem().getDescription()); // Descrizione dell'oggetto
+		    } else {
+			out.println("Niente di interessante."); // Se non ha una descrizione
+		    }
+		} else {
+		    out.println("Non vedo l'oggetto che mi stai chiedendo."); // Se l'oggetto non esiste
+		}
+		break;
+
+	    case OPEN:
+		if (p.getItem() != null) { // Se l'oggetto è nella stanza
+		    if (p.getItem().isOpenable()) { // Se l'oggetto è apribile
+			if (p.getItem().isOpen()) { // Se l'oggetto è già aperto
+			    out.println("È già aperto.");
+			} else { // L'oggetto è chiuso
+			    /*if (richiede un oggetto chiave) {
+				if (possiedi oggetto chiave) {
+				    out.println("Sei riuscito ad aprire: " + p.getItem().getName() + " con" + %chiave);
+				    p.getItem().setOpen(true); // Cambio lo stato dell'oggetto in aperto
+				} else {
+					out.println("Al momento non sei in grado di aprire questo oggetto.");
+				}
+			    } else {
+				out.println("Hai aperto: " + p.getItem().getName());
+				p.getItem().setOpen(true); // Cambio lo stato dell'oggetto in aperto
+			    }*/
+			}
+		    } else {
+			out.println("Non puoi aprire questo oggetto."); // Non è un oggetto contenitore
+		    }
+		} else {
+		    out.println("Non vedo l'oggetto che mi stai chiedendo."); // Se l'oggetto non esiste
+		}
+		break;
+
+	    case CLOSE:
+		if (p.getItem() != null) { // Se l'oggetto è nella stanza
+		    if (p.getItem().isOpenable()) { // Se l'oggetto è apribile
+			if (!p.getItem().isOpen()) { // Se l'oggetto è già chiuso
+			    out.println("È già chiuso.");
+			} else { // L'oggetto è aperto
+			    out.println("Hai chiuso: " + p.getItem().getName());
+			    p.getItem().setOpen(false); // Cambio lo stato dell'oggetto in chiuso
+			}
+		    } else {
+			out.println("Non puoi chiudere questo oggetto."); // Non è un oggetto contenitore
+		    }
+		} else {
+		    out.println("Non vedo l'oggetto che mi stai chiedendo."); // Se l'oggetto non esiste
+		}
+		break;
+
+	    case TAKE:
+		if (p.getItem() != null || p.getInventoryItem() != null) { // Se l'oggetto è nella stanza o nell'inventario
+		    if (p.getItem().isUsable()) { // Se l'oggetto si può utilizzare
+			/*if (stanza attuale = stanza in cui funziona l oggetto) {
+				// Cambia stato della stanza o dell'oggeto
+			} else {
+				"Non puoi utilizzare qui questo oggetto";
+			}*/
+		    } else {
+			out.println("Non puoi utilizzare questo oggetto."); // Non si può prendere
+		    }
+		} else {
+		    out.println("Non vedo l'oggetto che mi stai chiedendo."); // Se l'oggetto non esiste
+		}
+		break;
+		
+	    case USE:
+		// TODO
+		break;
+
 	} // fine switch
 
     } // fine funzione "nextMove"

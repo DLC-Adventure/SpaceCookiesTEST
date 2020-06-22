@@ -1,12 +1,12 @@
 /*
  * SPACE COOKIES by DLC © 2020
  */
-package it.uniba.dlc.adventure;
+package it.dlc.adventure;
 
-import it.uniba.dlc.parser.ParserOutput;
-import it.uniba.dlc.type.Item;
-import it.uniba.dlc.type.Command;
-import it.uniba.dlc.type.Room;
+import it.dlc.adventure.parser.ParserOutput;
+import it.dlc.adventure.type.Item;
+import it.dlc.adventure.type.Command;
+import it.dlc.adventure.type.Room;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;

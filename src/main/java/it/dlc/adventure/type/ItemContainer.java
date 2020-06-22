@@ -1,7 +1,7 @@
 /*
  * SPACE COOKIES by DLC © 2020
  */
-package it.uniba.dlc.type;
+package it.dlc.adventure.type;
 
 import java.util.ArrayList;
 import java.util.List;

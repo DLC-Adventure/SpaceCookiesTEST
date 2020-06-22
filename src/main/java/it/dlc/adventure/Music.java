@@ -1,7 +1,7 @@
 /*
  * SPACE COOKIES by DLC © 2020
  */
-package it.uniba.dlc.adventure;
+package it.dlc.adventure;
 
 import java.awt.HeadlessException;
 import java.io.File;

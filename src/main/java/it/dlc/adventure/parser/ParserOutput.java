@@ -1,10 +1,10 @@
 /*
  * SPACE COOKIES by DLC © 2020
  */
-package it.uniba.dlc.parser;
+package it.dlc.adventure.parser;
 
-import it.uniba.dlc.type.Item;
-import it.uniba.dlc.type.Command;
+import it.dlc.adventure.type.Item;
+import it.dlc.adventure.type.Command;
 
 /**
  * Metodi che elaborano l'output del parser.

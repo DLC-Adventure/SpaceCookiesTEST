@@ -1,7 +1,7 @@
 /*
  * SPACE COOKIES by DLC © 2020
  */
-package it.uniba.dlc.type;
+package it.dlc.adventure.type;
 
 /**
  * Elenco dei tipi di comando presenti nel gioco.

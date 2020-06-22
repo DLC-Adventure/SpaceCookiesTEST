@@ -6,6 +6,8 @@ package it.uniba.dlc.adventure;
 import it.uniba.dlc.parser.Parser;
 import it.uniba.dlc.parser.ParserOutput;
 import it.uniba.dlc.type.CommandType;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 
 /**
@@ -27,9 +29,25 @@ public class Engine {
 
 	try {
 	    this.game.intro(); // Mostra introduzione del gioco
+
+	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	    System.out.println("================================================");
+	    System.out.println("Premi il tasto INVIO per continuare...");
+	    System.out.println("================================================");
+	    br.readLine();
+	    
+	    this.game.help(); // Mostra introduzione del gioco
+	    
+	    BufferedReader br1 = new BufferedReader(new InputStreamReader(System.in));
+	    System.out.println("================================================");
+	    System.out.println("Premi il tasto INVIO per continuare...");
+	    System.out.println("================================================");
+	    br.readLine();
+
 	    this.game.init(); // Inizializzazione del gioco
 	} catch (Exception ex) {
-	    System.err.println("Impossibile avviare il gioco.\nEccezione verificata: " + ex);
+	    System.out.println("================================================");
+	    System.err.println("\nImpossibile avviare il gioco.\nEccezione verificata: " + ex);
 	}
 
 	parser = new Parser();
@@ -85,7 +103,7 @@ public class Engine {
 
 	Engine engine = new Engine(new Game());
 	engine.run(); // Avvio del gioco
-	
+
     }
 
 } // fine della classe principale "Engine"

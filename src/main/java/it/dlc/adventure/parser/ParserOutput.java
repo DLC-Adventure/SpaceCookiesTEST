@@ -56,7 +56,7 @@ public class ParserOutput {
 	return inventoryItem;
     }
 
-    public void setinventoryItem(Item inventoryItem) {
+    public void setInventoryItem(Item inventoryItem) {
 	this.inventoryItem = inventoryItem;
     }
 

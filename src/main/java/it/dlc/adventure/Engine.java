@@ -77,11 +77,6 @@ public class Engine {
 		System.out.println("================================================");
 		System.out.println("Non ho capito.");
 		System.out.println("================================================");
-	    } else if (p.getCommand().getType() == CommandType.END) {
-		System.out.println("================================================");
-		System.out.println("Addio!");
-		System.out.println("================================================");
-		break;
 	    } else {
 		game.nextMove(p, System.out);
 		System.out.println("================================================");

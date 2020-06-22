@@ -463,8 +463,8 @@ public class Game extends GameDescription {
 		break;
 
 	    case END:
-		out.println("L'avventura per te... FINISCE QUI!");
-		break;
+		out.println("L'avventura per te... FINISCE QUI! POLLO");
+		System.exit(0);      
 
 	    case INVENTORY:
 		out.println("Nel tuo inventario ci sono:");
@@ -570,9 +570,5 @@ public class Game extends GameDescription {
      *
      * @param out
      */
-    private void end(PrintStream out) {
-	out.println("Premi il pulsante del giocattolo e in seguito ad una forte esplosione la tua casa prende fuoco...tu e tuoi famigliari cercate invano di salvarvi e venite avvolti dalle fiamme...è stata una morte CALOROSA...addio!");
-	System.exit(0);
-    }
 
 } // fine funzione principale "Game"

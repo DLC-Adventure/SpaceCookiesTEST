@@ -7,6 +7,7 @@ import it.dlc.adventure.parser.ParserOutput;
 import it.dlc.adventure.type.Command;
 import it.dlc.adventure.type.CommandType;
 import it.dlc.adventure.type.Item;
+import it.dlc.adventure.type.ItemContainer;
 import it.dlc.adventure.type.Room;
 import java.io.PrintStream;
 
@@ -35,8 +36,8 @@ public class Game extends GameDescription {
 		+ "Per usare gli occhi digita il comando GUARDA o OSSERVA.\n"
 		+ "Se vuoi sembrare arguto digita il comando ESAMINA (QUALCOSA).\n"
 		+ "Inoltre la tua tuta spaziale può contenere vari oggetti, per vederne il contenuto digita il comando INVENTARIO o ‘I’.\n"
-		+ "Se hai una memoria di pochi byte e ti dovessi dimenticare tutto, digita il comando ‘?’ per rivedere questi comandi.\n"
-		+ "Probabilmente ce ne sono altri… Ma di certo non te li posso dire tutti io!");
+		+ "Se hai una memoria di pochi byte e dovessi dimenticare tutto, digita il comando ‘?’ per rivedere questi comandi.\n"
+		+ "Probabilmente ce ne sono altri... Ma di certo non te li posso dire tutti io!");
     }
 
     /**
@@ -427,6 +428,7 @@ public class Game extends GameDescription {
     public void nextMove(ParserOutput p, PrintStream out) {
 
 	boolean move = false; // Mosso
+	boolean cardinal = false; // Si tratta di un punto cardinale
 
 	switch (p.getCommand().getType()) { // Se il comando inserito corrisponde a...
 
@@ -435,6 +437,7 @@ public class Game extends GameDescription {
 		    setCurrentRoom(getCurrentRoom().getNorth()); // Imposta la stanza a nord come attuale
 		    move = true; // Ti sei spostato
 		}
+		cardinal = true;
 		break;
 
 	    case SOUTH:
@@ -442,6 +445,7 @@ public class Game extends GameDescription {
 		    setCurrentRoom(getCurrentRoom().getSouth()); // Imposta la stanza a sud come attuale
 		    move = true; // Ti sei spostato
 		}
+		cardinal = true;
 		break;
 
 	    case WEST:
@@ -449,6 +453,7 @@ public class Game extends GameDescription {
 		    setCurrentRoom(getCurrentRoom().getWest()); // Imposta la stanza a ovest come attuale
 		    move = true; // Ti sei spostato
 		}
+		cardinal = true;
 		break;
 
 	    case EAST:
@@ -456,6 +461,7 @@ public class Game extends GameDescription {
 		    setCurrentRoom(getCurrentRoom().getEast()); // Imposta la stanza a est come attuale
 		    move = true; // Ti sei spostato
 		}
+		cardinal = true;
 		break;
 
 	    case HELP:
@@ -464,7 +470,7 @@ public class Game extends GameDescription {
 
 	    case END:
 		out.println("L'avventura per te... FINISCE QUI! POLLO");
-		System.exit(0);      
+		System.exit(0);
 
 	    case INVENTORY:
 		out.println("Nel tuo inventario ci sono:");
@@ -474,7 +480,7 @@ public class Game extends GameDescription {
 		    i++;
 		}
 		if (i == 0) {
-		    out.println("NIENTE");
+		    out.println("Non hai preso niente.");
 		}
 		break;
 
@@ -501,8 +507,13 @@ public class Game extends GameDescription {
 	    case OPEN:
 		if (p.getItem() != null) { // Se l'oggetto è nella stanza
 		    if (p.getItem().isOpenable()) { // Se l'oggetto è apribile
-			if (p.getItem().isOpen()) { // Se l'oggetto è già aperto
-			    out.println("È già aperto.");
+			if (p.getItem().isOpen()) { // Se l'oggetto è aperto
+			    /*if (p.getItem() instanceof ItemContainer) { // Se l'oggetto è di tipo contenitore
+				out.println("Hai aperto: " + p.getItem().getName()); // Nome dell'oggetto
+				ItemContainer container = (ItemContainer) p.getItem(); // Istanzio l'oggetto contenitore
+				
+			    }*/
+			    
 			} else { // L'oggetto è chiuso
 			    /*if (richiede un oggetto chiave) {
 				if (possiedi oggetto chiave) {
@@ -517,7 +528,7 @@ public class Game extends GameDescription {
 			    }*/
 			}
 		    } else {
-			out.println("Non puoi aprire questo oggetto."); // Non è un oggetto contenitore
+			out.println("Niente di interessante."); // Non è un oggetto contenitore
 		    }
 		} else {
 		    out.println("Non vedo l'oggetto che mi stai chiedendo."); // Se l'oggetto non esiste
@@ -556,12 +567,22 @@ public class Game extends GameDescription {
 		    out.println("Non vedo l'oggetto che mi stai chiedendo."); // Se l'oggetto non esiste
 		}
 		break;
-		
+
 	    case USE:
 		// TODO
 		break;
 
 	} // fine switch
+
+	if (move && cardinal) { // Se ti sei mosso e quindi hai cambiato stanza
+	    out.println("================================================");
+	    out.println(getCurrentRoom().getName()); // Nome della stanza
+	    out.println("================================================");
+	    out.println(getCurrentRoom().getDescription()); // Descrizione della stanza
+	    out.println("================================================");
+	} else if (!move && cardinal) {
+	    out.println("Non puoi andare da questa parte.");
+	}
 
     } // fine funzione "nextMove"
 
@@ -570,5 +591,4 @@ public class Game extends GameDescription {
      *
      * @param out
      */
-
 } // fine funzione principale "Game"

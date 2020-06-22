@@ -10,6 +10,7 @@ import it.dlc.adventure.type.Item;
 import it.dlc.adventure.type.ItemContainer;
 import it.dlc.adventure.type.Room;
 import java.io.PrintStream;
+import java.util.Random;
 
 /**
  * Classe principale del gioco.
@@ -173,7 +174,6 @@ public class Game extends GameDescription {
 	Room kitchen = new Room(4, "Cucina", "Sei in una “spaziosa” cucina. Sembra che qualcuno abbia fatto rifornimento da poco.");
 	kitchen.setLook("Vedi un frigorifero, un tavolo con delle sedie, alcuni scaffali...");
 	getRooms().add(kitchen);
-       
 
 	Room warehouse = new Room(5, "Stiva", "Sei nella stiva. Che disordine!");
 	warehouse.setLook("Vedi un sacco di robaccia e un armadietto.");
@@ -371,7 +371,7 @@ public class Game extends GameDescription {
 	Item projector = new Item(17, "Proiettore", "Un proiettore di ultima generazione che trasmette immagini a 5 dimensioni.");
 	projector.setAlias(new String[]{});
 	livingRoom.getItems().add(projector);
-	
+
 	Item piano = new Item(18, "Pianoforte", "Un vecchio pianoforte in mogano, avrà un centinaio di anni..sembra funzioni ancora.");
 	piano.setAlias(new String[]{"Piano"});
 	captainsCabin.getItems().add(piano);
@@ -407,56 +407,56 @@ public class Game extends GameDescription {
 	Item shrine = new Item(26, "Teca", "È chiusa. Sembra possa essere aperta tramite una particolare tessera.");
 	shrine.setAlias(new String[]{""});
 	controlRoom.getItems().add(shrine);
-        
-        //Oggetti che possono essere presi
-        Item beer = new Item(27, "Birra", "Era alla ciliegia! Che schifo…");
+
+	//Oggetti che possono essere presi
+	Item beer = new Item(27, "Birra", "Era alla ciliegia! Che schifo…");
 	beer.setAlias(new String[]{""});
-        
-        Item lighter = new Item (28, "Accendino", "");
-        lighter.setAlias(new String[]{"zippo"});
-        
-        Item key = new Item (29, "Chiave", "");
-        key.setAlias(new String[]{""});
-        
-        Item screwdriver = new Item (30, "Cacciavite", "");
-        screwdriver.setAlias(new String[]{""});
-        
-        Item card = new Item (31, "Tesserino", "");
-        card.setAlias(new String[]{""});
-        
-        Item syringe = new Item (32, "Siringa", "C’è uno strano liquido fluorescente al suo interno.");
-        syringe.setAlias(new String[]{""});
-        
-        Item desktop = new Item (38, "Scrivania", "");
-        desktop.setAlias(new String[]{""});
-        captainsCabin.getItems().add(desktop);
-        
+
+	Item lighter = new Item(28, "Accendino", "");
+	lighter.setAlias(new String[]{"zippo"});
+
+	Item key = new Item(29, "Chiave", "");
+	key.setAlias(new String[]{""});
+
+	Item screwdriver = new Item(30, "Cacciavite", "");
+	screwdriver.setAlias(new String[]{""});
+
+	Item card = new Item(31, "Tesserino", "");
+	card.setAlias(new String[]{""});
+
+	Item syringe = new Item(32, "Siringa", "C’è uno strano liquido fluorescente al suo interno.");
+	syringe.setAlias(new String[]{""});
+
+	Item desktop = new Item(38, "Scrivania", "");
+	desktop.setAlias(new String[]{""});
+	captainsCabin.getItems().add(desktop);
+
 	// Oggetti contenitori
-        ItemContainer fridge = new ItemContainer(33, "Frigorifero", "È chiuso!");
-        fridge.setOpenable(true);
-        fridge.setOpen(false);
-        fridge.add(beer);
-        kitchen.getItems().add(fridge);
-        
-        ItemContainer shelf = new ItemContainer(34, "Scaffale", "");
-        shelf.setOpenable(true);
-        shelf.add(lighter);
-        kitchen.getItems().add(shelf);
-        
-        ItemContainer locker = new ItemContainer(35, "Armadietto", "E’ chiuso, la serratura sembra rotta. Potresti far leva con qualcosa. ");
-        locker.setOpenable(true);
-        locker.setOpen(false);
-        warehouse.getItems().add(locker);
-        
-        ItemContainer toolbox = new ItemContainer(36, "Cassetta Attrezzi", "È una semplice cassetta degli attrezzi, forse contiene qualcosa di utile. ");
-        toolbox.setOpenable(true);
-        engineRoomS.getItems().add(toolbox);
-       
-        ItemContainer pic = new ItemContainer(37, "Foto", "Una normalissima foto del plurimiliardario Bill Gates, noti una tessera attaccata.");
-        pic.setOpenable(true);
-        pic.add(card);
-        secretLab.getItems().add(pic);
-       
+	ItemContainer fridge = new ItemContainer(33, "Frigorifero", "È chiuso!");
+	fridge.setOpenable(true);
+	fridge.setOpen(false);
+	fridge.add(beer);
+	kitchen.getItems().add(fridge);
+
+	ItemContainer shelf = new ItemContainer(34, "Scaffale", "");
+	shelf.setOpenable(true);
+	shelf.add(lighter);
+	kitchen.getItems().add(shelf);
+
+	ItemContainer locker = new ItemContainer(35, "Armadietto", "E’ chiuso, la serratura sembra rotta. Potresti far leva con qualcosa. ");
+	locker.setOpenable(true);
+	locker.setOpen(false);
+	warehouse.getItems().add(locker);
+
+	ItemContainer toolbox = new ItemContainer(36, "Cassetta Attrezzi", "È una semplice cassetta degli attrezzi, forse contiene qualcosa di utile. ");
+	toolbox.setOpenable(true);
+	engineRoomS.getItems().add(toolbox);
+
+	ItemContainer pic = new ItemContainer(37, "Foto", "Una normalissima foto del plurimiliardario Bill Gates, noti una tessera attaccata.");
+	pic.setOpenable(true);
+	pic.add(card);
+	secretLab.getItems().add(pic);
+
 	// Stanza di inizio gioco
 	setCurrentRoom(module1);
 
@@ -557,7 +557,7 @@ public class Game extends GameDescription {
 				ItemContainer container = (ItemContainer) p.getItem(); // Istanzio l'oggetto contenitore
 				
 			    }*/
-			    
+
 			} else { // L'oggetto è chiuso
 			    /*if (richiede un oggetto chiave) {
 				if (possiedi oggetto chiave) {
@@ -625,11 +625,37 @@ public class Game extends GameDescription {
 	    out.println(getCurrentRoom().getDescription()); // Descrizione della stanza
 	    out.println("================================================");
 	} else if (!move && cardinal) {
+	    out = randomMessage(out, move);
 	    out.println("Non puoi andare da questa parte.");
 	}
 
     } // fine funzione "nextMove"
 
+    private PrintStream randomMessage(PrintStream out, boolean move) {
+	if (move == false) {
+	    Random random = new Random();
+	    int randomChoice = random.nextInt(4);
+	    switch (randomChoice) {
+		case 0:
+		    out.append("Non puoi andare da questa parte.");
+		    break;
+		case 1:
+		    out.append("Da quella parte non si puo' andare, c'e' un muro! Non hai ancora acquisito i poteri per oltrepassare i muri...");
+		    break;
+		case 2:
+		    out.append("Sbatti contro un muro ma a te piace la fica e sei felice lo stesso.");
+		    break;
+
+		case 3:
+		    out.append("Ahi! Sembra che ci sia un muro qui");
+		    break;
+	    }
+
+	} else {
+	    return out;
+	}
+	return out;
+    }
     /**
      * Fine del gioco.
      *

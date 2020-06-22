@@ -31,6 +31,111 @@ public class Game extends GameDescription {
     @Override
     public void init() throws Exception {
 
+	// Comandi
+	Command north = new Command(CommandType.NORTH);
+	north.setAlias(new String[]{"nord", "n"});
+	getCommands().add(north);
+
+	Command sud = new Command(CommandType.SOUTH);
+	sud.setAlias(new String[]{"sud", "s"});
+	getCommands().add(sud);
+
+	Command west = new Command(CommandType.WEST);
+	west.setAlias(new String[]{"ovest", "o", "west", "w"});
+	getCommands().add(west);
+
+	Command east = new Command(CommandType.EAST);
+	east.setAlias(new String[]{"est", "e"});
+	getCommands().add(east);
+
+	Command help = new Command(CommandType.HELP);
+	help.setAlias(new String[]{"?", "help", "aiuto"});
+	getCommands().add(help);
+
+	Command end = new Command(CommandType.END);
+	end.setAlias(new String[]{"end", "termina", "ucciditi", "suicidati"});
+	getCommands().add(end);
+
+	Command inventory = new Command(CommandType.INVENTORY);
+	inventory.setAlias(new String[]{"inventario", "i"});
+	getCommands().add(inventory);
+
+	Command look = new Command(CommandType.LOOK);
+	look.setAlias(new String[]{"osserva", "guarda"});
+	getCommands().add(look);
+
+	Command examine = new Command(CommandType.EXAMINE);
+	examine.setAlias(new String[]{"esamina"});
+	getCommands().add(examine);
+
+	Command open = new Command(CommandType.OPEN);
+	open.setAlias(new String[]{"apri"});
+	getCommands().add(open);
+
+	Command close = new Command(CommandType.CLOSE);
+	close.setAlias(new String[]{"chiudi"});
+	getCommands().add(close);
+
+	Command take = new Command(CommandType.TAKE);
+	take.setAlias(new String[]{"prendi"});
+	getCommands().add(take);
+
+	Command use = new Command(CommandType.USE);
+	use.setAlias(new String[]{"usa", "utilizza"});
+	getCommands().add(use);
+
+	Command push = new Command(CommandType.PUSH);
+	push.setAlias(new String[]{"premi", "spingi"});
+	getCommands().add(push);
+
+	Command pull = new Command(CommandType.PULL);
+	pull.setAlias(new String[]{"tira"});
+	getCommands().add(pull);
+
+	Command turnOn = new Command(CommandType.TURN_ON);
+	turnOn.setAlias(new String[]{"accendi"});
+	getCommands().add(turnOn);
+
+	Command turnOff = new Command(CommandType.TURN_OFF);
+	turnOff.setAlias(new String[]{"spegni"});
+	getCommands().add(turnOff);
+
+	Command walkTo = new Command(CommandType.WALK_TO);
+	walkTo.setAlias(new String[]{"attraversa"});
+	getCommands().add(walkTo);
+
+	Command drink = new Command(CommandType.DRINK);
+	drink.setAlias(new String[]{"bevi"});
+	getCommands().add(drink);
+
+	Command clean = new Command(CommandType.CLEAN);
+	clean.setAlias(new String[]{"pulisci"});
+	getCommands().add(clean);
+
+	Command play = new Command(CommandType.PLAY);
+	play.setAlias(new String[]{"suona", "gioca"});
+	getCommands().add(play);
+
+	Command read = new Command(CommandType.READ);
+	read.setAlias(new String[]{"leggi"});
+	getCommands().add(read);
+
+	Command kick = new Command(CommandType.KICK);
+	kick.setAlias(new String[]{"caccia", "espelli", "manda", "scaccia"});
+	getCommands().add(kick);
+	
+	Command exit = new Command(CommandType.EXIT);
+	exit.setAlias(new String[]{"esci"});
+	getCommands().add(exit);
+	
+	Command sit = new Command(CommandType.SIT);
+	sit.setAlias(new String[]{"siediti"});
+	getCommands().add(sit);
+	
+	Command sleep = new Command(CommandType.SLEEP);
+	exit.setAlias(new String[]{"dormi"});
+	getCommands().add(sleep);
+
 	// Stanze
 	Room airlock = new Room(0, "Camera di equilibrio", "Ti trovi nella Camera di equilibrio, permette il passaggio di persone e materiali tra due ambienti con atmosfere diverse.");
 	airlock.setLook("Vedi, tra varie attrezzature, una di quelle tute da astronauta, utilizzate per resistere all’atmosfera esterna. Inoltre vedi un’enorme porta che si affaccia all’esterno. Non ti consiglio di uscire!");
@@ -176,56 +281,6 @@ public class Game extends GameDescription {
 
 	secretLab.setSouth(researchLab);
 
-	// Comandi
-	Command north = new Command(CommandType.NORTH);
-	north.setAlias(new String[]{"nord", "n"});
-	getCommands().add(north);
-
-	Command sud = new Command(CommandType.SOUTH);
-	sud.setAlias(new String[]{"sud", "s"});
-	getCommands().add(sud);
-
-	Command west = new Command(CommandType.WEST);
-	west.setAlias(new String[]{"ovest", "o", "west", "w"});
-	getCommands().add(west);
-
-	Command east = new Command(CommandType.EAST);
-	east.setAlias(new String[]{"est", "e"});
-	getCommands().add(east);
-
-	Command help = new Command(CommandType.HELP);
-	help.setAlias(new String[]{"?", "help", "aiuto"});
-	getCommands().add(help);
-
-	Command end = new Command(CommandType.END);
-	end.setAlias(new String[]{"end", "termina", "ucciditi"});
-	getCommands().add(end);
-
-	Command inventory = new Command(CommandType.INVENTORY);
-	inventory.setAlias(new String[]{"inventario", "i"});
-	getCommands().add(inventory);
-
-	Command look = new Command(CommandType.LOOK);
-	look.setAlias(new String[]{"inventario", "i"});
-	getCommands().add(look);
-
-	Command examine = new Command(CommandType.EXAMINE);
-	examine.setAlias(new String[]{"inventario", "i"});
-	getCommands().add(examine);
-
-	Command take = new Command(CommandType.TAKE);
-	take.setAlias(new String[]{"prendi"});
-	getCommands().add(take);
-
-	Command use = new Command(CommandType.USE);
-	use.setAlias(new String[]{"usa", "utilizza"});
-	getCommands().add(use);
-
-	Command open = new Command(CommandType.OPEN);
-	open.setAlias(new String[]{"apri"});
-	getCommands().add(open);
-
-	// TODO: Continua con i comandi...
 	// Oggetti
 	Item goodsLift = new Item(1, "Montacarichi", "Trovi un pacco di Space Amazon. Incredibile! Amazon spedisce anche nello spazio.");
 	goodsLift.setAlias(new String[]{});
@@ -341,6 +396,7 @@ public class Game extends GameDescription {
 
 	// Oggetti contenitori
 	// (Oggetti che possono essere presi)
+	
 	// Stanza di inizio gioco
 	setCurrentRoom(module1);
 

@@ -12,8 +12,17 @@ public enum CommandType {
     END,
     INVENTORY,
     LOOK, EXAMINE,
-    TAKE, USE,
     OPEN, CLOSE,
+    TAKE, USE,
     PUSH, PULL,
-    WALK_TO, TALK_TO, TURN_ON, TURN_OFF
+    TURN_ON, TURN_OFF,
+    WALK_TO,
+    DRINK,
+    CLEAN,
+    PLAY,
+    READ,
+    KICK,
+    EXIT,
+    SIT,
+    SLEEP
 }

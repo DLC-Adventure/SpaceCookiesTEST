@@ -20,6 +20,7 @@ public class Item {
     private boolean openable = false; // Se si può aprire
     private boolean pickupable = true; // Se si può prendere
     private boolean pushable = false; // Se si può premere
+    private boolean usable = false; // Se si può utilizzare
     
     private boolean open = false; // Se è aperto
     private boolean push = false; // Se è premuto
@@ -129,6 +130,15 @@ public class Item {
 
     public void setPush(boolean push) {
 	this.push = push;
+    }
+    
+    // Se si può utilizzare
+    public boolean isUsable() {
+	return usable;
+    }
+
+    public void setUsable(boolean usable) {
+	this.usable = usable;
     }
 
     // EQUALS + HASH CODE

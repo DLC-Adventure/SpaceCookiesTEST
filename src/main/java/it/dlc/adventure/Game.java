@@ -471,15 +471,15 @@ public class Game extends GameDescription {
     @Override
     public void nextMove(ParserOutput p, PrintStream out) {
 
-	boolean move = false; // Mosso
-	boolean cardinal = false; // Si tratta di un punto cardinale
+	boolean moved = false; // Mi sono mosso
+	boolean cardinal = false; // Si tratta di un punto cardinale (N/S/W/E)
 
 	switch (p.getCommand().getType()) { // Se il comando inserito corrisponde a...
 
 	    case NORTH:
 		if (getCurrentRoom().getNorth() != null) { // Se c'è una stanza a nord
 		    setCurrentRoom(getCurrentRoom().getNorth()); // Imposta la stanza a nord come attuale
-		    move = true; // Ti sei spostato
+		    moved = true; // Ti sei spostato
 		}
 		cardinal = true;
 		break;
@@ -487,7 +487,7 @@ public class Game extends GameDescription {
 	    case SOUTH:
 		if (getCurrentRoom().getSouth() != null) { // Se c'è una stanza a sud
 		    setCurrentRoom(getCurrentRoom().getSouth()); // Imposta la stanza a sud come attuale
-		    move = true; // Ti sei spostato
+		    moved = true; // Ti sei spostato
 		}
 		cardinal = true;
 		break;
@@ -495,7 +495,7 @@ public class Game extends GameDescription {
 	    case WEST:
 		if (getCurrentRoom().getWest() != null) { // Se c'è una stanza a ovest
 		    setCurrentRoom(getCurrentRoom().getWest()); // Imposta la stanza a ovest come attuale
-		    move = true; // Ti sei spostato
+		    moved = true; // Ti sei spostato
 		}
 		cardinal = true;
 		break;
@@ -503,7 +503,7 @@ public class Game extends GameDescription {
 	    case EAST:
 		if (getCurrentRoom().getEast() != null) { // Se c'è una stanza a est
 		    setCurrentRoom(getCurrentRoom().getEast()); // Imposta la stanza a est come attuale
-		    move = true; // Ti sei spostato
+		    moved = true; // Ti sei spostato
 		}
 		cardinal = true;
 		break;
@@ -618,21 +618,19 @@ public class Game extends GameDescription {
 
 	} // fine switch
 
-	if (move && cardinal) { // Se ti sei mosso e quindi hai cambiato stanza
-	    out.println("================================================");
+	if (moved && cardinal) { // Se ti sei mosso e quindi hai cambiato stanza
 	    out.println(getCurrentRoom().getName()); // Nome della stanza
 	    out.println("================================================");
 	    out.println(getCurrentRoom().getDescription()); // Descrizione della stanza
-	    out.println("================================================");
-	} else if (!move && cardinal) {
-	    out = randomMessage(out, move);
+	} else if (!moved && cardinal) {
+	    out = randomMessage(out, moved);
 	    out.println("Non puoi andare da questa parte.");
 	}
 
     } // fine funzione "nextMove"
 
-    private PrintStream randomMessage(PrintStream out, boolean move) {
-	if (move == false) {
+    private PrintStream randomMessage(PrintStream out, boolean moved) {
+	if (moved == false) {
 	    Random random = new Random();
 	    int randomChoice = random.nextInt(4);
 	    switch (randomChoice) {

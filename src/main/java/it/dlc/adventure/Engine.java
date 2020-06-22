@@ -28,6 +28,7 @@ public class Engine {
 	this.game = game;
 
 	try {
+
 	    this.game.intro(); // Mostra introduzione del gioco
 
 	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -45,9 +46,11 @@ public class Engine {
 	    br.readLine();
 
 	    this.game.init(); // Inizializzazione del gioco
+
 	} catch (Exception ex) {
 	    System.out.println("================================================");
-	    System.err.println("\nImpossibile avviare il gioco.\nEccezione verificata: " + ex);
+	    System.err.println("Impossibile avviare il gioco.\nEccezione verificata: " + ex);
+	    System.out.println("================================================");
 	}
 
 	parser = new Parser();
@@ -64,21 +67,21 @@ public class Engine {
 	System.out.println(game.getCurrentRoom().getDescription()); // Descrizione della stanza attuale
 	System.out.println("================================================");
 
-	Scanner scanner = new Scanner(System.in);
+	Scanner scanner = new Scanner(System.in); // Digitazione in input
 
 	while (scanner.hasNextLine()) {
 
 	    String console = scanner.nextLine(); // Quando premo INVIO, tutto ciò che ho scritto viene passato nella stringa "console"
 
 	    if (!console.isEmpty()) { // Se la stringa digitata non è vuota
-		// Stringa inserita + lista comandi + oggetti nella stanza + inventario
+		// Stringa digitata + lista comandi + oggetti nella stanza + inventario
 		ParserOutput p = parser.parse(console, game.getCommands(), game.getCurrentRoom().getItems(), game.getInventory());
 
 		if (p.getCommand() == null) { // Se non ho trovato il comando
 		    System.out.println("================================================");
 		    System.out.println("Non ho capito.");
 		    System.out.println("================================================");
-		} else {
+		} else { // Comando trovato
 		    System.out.println("================================================");
 		    game.nextMove(p, System.out);
 		    System.out.println("================================================");

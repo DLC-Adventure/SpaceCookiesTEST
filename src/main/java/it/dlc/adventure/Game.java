@@ -151,7 +151,7 @@ public class Game extends GameDescription {
 	getCommands().add(sit);
 
 	Command sleep = new Command(CommandType.SLEEP);
-	exit.setAlias(new String[]{"dormi"});
+	sleep.setAlias(new String[]{"dormi"});
 	getCommands().add(sleep);
 
 	// Stanze

@@ -35,9 +35,9 @@ public class Engine {
 	    System.out.println("Premi il tasto INVIO per continuare...");
 	    System.out.println("================================================");
 	    br.readLine();
-	    
+
 	    this.game.help(); // Mostra introduzione del gioco
-	    
+
 	    BufferedReader br1 = new BufferedReader(new InputStreamReader(System.in));
 	    System.out.println("================================================");
 	    System.out.println("Premi il tasto INVIO per continuare...");
@@ -70,15 +70,22 @@ public class Engine {
 
 	    String console = scanner.nextLine(); // Quando premo INVIO, tutto ciò che ho scritto viene passato nella stringa "console"
 
-	    // Stringa inserita + comando trovato + oggetti nella stanza + inventario
-	    ParserOutput p = parser.parse(console, game.getCommands(), game.getCurrentRoom().getItems(), game.getInventory());
+	    if (!console.isEmpty()) { // Se la stringa digitata non è vuota
+		// Stringa inserita + lista comandi + oggetti nella stanza + inventario
+		ParserOutput p = parser.parse(console, game.getCommands(), game.getCurrentRoom().getItems(), game.getInventory());
 
-	    if (p.getCommand() == null) { // Se non ho trovato il comando
+		if (p.getCommand() == null) { // Se non ho trovato il comando
+		    System.out.println("================================================");
+		    System.out.println("Non ho capito.");
+		    System.out.println("================================================");
+		} else {
+		    System.out.println("================================================");
+		    game.nextMove(p, System.out);
+		    System.out.println("================================================");
+		}
+	    } else { // Se non ho digitato niente
 		System.out.println("================================================");
-		System.out.println("Non ho capito.");
-		System.out.println("================================================");
-	    } else {
-		game.nextMove(p, System.out);
+		System.out.println("Digita qualcosa!");
 		System.out.println("================================================");
 	    }
 

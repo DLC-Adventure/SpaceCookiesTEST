@@ -79,14 +79,13 @@ public class Engine {
      * @param args
      */
     public static void main(String[] args) {
-	// Inizializzo musica gioco
-	String filepath = "song.wav";
-	Music musicObject = new Music();
-	musicObject.playMusic(filepath);
+
+	Music music = new Music();
+	music.playMusic(); // Riproduzione della musica
 
 	Engine engine = new Engine(new Game());
-	
 	engine.run(); // Avvio del gioco
+	
     }
 
 } // fine della classe principale "Engine"

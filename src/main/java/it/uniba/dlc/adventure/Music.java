@@ -3,51 +3,53 @@
  */
 package it.uniba.dlc.adventure;
 
+import java.awt.HeadlessException;
 import java.io.File;
+import java.io.IOException;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author Ego
+ * Riproduzione della musica in sottofondo.
  */
-// test 
 public class Music {
 
-    public void playMusic(String musicLocation) {
+    public void playMusic() {
 
-        try {
-            File musicPath = new File(musicLocation);
+	try {
+	    File musicPath = new File("song.wav");
 
-            if (musicPath.exists()) {
-                AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
-                Clip clip = AudioSystem.getClip();
-                clip.open(audioInput);
+	    if (musicPath.exists()) {
+		AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
+		Clip clip = AudioSystem.getClip();
+		clip.open(audioInput);
 
-                Object[] message = {"Vuoi Attivare l'audio"};
+		Object[] message = {"Vuoi Attivare la musica?"};
 
-                Object[] options = {"Yes", "No"};
-                int n = JOptionPane.showOptionDialog(new JFrame(),
-                        message, "",
-                        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
-                        options, options[1]);
-                if (n == JOptionPane.OK_OPTION) { // Risposta affermativa
-                    clip.start();
-
-                }
-                if (n == JOptionPane.NO_OPTION) { // risposta negativa
-                    clip.stop();
-                }
-           
-            } else {
-                System.out.println("File non trovato");
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+		Object[] options = {"Si", "No"};
+		int n = JOptionPane.showOptionDialog(new JFrame(),
+			message, "",
+			JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+			options, options[1]);
+		if (n == JOptionPane.OK_OPTION) { // Risposta affermativa
+		    clip.start();
+		}
+		if (n == JOptionPane.NO_OPTION) { // Risposta negativa
+		    clip.stop();
+		}
+	    } else {
+		System.out.println("File non trovato");
+	    }
+	    
+	} catch (HeadlessException | IOException | LineUnavailableException | UnsupportedAudioFileException ex) {
+	    System.out.println("Impossibile riprodurre la musica.\nEccezione verificata: " + ex);
+	}
+	
     }
 
 }

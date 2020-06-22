@@ -173,6 +173,7 @@ public class Game extends GameDescription {
 	Room kitchen = new Room(4, "Cucina", "Sei in una “spaziosa” cucina. Sembra che qualcuno abbia fatto rifornimento da poco.");
 	kitchen.setLook("Vedi un frigorifero, un tavolo con delle sedie, alcuni scaffali...");
 	getRooms().add(kitchen);
+       
 
 	Room warehouse = new Room(5, "Stiva", "Sei nella stiva. Che disordine!");
 	warehouse.setLook("Vedi un sacco di robaccia e un armadietto.");
@@ -370,11 +371,7 @@ public class Game extends GameDescription {
 	Item projector = new Item(17, "Proiettore", "Un proiettore di ultima generazione che trasmette immagini a 5 dimensioni.");
 	projector.setAlias(new String[]{});
 	livingRoom.getItems().add(projector);
-	/*
-	Item pick = new Item(18, "Plettri", "");
-	pick.setAlias(new String[]{"Plettro"});
-	captainsCabin.getItems().add(pick);
-	 */
+	
 	Item piano = new Item(18, "Pianoforte", "Un vecchio pianoforte in mogano, avrà un centinaio di anni..sembra funzioni ancora.");
 	piano.setAlias(new String[]{"Piano"});
 	captainsCabin.getItems().add(piano);
@@ -410,9 +407,56 @@ public class Game extends GameDescription {
 	Item shrine = new Item(26, "Teca", "È chiusa. Sembra possa essere aperta tramite una particolare tessera.");
 	shrine.setAlias(new String[]{""});
 	controlRoom.getItems().add(shrine);
-
+        
+        //Oggetti che possono essere presi
+        Item beer = new Item(27, "Birra", "Era alla ciliegia! Che schifo…");
+	beer.setAlias(new String[]{""});
+        
+        Item lighter = new Item (28, "Accendino", "");
+        lighter.setAlias(new String[]{"zippo"});
+        
+        Item key = new Item (29, "Chiave", "");
+        key.setAlias(new String[]{""});
+        
+        Item screwdriver = new Item (30, "Cacciavite", "");
+        screwdriver.setAlias(new String[]{""});
+        
+        Item card = new Item (31, "Tesserino", "");
+        card.setAlias(new String[]{""});
+        
+        Item syringe = new Item (32, "Siringa", "C’è uno strano liquido fluorescente al suo interno.");
+        syringe.setAlias(new String[]{""});
+        
+        Item desktop = new Item (38, "Scrivania", "");
+        desktop.setAlias(new String[]{""});
+        captainsCabin.getItems().add(desktop);
+        
 	// Oggetti contenitori
-	// (Oggetti che possono essere presi)
+        ItemContainer fridge = new ItemContainer(33, "Frigorifero", "È chiuso!");
+        fridge.setOpenable(true);
+        fridge.setOpen(false);
+        fridge.add(beer);
+        kitchen.getItems().add(fridge);
+        
+        ItemContainer shelf = new ItemContainer(34, "Scaffale", "");
+        shelf.setOpenable(true);
+        shelf.add(lighter);
+        kitchen.getItems().add(shelf);
+        
+        ItemContainer locker = new ItemContainer(35, "Armadietto", "E’ chiuso, la serratura sembra rotta. Potresti far leva con qualcosa. ");
+        locker.setOpenable(true);
+        locker.setOpen(false);
+        warehouse.getItems().add(locker);
+        
+        ItemContainer toolbox = new ItemContainer(36, "Cassetta Attrezzi", "È una semplice cassetta degli attrezzi, forse contiene qualcosa di utile. ");
+        toolbox.setOpenable(true);
+        engineRoomS.getItems().add(toolbox);
+       
+        ItemContainer pic = new ItemContainer(37, "Foto", "Una normalissima foto del plurimiliardario Bill Gates, noti una tessera attaccata.");
+        pic.setOpenable(true);
+        pic.add(card);
+        secretLab.getItems().add(pic);
+       
 	// Stanza di inizio gioco
 	setCurrentRoom(module1);
 

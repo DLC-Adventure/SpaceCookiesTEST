@@ -21,9 +21,11 @@ public class Item {
     private boolean pickupable = true; // Se si può prendere
     private boolean pushable = false; // Se si può premere
     private boolean usable = false; // Se si può utilizzare
-    
+    private boolean pullable = false; //Se si può tirare
+
     private boolean open = false; // Se è aperto
     private boolean push = false; // Se è premuto
+    private boolean pull = false; //Se è tirato
 
     // Id
     public Item(int id) {
@@ -113,7 +115,7 @@ public class Item {
     public void setPushable(boolean pushable) {
 	this.pushable = pushable;
     }
-    
+
     // Se è aperto
     public boolean isOpen() {
 	return open;
@@ -131,7 +133,7 @@ public class Item {
     public void setPush(boolean push) {
 	this.push = push;
     }
-    
+
     // Se si può utilizzare
     public boolean isUsable() {
 	return usable;
@@ -139,6 +141,18 @@ public class Item {
 
     public void setUsable(boolean usable) {
 	this.usable = usable;
+    }
+
+    public boolean isPullable() {
+	return pullable;
+    }
+
+    public void setPullable(boolean pullable) {
+	this.pullable = pullable;
+    }
+
+    public boolean isPull() {
+	return pull;
     }
 
     // EQUALS + HASH CODE

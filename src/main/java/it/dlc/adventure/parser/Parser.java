@@ -66,7 +66,6 @@ public class Parser {
 	int i = 0; // Posizione della parola in esaminazione
 
 	int inputCommand = searchCommand(token[i], commands); // Cerca il comando
-	System.out.println("inputCommand : " + inputCommand);
 
 	if (inputCommand > -1) { // Se ho trovato il comando
 
@@ -75,7 +74,6 @@ public class Parser {
 	    if (nToken > 1) { // Se c'è più di una parola
 
 		int inputArticle = searchArticle(token[i]); // Cerca l'articolo
-		System.out.println("inputArticle : " + inputArticle);
 
 		if (inputArticle > -1) { // Se ho trovato un articolo
 		    i++; // Vai alla parola successiva
@@ -83,8 +81,6 @@ public class Parser {
 
 		int inputItem = searchItem(token[i], items); // Cerca l'oggetto nella stanza
 		int inputInventoryItem = searchItem(token[i], inventory); // Cerca l'oggetto nell'inventario
-		System.out.println("inputItem : " + inputItem);
-		System.out.println("inputInventoryItem : " + inputInventoryItem);
 
 		if (inputItem > -1) { // Se ho trovato l'oggetto nella stanza
 		    return new ParserOutput(commands.get(inputCommand), items.get(inputItem), null); // Ritorna comando + oggetto

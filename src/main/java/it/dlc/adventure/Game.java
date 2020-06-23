@@ -294,7 +294,7 @@ public class Game extends GameDescription {
 	secretLab.setSouth(researchLab);
 
 	// Stanza di inizio gioco
-	setCurrentRoom(escapePods);
+	setCurrentRoom(module1);
 
 	// Oggetti
 	Item goodsLift = new Item(1, "Montacarichi", "Trovi un pacco di Space Amazon. Incredibile! Amazon spedisce anche nello spazio.");
@@ -304,6 +304,7 @@ public class Game extends GameDescription {
 	Item packet = new Item(2, "Pacco", "È vuoto.");
 	packet.setAlias(new String[]{});
 	module1.getItems().add(packet);
+	packet.setOpenable(true); // È apribile
 
 	Item numberPad1 = new Item(3, "Tastierino", "");
 	numberPad1.setAlias(new String[]{});
@@ -500,63 +501,65 @@ public class Game extends GameDescription {
     @Override
     public void nextMove(ParserOutput p, PrintStream out) {
 
-	boolean moved = false; // Ho cambiato stanza (falso = no)
-	boolean cardinal = false; // Si tratta di un punto cardinale (N/S/W/E) (falso = no)
-	boolean closed = false; // La stanza è chiusa (falso = no)
+	byte move = 0; // 1: hai cambiato stanza, 2: è chiusa a chiave, 3: c'è un muro
 	boolean noItem = false; // L'oggetto cercato non è nella stanza (true)
 
 	switch (p.getCommand().getType()) { // Se il comando inserito corrisponde a...
 
 	    case NORTH:
-		if (getCurrentRoom().getNorth().isAccessible()) { // Se la stanza a nord è accessibile
-		    if (getCurrentRoom().getNorth() != null) { // Se c'è una stanza a nord
+		if (getCurrentRoom().getNorth() != null) { // Se c'è una stanza a nord
+		    if (getCurrentRoom().getNorth().isAccessible()) { // Se la stanza a nord è accessibile
 			setCurrentRoom(getCurrentRoom().getNorth()); // Imposta la stanza a nord come attuale
-			moved = true; // Ti sei spostato
+			move = 1; // Hai cambiato stanza
+		    } else {
+			move = 2; // È chiusa a chiave
 		    }
-		    cardinal = true;
 		} else {
-		    closed = true; // Non è accessibile
+		    move = 3; // C'è un muro
 		}
 		break;
 
 	    case SOUTH:
-		if (getCurrentRoom().getSouth().isAccessible()) { // Se la stanza a sud è accessibile
-		    if (getCurrentRoom().getSouth() != null) { // Se c'è una stanza a sud
+		if (getCurrentRoom().getSouth() != null) { // Se c'è una stanza a sud
+		    if (getCurrentRoom().getSouth().isAccessible()) { // Se la stanza a sud è accessibile
 			setCurrentRoom(getCurrentRoom().getSouth()); // Imposta la stanza a sud come attuale
-			moved = true; // Ti sei spostato
+			move = 1; // Hai cambiato stanza
+		    } else {
+			move = 2; // È chiusa a chiave
 		    }
-		    cardinal = true;
 		} else {
-		    closed = true; // Non è accessibile
+		    move = 3; // C'è un muro
 		}
 		break;
 
 	    case WEST:
 		// Se la stanza a ovest di quella attuale ha l'ID uguale a 13 (stanza medica)
 		if (getCurrentRoom().getWest().getId() == 13) {
-		    getCurrentRoom().getWest().getNorth().setAccessible(true); // Il modulo 3 diventa accessibile
+		    getCurrentRoom().getWest().getNorth().setAccessible(true); // La stanza "modulo 3" diventa accessibile
 		}
 		
-		if (getCurrentRoom().getWest().isAccessible()) { // Se la stanza a ovest è accessibile
-		    if (getCurrentRoom().getWest() != null) { // Se c'è una stanza a ovest
+		if (getCurrentRoom().getWest() != null) { // Se c'è una stanza a ovest
+		    if (getCurrentRoom().getWest().isAccessible()) { // Se la stanza a ovest è accessibile
 			setCurrentRoom(getCurrentRoom().getWest()); // Imposta la stanza a ovest come attuale
-			moved = true; // Ti sei spostato
+			move = 1; // Hai cambiato stanza
+		    } else {
+			move = 2; // È chiusa a chiave
 		    }
-		    cardinal = true;
 		} else {
-		    closed = true; // Non è accessibile
+		    move = 3; // C'è un muro
 		}
 		break;
 
 	    case EAST:
-		if (getCurrentRoom().getEast().isAccessible()) { // Se la stanza a est è accessibile
-		    if (getCurrentRoom().getEast() != null) { // Se c'è una stanza a est
+		if (getCurrentRoom().getEast() != null) { // Se c'è una stanza a est
+		    if (getCurrentRoom().getEast().isAccessible()) { // Se la stanza a est è accessibile
 			setCurrentRoom(getCurrentRoom().getEast()); // Imposta la stanza a est come attuale
-			moved = true; // Ti sei spostato
+			move = 1; // Hai cambiato stanza
+		    } else {
+			move = 2; // È chiusa a chiave
 		    }
-		    cardinal = true;
 		} else {
-		    closed = true; // Non è accessibile
+		    move = 3; // C'è un muro
 		}
 		break;
 
@@ -699,7 +702,7 @@ public class Game extends GameDescription {
 		    if (p.getItem().isPullable()) { // Se si può tirare
 			
 			if (p.getItem().getId() == 14) { // Se si tratta dell'oggetto con ID 14 (leva)
-			    out.println("Hai acceso l’aria condizionata brrr...");
+			    out.println("Hai acceso l’aria condizionata, brrr...");
 			}
 			
 		    } else { // Se non si può tirare
@@ -741,60 +744,68 @@ public class Game extends GameDescription {
 		    noItem = true;
 		}
 		break;
+		
+	    case EXIT:
+		if (getCurrentRoom().getId() == 0) {
+		    out.println("La porta si sta aprendo... Vieni risucchiato all'esterno dell'astronave, il tuo cervello esplode... E MUORI.\n"
+			    + "Il tuo corpo fluttuerà per sempre nello spazio più profondo.");
+		    System.exit(0);
+		}
+		break;
 
 	} // fine switch
-
-	if (cardinal) { // Se si tratta di un punto cardinale (N/S/W/E)
-	    if (moved) { // Se ti sei mosso e quindi hai cambiato stanza
+	
+	switch (move) {
+	    case 1:
+		// Se ti sei mosso e quindi hai cambiato stanza
 		out.println(getCurrentRoom().getName()); // Nome della stanza attuale
 		out.println("================================================");
 		out.println(getCurrentRoom().getDescription()); // Descrizione della stanza attuale
-	    } else { // Se non ti sei mosso
-		//out.println("Non puoi andare da questa parte.");
-		out = randomMessage(out, moved);
-	    }
-	}
-
-	if (closed) { // Se la stanza è chiusa
-	    out.println("La porta è chiusa a chiave!");
+		break;
+	    case 2:
+		// Se la stanza è chiusa
+		out.println("La porta è chiusa a chiave!");
+		break;
+	    case 3:
+		// Se c'è un muro
+		out = randomMessage(out, move); // Mostra messaggio randomico
+		break;
+	    default:
+		break;
 	}
 	
 	if (noItem) {
 	    out.println("Non vedo l'oggetto che mi stai chiedendo.");
 	}
 
-	/*if (moved && cardinal) { // Se ti sei mosso e si tratta di un punto cardinale
-	    out.println(getCurrentRoom().getName()); // Nome della stanza
-	    out.println("================================================");
-	    out.println(getCurrentRoom().getDescription()); // Descrizione della stanza
-	} else if (!moved && cardinal) {
-	    out = randomMessage(out, moved);
-	    out.println("Non puoi andare da questa parte.");
-	}*/
     } // fine funzione "nextMove"
 
-    private PrintStream randomMessage(PrintStream out, boolean moved) {
-	if (moved == false) {
+    private PrintStream randomMessage(PrintStream out, byte move) {
+	
+	if (move == 3) { // Se c'è un muro
+	    
 	    Random random = new Random();
 	    int randomChoice = random.nextInt(4);
+	    
 	    switch (randomChoice) {
 		case 0:
-		    out.append("Non puoi andare da questa parte.");
+		    out.append("C'è un muro da quella parte.\n");
 		    break;
 		case 1:
-		    out.append("Da quella parte non si puo' andare, c'e' un muro! Non hai ancora acquisito i poteri per oltrepassare i muri...");
+		    out.append("Da quella parte non si puo' andare, c'è un muro!\n");
 		    break;
 		case 2:
-		    out.append("Sbatti contro il muro e ti fai male al naso.");
+		    out.append("Ahi! Sembra che ci sia un muro qui...\n");
 		    break;
 		case 3:
-		    out.append("Ahi! Sembra che ci sia un muro qui...");
+		    out.append("Ho preso il muro fratellì!\n");
 		    break;
 	    }
-	} else {
-	    return out;
+	    
 	}
+	
 	return out;
+	
     } // fine funzione "PrintStream"
 
 } // fine funzione principale "Game"

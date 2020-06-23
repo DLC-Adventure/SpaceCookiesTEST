@@ -16,6 +16,7 @@ public class Room {
     private String description; // Descrizione della stanza
     private String look; // Contenuto del comando "OSSERVA"
 
+    private boolean accessible = true; // La stanza è accessibile
     private boolean visible = true; // La stanza è visibile (ha le luci accese)
 
     private Room north = null;
@@ -64,6 +65,15 @@ public class Room {
 	this.look = look;
     }
 
+    // Se accessibile
+    public boolean isAccessible() {
+	return accessible;
+    }
+
+    public void setAccessible(boolean accessible) {
+	this.accessible = accessible;
+    }
+    
     // Se visibile (luci accese)
     public boolean isVisible() {
 	return visible;

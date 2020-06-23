@@ -126,10 +126,6 @@ public class Game extends GameDescription {
 	drink.setAlias(new String[]{"bevi"});
 	getCommands().add(drink);
 
-	Command clean = new Command(CommandType.CLEAN);
-	clean.setAlias(new String[]{"pulisci"});
-	getCommands().add(clean);
-
 	Command play = new Command(CommandType.PLAY);
 	play.setAlias(new String[]{"suona", "gioca"});
 	getCommands().add(play);
@@ -137,6 +133,10 @@ public class Game extends GameDescription {
 	Command read = new Command(CommandType.READ);
 	read.setAlias(new String[]{"leggi"});
 	getCommands().add(read);
+	
+	Command clean = new Command(CommandType.CLEAN);
+	clean.setAlias(new String[]{"pulisci"});
+	getCommands().add(clean);
 
 	Command kick = new Command(CommandType.KICK);
 	kick.setAlias(new String[]{"caccia", "espelli", "manda", "scaccia"});
@@ -237,7 +237,7 @@ public class Game extends GameDescription {
 	researchLab.setLook("Vedi un microscopio, un libro e un tastierino numerico… appesa al muro c’è anche una tavola periodica degli elementi.");
 	getRooms().add(researchLab);
 
-	Room secretLab = new Room(21, "Laboratorio segreto COVID-19", "Sei entrato in una stanza dall’aspetto molto cupo e tenebroso, sulla targhetta della porta da cui sei entrato leggi \"Laboratorio segreto Codiv-19\"");
+	Room secretLab = new Room(21, "Laboratorio segreto COVID-19", "Sei entrato in una stanza dall’aspetto molto cupo e tenebroso, sulla targhetta della porta da cui sei entrato leggi \"Laboratorio segreto COVID-19\"");
 	secretLab.setLook("Il soffitto è pieno di pipistrelli e sulle pareti ci sono delle antenne. Noti anche una foto appesa al muro.");
 	getRooms().add(secretLab);
 
@@ -298,6 +298,9 @@ public class Game extends GameDescription {
 	researchLab.setSouth(meetingRoom);
 
 	secretLab.setSouth(researchLab);
+
+	// Stanza di inizio gioco
+	setCurrentRoom(module1);
 
 	// Oggetti
 	Item goodsLift = new Item(1, "Montacarichi", "Trovi un pacco di Space Amazon. Incredibile! Amazon spedisce anche nello spazio.");
@@ -457,9 +460,6 @@ public class Game extends GameDescription {
 	pic.add(card);
 	secretLab.getItems().add(pic);
 
-	// Stanza di inizio gioco
-	setCurrentRoom(module1);
-
     } // fine funzione "init()"
 
     /**
@@ -471,41 +471,59 @@ public class Game extends GameDescription {
     @Override
     public void nextMove(ParserOutput p, PrintStream out) {
 
-	boolean moved = false; // Mi sono mosso
-	boolean cardinal = false; // Si tratta di un punto cardinale (N/S/W/E)
+	boolean moved = false; // Ho cambiato stanza (falso = no)
+	boolean cardinal = false; // Si tratta di un punto cardinale (N/S/W/E) (falso = no)
+	boolean closed = false; // La stanza è chiusa (falso = no)
+	boolean noItem = false; // L'oggetto cercato non è nella stanza (true)
 
 	switch (p.getCommand().getType()) { // Se il comando inserito corrisponde a...
 
 	    case NORTH:
-		if (getCurrentRoom().getNorth() != null) { // Se c'è una stanza a nord
-		    setCurrentRoom(getCurrentRoom().getNorth()); // Imposta la stanza a nord come attuale
-		    moved = true; // Ti sei spostato
+		if (getCurrentRoom().getNorth().isAccessible()) { // Se la stanza a nord è accessibile
+		    if (getCurrentRoom().getNorth() != null) { // Se c'è una stanza a nord
+			setCurrentRoom(getCurrentRoom().getNorth()); // Imposta la stanza a nord come attuale
+			moved = true; // Ti sei spostato
+		    }
+		    cardinal = true;
+		} else {
+		    closed = true; // Non è accessibile
 		}
-		cardinal = true;
 		break;
 
 	    case SOUTH:
-		if (getCurrentRoom().getSouth() != null) { // Se c'è una stanza a sud
-		    setCurrentRoom(getCurrentRoom().getSouth()); // Imposta la stanza a sud come attuale
-		    moved = true; // Ti sei spostato
+		if (getCurrentRoom().getSouth().isAccessible()) { // Se la stanza a sud è accessibile
+		    if (getCurrentRoom().getSouth() != null) { // Se c'è una stanza a sud
+			setCurrentRoom(getCurrentRoom().getSouth()); // Imposta la stanza a sud come attuale
+			moved = true; // Ti sei spostato
+		    }
+		    cardinal = true;
+		} else {
+		    closed = true; // Non è accessibile
 		}
-		cardinal = true;
 		break;
 
 	    case WEST:
-		if (getCurrentRoom().getWest() != null) { // Se c'è una stanza a ovest
-		    setCurrentRoom(getCurrentRoom().getWest()); // Imposta la stanza a ovest come attuale
-		    moved = true; // Ti sei spostato
+		if (getCurrentRoom().getWest().isAccessible()) { // Se la stanza a ovest è accessibile
+		    if (getCurrentRoom().getWest() != null) { // Se c'è una stanza a ovest
+			setCurrentRoom(getCurrentRoom().getWest()); // Imposta la stanza a ovest come attuale
+			moved = true; // Ti sei spostato
+		    }
+		    cardinal = true;
+		} else {
+		    closed = true; // Non è accessibile
 		}
-		cardinal = true;
 		break;
 
 	    case EAST:
-		if (getCurrentRoom().getEast() != null) { // Se c'è una stanza a est
-		    setCurrentRoom(getCurrentRoom().getEast()); // Imposta la stanza a est come attuale
-		    moved = true; // Ti sei spostato
+		if (getCurrentRoom().getEast().isAccessible()) { // Se la stanza a est è accessibile
+		    if (getCurrentRoom().getEast() != null) { // Se c'è una stanza a est
+			setCurrentRoom(getCurrentRoom().getEast()); // Imposta la stanza a est come attuale
+			moved = true; // Ti sei spostato
+		    }
+		    cardinal = true;
+		} else {
+		    closed = true; // Non è accessibile
 		}
-		cardinal = true;
 		break;
 
 	    case HELP:
@@ -517,22 +535,25 @@ public class Game extends GameDescription {
 		System.exit(0);
 
 	    case INVENTORY:
-		out.println("Nel tuo inventario ci sono:");
-		int i = 0;
-		for (Item item : getInventory()) {
-		    out.println(item.getName()); // Nome dell'oggetto
-		    i++;
+		if (getInventory().isEmpty()) { // Se l'inventario è vuoto
+		    out.println("Il tuo inventario è vuoto.");
+		} else { // Se l'inventario non è vuoto
+		    out.println("Nel tuo inventario ci sono:");
 		}
-		if (i == 0) {
-		    out.println("Non hai preso niente.");
+		for (Item item : getInventory()) { // Itera oggetti nell'inventario
+		    out.println(item.getName()); // Nome dell'oggetto
 		}
 		break;
 
 	    case LOOK:
-		if (getCurrentRoom().getLook() != null) { // Se il comando "OSSERVA" della stanza attuale contiene una descrizione
-		    out.println(getCurrentRoom().getLook()); // Contenuto del comando "OSSERVA"
-		} else {
-		    out.println("Non c'è niente di interessante qui."); // Se non c'è
+		if (getCurrentRoom().isVisible()) { // Se la stanza è visibile (ha le luce accese)
+		    if (getCurrentRoom().getLook() != null) { // Se il comando "OSSERVA" della stanza attuale contiene una descrizione
+			out.println(getCurrentRoom().getLook()); // Contenuto del comando "OSSERVA"
+		    } else { // Se la descrizione del comando "OSSERVA" è vuota
+			out.println("Non c'è niente di interessante qui.");
+		    }
+		} else { // Se la stanza non è visibile (ha le luci spente)
+		    out.println("Non vedo niente! La luce è spenta.");
 		}
 		break;
 
@@ -543,8 +564,8 @@ public class Game extends GameDescription {
 		    } else {
 			out.println("Niente di interessante."); // Se non ha una descrizione
 		    }
-		} else {
-		    out.println("Non vedo l'oggetto che mi stai chiedendo."); // Se l'oggetto non esiste
+		} else { // Se l'oggetto non esiste
+		    noItem = true;
 		}
 		break;
 
@@ -552,107 +573,154 @@ public class Game extends GameDescription {
 		if (p.getItem() != null) { // Se l'oggetto è nella stanza
 		    if (p.getItem().isOpenable()) { // Se l'oggetto è apribile
 			if (p.getItem().isOpen()) { // Se l'oggetto è aperto
-			    /*if (p.getItem() instanceof ItemContainer) { // Se l'oggetto è di tipo contenitore
-				out.println("Hai aperto: " + p.getItem().getName()); // Nome dell'oggetto
-				ItemContainer container = (ItemContainer) p.getItem(); // Istanzio l'oggetto contenitore
-				
-			    }*/
-
-			} else { // L'oggetto è chiuso
-			    /*if (richiede un oggetto chiave) {
-				if (possiedi oggetto chiave) {
-				    out.println("Sei riuscito ad aprire: " + p.getItem().getName() + " con" + %chiave);
-				    p.getItem().setOpen(true); // Cambio lo stato dell'oggetto in aperto
-				} else {
-					out.println("Al momento non sei in grado di aprire questo oggetto.");
-				}
-			    } else {
-				out.println("Hai aperto: " + p.getItem().getName());
-				p.getItem().setOpen(true); // Cambio lo stato dell'oggetto in aperto
-			    }*/
+			    // TODO: Mostra contenuto
+			} else { // Se l'oggetto è chiuso
+			    // if (richiede oggetto chiave) {
+				// if (possiedi oggetto chiave) {
+				    // p.getItem().setOpen(true); // Cambio lo stato dell'oggetto in aperto
+				    // out.println("Sei riuscito ad aprire: " + p.getItem().getName() + " con" + %chiave);
+				// } else { // Non possiedi oggetto chiave
+				    // out.println("Al momento non sei in grado di aprire questo oggetto.");
+				// }
+			    // } else { // Se non richiede oggetto chiave
+				// p.getItem().setOpen(true); // Cambio lo stato dell'oggetto in aperto
+				// out.println("Hai aperto: " + p.getItem().getName());
+			    // }
 			}
-		    } else {
-			out.println("Niente di interessante."); // Non è un oggetto contenitore
+		    } else { // Se l'oggetto non è apribile
+			out.println("Quest'oggetto non contiene nulla.");
 		    }
-		} else {
-		    out.println("Non vedo l'oggetto che mi stai chiedendo."); // Se l'oggetto non esiste
+		} else { // Se l'oggetto non esiste
+		    noItem = true;
 		}
 		break;
 
 	    case CLOSE:
 		if (p.getItem() != null) { // Se l'oggetto è nella stanza
 		    if (p.getItem().isOpenable()) { // Se l'oggetto è apribile
-			if (!p.getItem().isOpen()) { // Se l'oggetto è già chiuso
-			    out.println("È già chiuso.");
-			} else { // L'oggetto è aperto
-			    out.println("Hai chiuso: " + p.getItem().getName());
+			if (p.getItem().isOpen()) { // Se l'oggetto è aperto
 			    p.getItem().setOpen(false); // Cambio lo stato dell'oggetto in chiuso
+			} else { // Se l'oggetto è chiuso
+			    out.println("Quest'oggetto è già chiuso.");
 			}
-		    } else {
-			out.println("Non puoi chiudere questo oggetto."); // Non è un oggetto contenitore
+		    } else { // Se l'oggetto non è apribile
+			out.println("Quest'oggetto non contiene nulla.");
 		    }
-		} else {
-		    out.println("Non vedo l'oggetto che mi stai chiedendo."); // Se l'oggetto non esiste
+		} else { // Se l'oggetto non esiste
+		    noItem = true;
 		}
 		break;
-
+		
 	    case TAKE:
-		if (p.getItem() != null || p.getInventoryItem() != null) { // Se l'oggetto è nella stanza o nell'inventario
-		    if (p.getItem().isUsable()) { // Se l'oggetto si può utilizzare
-			/*if (stanza attuale = stanza in cui funziona l oggetto) {
-				// Cambia stato della stanza o dell'oggeto
-			} else {
-				"Non puoi utilizzare qui questo oggetto";
-			}*/
-		    } else {
-			out.println("Non puoi utilizzare questo oggetto."); // Non si può prendere
+		if (p.getItem() != null) { // Se l'oggetto è nella stanza
+		    if (p.getItem().isTakeable()) { // Se l'oggetto si può prendere
+			getCurrentRoom().getItems().remove(p.getItem()); // Rimuovi oggetto dalla stanza corrente
+			getInventory().add(p.getItem()); // Aggiungi oggetto all'inventario
+		    } else { // Se l'oggetto non si può prendere
+			out.println("Non puoi raccogliere questo oggetto.");
 		    }
-		} else {
-		    out.println("Non vedo l'oggetto che mi stai chiedendo."); // Se l'oggetto non esiste
+		} else { // Se l'oggetto non esiste
+		    noItem = true;
 		}
 		break;
 
 	    case USE:
-		// TODO
+		if (p.getItem() != null || p.getInventoryItem() != null) { // Se l'oggetto è nella stanza o nell'inventario
+		    if (p.getItem().isUsable()) { // Se l'oggetto si può utilizzare
+			// TODO: Esegui azione
+		    } else { // Se l'oggetto non si può utilizzare
+			out.println("Non puoi utilizzare questo oggetto.");
+		    }
+		} else { // Se l'oggetto non esiste
+		    noItem = true;
+		}
 		break;
 
 	    case PUSH:
-		if (p.getItem() != null && p.getItem().isPushable()) { //se l'oggetto è diverso da null ed è premibile 
-		    if (!p.getItem().isPush()) { // controllo se l'oggetto NON  e'  stato premuto 
-			out.println("La capsula di salvataggio viene immediatamente espulsa, vaghi nello spazio. Spera che qualcuno si accorga di te. Buona fortuna.");
-			System.exit(0);
-		    } else {
-			out.println("L'oggetto è già stato premuto!");
+		if (p.getItem() != null) { // Se l'oggetto è nella stanza
+		    if (p.getItem().isPushable()) { // Se si può premere
+			// TODO: Esegui azione
+		    } else { // Se non si può premere
+			out.println("Non puoi farlo.");
 		    }
-
-		} else {
-		    out.println("Non puoi premere questo oggetto.");
+		} else { // Se l'oggetto non esiste
+		    noItem = true;
 		}
 		break;
 
 	    case PULL:
-		if (p.getItem() != null && p.getItem().isPullable()) {
-		    if (!p.getItem().isPull()) {
-			out.println("Hai acceso l’aria condizionata brrr...");
-		    } else {
-			out.println("Hai spento l'aria condizionata.");
+		if (p.getItem() != null) { // Se l'oggetto è nella stanza
+		    if (p.getItem().isPullable()) { // Se si può tirare
+			// TODO: Esegui azione
+		    } else { // Se non si può tirare
+			out.println("Non puoi farlo.");
 		    }
-		} else {
-		    out.println("Non puoi tirare questo oggetto");
+		} else { // Se l'oggetto non esiste
+		    noItem = true;
+		}
+		break;
+		
+	    case TURN_ON:
+		if (p.getItem() != null) { // Se l'oggetto è nella stanza
+		    if (p.getItem().isTurnable()) { // Se si può accendere
+			if (p.getItem().isTurned()) { // Se è acceso
+			    out.println("È già acceso.");
+			} else { // Se è spento
+			    p.getItem().setTurned(true); // Cambia stato in acceso
+			}
+		    } else { // Se non si può accendere
+			out.println("Non puoi farlo.");
+		    }
+		} else { // Se l'oggetto non esiste
+		    noItem = true;
+		}
+		break;
+		
+	    case TURN_OFF:
+		if (p.getItem() != null) { // Se l'oggetto è nella stanza
+		    if (p.getItem().isTurnable()) { // Se si può accendere
+			if (p.getItem().isTurned()) { // Se è acceso
+			    p.getItem().setTurned(false); // Cambia stato in spento
+			} else { // Se è spento
+			    out.println("È già spento.");
+			}
+		    } else { // Se non si può accendere
+			out.println("Non puoi farlo.");
+		    }
+		} else { // Se l'oggetto non esiste
+		    noItem = true;
 		}
 		break;
 
 	} // fine switch
 
-	if (moved && cardinal) { // Se ti sei mosso e quindi hai cambiato stanza
+	if (cardinal) { // Se si tratta di un punto cardinale (N/S/W/E)
+	    if (moved) { // Se ti sei mosso e quindi hai cambiato stanza
+		out.println(getCurrentRoom().getName()); // Nome della stanza attuale
+		out.println("================================================");
+		out.println(getCurrentRoom().getDescription()); // Descrizione della stanza attuale
+	    } else { // Se non ti sei mosso
+		//out.println("Non puoi andare da questa parte.");
+		out = randomMessage(out, moved);
+	    }
+	}
+
+	if (closed) { // Se la stanza è chiusa
+	    out.println("La porta è chiusa a chiave!");
+	}
+	
+	if (noItem) {
+	    out.println("Non vedo l'oggetto che mi stai chiedendo.");
+	}
+
+	/*if (moved && cardinal) { // Se ti sei mosso e si tratta di un punto cardinale
 	    out.println(getCurrentRoom().getName()); // Nome della stanza
 	    out.println("================================================");
 	    out.println(getCurrentRoom().getDescription()); // Descrizione della stanza
 	} else if (!moved && cardinal) {
 	    out = randomMessage(out, moved);
 	    out.println("Non puoi andare da questa parte.");
-	}
-
+	}*/
     } // fine funzione "nextMove"
 
     private PrintStream randomMessage(PrintStream out, boolean moved) {

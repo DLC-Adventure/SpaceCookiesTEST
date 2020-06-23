@@ -25,7 +25,7 @@ public class Parser {
     // Cerca l'oggetto
     private int searchItem(String token, List<Item> items) {
 	for (int i = 0; i < items.size(); i++) {
-	    if (items.get(i).getName().equals(token) || items.get(i).getAlias().contains(token)) {
+	    if (items.get(i).getName().equalsIgnoreCase(token) || items.get(i).getAlias().contains(token)) {
 		return i;
 	    }
 	}

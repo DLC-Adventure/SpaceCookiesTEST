@@ -294,7 +294,7 @@ public class Game extends GameDescription {
 	secretLab.setSouth(researchLab);
 
 	// Stanza di inizio gioco
-	setCurrentRoom(kitchen);
+	setCurrentRoom(escapePods);
 
 	// Oggetti
 	Item goodsLift = new Item(1, "Montacarichi", "Trovi un pacco di Space Amazon. Incredibile! Amazon spedisce anche nello spazio.");
@@ -656,7 +656,7 @@ public class Game extends GameDescription {
 		    if (p.getItem().isPickupable()) { // Se l'oggetto si può prendere
 			getCurrentRoom().getItems().remove(p.getItem()); // Rimuovi oggetto dalla stanza corrente
 			getInventory().add(p.getItem()); // Aggiungi oggetto all'inventario
-			out.println("Hai preso: " + p.getItem());
+			out.println("Hai preso: " + p.getItem().getName());
 		    } else {
 			out.println("Non puoi raccogliere questo oggetto.");
 		    }

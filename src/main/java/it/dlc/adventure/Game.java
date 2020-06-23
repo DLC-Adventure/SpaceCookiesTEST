@@ -680,7 +680,12 @@ public class Game extends GameDescription {
 	    case PUSH:
 		if (p.getItem() != null) { // Se l'oggetto è nella stanza
 		    if (p.getItem().isPushable()) { // Se si può premere
-			// TODO: Esegui azione
+			
+			if (p.getItem().getId() == 13) { // Se si tratta dell'oggetto con ID 13 (pulsante)
+			    out.println("La capsula di salvataggio viene immediatamente espulsa, vaghi nello spazio. Spera che qualcuno si accorga di te. Buona fortuna.");
+			    System.exit(0);
+			}
+			
 		    } else { // Se non si può premere
 			out.println("Non puoi farlo.");
 		    }
@@ -692,7 +697,11 @@ public class Game extends GameDescription {
 	    case PULL:
 		if (p.getItem() != null) { // Se l'oggetto è nella stanza
 		    if (p.getItem().isPullable()) { // Se si può tirare
-			// TODO: Esegui azione
+			
+			if (p.getItem().getId() == 14) { // Se si tratta dell'oggetto con ID 14 (leva)
+			    out.println("Hai acceso l’aria condizionata brrr...");
+			}
+			
 		    } else { // Se non si può tirare
 			out.println("Non puoi farlo.");
 		    }

@@ -89,10 +89,10 @@ public class ParserOLD {
 
 		    int inputArticle = searchArticle(token[i]); // Restituisce 1 (trovato) oppure -1 (non trovato)
 		    int inputItem = searchItem(token[i], items); // Restituisce l'elemento (i) oppure -1 (non trovato)
-		    int inputItemInventory = searchItem(token[i], inventory); // Restituisce l'elemento (i) oppure -1 (non trovato)
+		    int inputInventoryItem = searchItem(token[i], inventory); // Restituisce l'elemento (i) oppure -1 (non trovato)
 
 		    do {
-			if (inputItem > -1 || inputArticle > -1 || inputItemInventory > -1) { // Se ha trovato l'articolo, l'oggetto o l'oggetto nell'inventario
+			if (inputItem > -1 || inputArticle > -1 || inputInventoryItem > -1) { // Se ha trovato l'articolo, l'oggetto o l'oggetto nell'inventario
 			    if (inputArticle > -1) { // Se si tratta di un articolo
 				i++; // Vai alla parola successiva
 			    }
@@ -100,7 +100,7 @@ public class ParserOLD {
 			    if (inputPreposition > -1) { // Se non sono passato dalla preposizione, vuol dire che devo trovare l'oggetto
 				inputItem = searchItem(token[i], items); // Restituisce l'elemento (i) oppure -1 (non trovato)
 			    } else { // Altrimenti devo trovare l'oggetto inventario
-				inputItemInventory = searchItem(token[i], inventory); // Restituisce l'elemento (i) oppure -1 (non trovato)
+				inputInventoryItem = searchItem(token[i], inventory); // Restituisce l'elemento (i) oppure -1 (non trovato)
 			    }
 
 			    if (inputItem > -1 && inputPreposition > -1) { // Se si tratta di un oggetto e non sono passato dalla preposizione
@@ -115,8 +115,8 @@ public class ParserOLD {
 				} else {
 				    return new ParserOutput(commands.get(inputCommand), items.get(inputItem), null); // Ritorna comando + oggetto
 				}
-			    } else if (inputItemInventory > -1) { // Se ho trovato l'oggetto inventario
-				return new ParserOutput(commands.get(inputCommand), null, inventory.get(inputItemInventory)); // Ritorna comando + oggetto inventario
+			    } else if (inputInventoryItem > -1) { // Se ho trovato l'oggetto inventario
+				return new ParserOutput(commands.get(inputCommand), null, inventory.get(inputInventoryItem)); // Ritorna comando + oggetto inventario
 			    } else {
 				return new ParserOutput(null, null, null); // Oggetto non trovato
 			    }

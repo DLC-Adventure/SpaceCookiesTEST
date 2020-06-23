@@ -19,12 +19,12 @@ public class Item {
 
     private boolean openable = false; // Se si può aprire
     private boolean open = false; // Se è aperto
-    private boolean takeable = true; // Se si può prendere
+    private boolean pickupable = false; // Se si può prendere
     private boolean usable = false; // Se si può utilizzare
     private boolean pushable = false; // Se si può premere
-    private boolean pullable = false; //Se si può tirare
-    private boolean turnable = false; //Se si può accendere-spegnere
-    private boolean turned = false; //Se è acceso
+    private boolean pullable = false; // Se si può tirare
+    private boolean turnable = false; // Se si può accendere-spegnere
+    private boolean turned = false; // Se è acceso
 
     // Id
     public Item(int id) {
@@ -107,12 +107,12 @@ public class Item {
     }
 
     // Se si può prendere (oggetto inventario)
-    public boolean isTakeable() {
-	return takeable;
+    public boolean isPickupable() {
+	return pickupable;
     }
 
-    public void setTakeable(boolean takeable) {
-	this.takeable = takeable;
+    public void setPickupable(boolean pickupable) {
+	this.pickupable = pickupable;
     }
     
     // Se si può utilizzare (oggetto/oggetto inventario)

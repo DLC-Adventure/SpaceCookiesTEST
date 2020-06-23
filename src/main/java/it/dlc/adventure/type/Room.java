@@ -37,6 +37,11 @@ public class Room {
 	this.name = name;
 	this.description = description;
     }
+    
+    // Id della stanza
+    public int getId() {
+	return id;
+    }
 
     // Nome della stanza
     public String getName() {

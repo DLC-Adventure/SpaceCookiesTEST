@@ -20,6 +20,7 @@ public abstract class GameDescription {
     private final List<Command> commands = new ArrayList<>(); // Lista contenente i comandi
     private final List<Item> inventory = new ArrayList<>(); // Lista degli oggetti nell'inventario
 
+    private Room room; // Stanza richiesta
     private Room currentRoom; // Stanza attuale
 
     // Restituisci l'elenco delle stanze
@@ -37,6 +38,11 @@ public abstract class GameDescription {
 	return inventory;
     }
 
+    // Restituisci la stanza richiesta
+    public Room getRoom() {
+	return room;
+    }
+    
     // Restituisci la stanza attuale
     public Room getCurrentRoom() {
 	return currentRoom;

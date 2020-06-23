@@ -18,14 +18,13 @@ public class Item {
     private Set<String> alias; // Alias dell'oggetto
 
     private boolean openable = false; // Se si può aprire
-    private boolean pickupable = true; // Se si può prendere
-    private boolean pushable = false; // Se si può premere
-    private boolean usable = false; // Se si può utilizzare
-    private boolean pullable = false; //Se si può tirare
-
     private boolean open = false; // Se è aperto
-    private boolean push = false; // Se è premuto
-    private boolean pull = false; //Se è tirato
+    private boolean takeable = true; // Se si può prendere
+    private boolean usable = false; // Se si può utilizzare
+    private boolean pushable = false; // Se si può premere
+    private boolean pullable = false; //Se si può tirare
+    private boolean turnable = false; //Se si può accendere-spegnere
+    private boolean turned = false; //Se è acceso
 
     // Id
     public Item(int id) {
@@ -97,14 +96,32 @@ public class Item {
     public void setOpenable(boolean openable) {
 	this.openable = openable;
     }
-
-    // Se si può prendere (oggetto inventario)
-    public boolean isPickupable() {
-	return pickupable;
+    
+    // Se è aperto (oggetto contenitore)
+    public boolean isOpen() {
+	return open;
     }
 
-    public void setPickupable(boolean pickupable) {
-	this.pickupable = pickupable;
+    public void setOpen(boolean open) {
+	this.open = open;
+    }
+
+    // Se si può prendere (oggetto inventario)
+    public boolean isTakeable() {
+	return takeable;
+    }
+
+    public void setTakeable(boolean takeable) {
+	this.takeable = takeable;
+    }
+    
+    // Se si può utilizzare (oggetto/oggetto inventario)
+    public boolean isUsable() {
+	return usable;
+    }
+
+    public void setUsable(boolean usable) {
+	this.usable = usable;
     }
 
     // Se si può premere
@@ -115,34 +132,8 @@ public class Item {
     public void setPushable(boolean pushable) {
 	this.pushable = pushable;
     }
-
-    // Se è aperto
-    public boolean isOpen() {
-	return open;
-    }
-
-    public void setOpen(boolean open) {
-	this.open = open;
-    }
-
-    // Se è premuto
-    public boolean isPush() {
-	return push;
-    }
-
-    public void setPush(boolean push) {
-	this.push = push;
-    }
-
-    // Se si può utilizzare
-    public boolean isUsable() {
-	return usable;
-    }
-
-    public void setUsable(boolean usable) {
-	this.usable = usable;
-    }
-
+    
+    // Se si può tirare
     public boolean isPullable() {
 	return pullable;
     }
@@ -150,9 +141,23 @@ public class Item {
     public void setPullable(boolean pullable) {
 	this.pullable = pullable;
     }
+    
+    // Se si può accendere-spegnere
+    public boolean isTurnable() {
+	return turnable;
+    }
 
-    public boolean isPull() {
-	return pull;
+    public void setTurnable(boolean turnable) {
+	this.turnable = turnable;
+    }
+    
+    // Se è acceso
+    public boolean isTurned() {
+	return turned;
+    }
+
+    public void setTurned(boolean turned) {
+	this.turned = turned;
     }
 
     // EQUALS + HASH CODE

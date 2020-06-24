@@ -8,26 +8,27 @@ package it.dlc.adventure.swing;
 import javax.swing.JOptionPane;
 
 /**
+ * Tastierino numerico.
  *
- * @author kocri
+ * @author DLC
  */
-public class Tastierino extends javax.swing.JFrame {
+public class NumberPad extends javax.swing.JFrame {
+
     StringBuilder codiceInserito = new StringBuilder("");
-    String password ="1234";
-    
-   public StringBuilder getText(){
-       return codiceInserito;
-   }
-   
-   public void setText(java.awt.event.ActionEvent evt){
-       this.visualizzazione = visualizzazione;
-   }
-    
-    
+    String password = "1234";
+
+    public StringBuilder getText() {
+	return codiceInserito;
+    }
+
+    public void setText(java.awt.event.ActionEvent evt) {
+	this.visualizzazione = visualizzazione;
+    }
+
     /**
      * Creates new form Password
      */
-    public Tastierino() {
+    public NumberPad() {
 	initComponents();
     }
 
@@ -270,90 +271,90 @@ public class Tastierino extends javax.swing.JFrame {
 
 	codiceInserito.append("7");
 	visualizzazione.setText(codiceInserito.toString());
-	
+
     }//GEN-LAST:event_jb7ActionPerformed
 
     private void jb0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb0ActionPerformed
 
-	    codiceInserito.append("0");
-	    visualizzazione.setText(codiceInserito.toString());
-	
+	codiceInserito.append("0");
+	visualizzazione.setText(codiceInserito.toString());
+
     }//GEN-LAST:event_jb0ActionPerformed
 
     private void jb3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb3ActionPerformed
-       
-	    codiceInserito.append("3");
-	    visualizzazione.setText(codiceInserito.toString());
-  
+
+	codiceInserito.append("3");
+	visualizzazione.setText(codiceInserito.toString());
+
     }//GEN-LAST:event_jb3ActionPerformed
 
     private void jb2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb2ActionPerformed
-        
-	    codiceInserito.append("2");
-	    visualizzazione.setText(codiceInserito.toString());
-	
+
+	codiceInserito.append("2");
+	visualizzazione.setText(codiceInserito.toString());
+
     }//GEN-LAST:event_jb2ActionPerformed
 
     private void jb1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb1ActionPerformed
-                                         
-	    codiceInserito.append("1");    
-	   visualizzazione.setText(codiceInserito.toString());
-	    
+
+	codiceInserito.append("1");
+	visualizzazione.setText(codiceInserito.toString());
+
     }//GEN-LAST:event_jb1ActionPerformed
 
     private void jb6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb6ActionPerformed
-      
-	    codiceInserito.append("6");
-	    visualizzazione.setText(codiceInserito.toString());
-	
+
+	codiceInserito.append("6");
+	visualizzazione.setText(codiceInserito.toString());
+
     }//GEN-LAST:event_jb6ActionPerformed
 
     private void jb5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb5ActionPerformed
-  
-	    codiceInserito.append("5");
-	    visualizzazione.setText(codiceInserito.toString());
-	
+
+	codiceInserito.append("5");
+	visualizzazione.setText(codiceInserito.toString());
+
     }//GEN-LAST:event_jb5ActionPerformed
 
     private void jb4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb4ActionPerformed
-        
-	    codiceInserito.append("4");
-	    visualizzazione.setText(codiceInserito.toString());
-	
+
+	codiceInserito.append("4");
+	visualizzazione.setText(codiceInserito.toString());
+
     }//GEN-LAST:event_jb4ActionPerformed
 
     private void jb9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb9ActionPerformed
-      
-	    codiceInserito.append("9");
-	    visualizzazione.setText(codiceInserito.toString());
-	
+
+	codiceInserito.append("9");
+	visualizzazione.setText(codiceInserito.toString());
+
     }//GEN-LAST:event_jb9ActionPerformed
 
     private void jb8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb8ActionPerformed
-        
-	    codiceInserito.append("8");
-	    visualizzazione.setText(codiceInserito.toString());
-	
+
+	codiceInserito.append("8");
+	visualizzazione.setText(codiceInserito.toString());
+
     }//GEN-LAST:event_jb8ActionPerformed
 
     private void jbInvioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbInvioActionPerformed
-        
-	    if(password.equals(codiceInserito.toString())){
+
+	if (password.equals(codiceInserito.toString())) {
 	    JOptionPane.showMessageDialog(null, "Complimenti, hai aperto la porta", "Accesso libero", JOptionPane.INFORMATION_MESSAGE);
-	    } else {
-		JOptionPane.showMessageDialog(null, "Hai sbagliato la password, riprova, se ti va", "Errore",  JOptionPane.ERROR_MESSAGE);
-	    }
+	} else {
+	    JOptionPane.showMessageDialog(null, "Hai sbagliato la password, riprova, se ti va", "Errore", JOptionPane.ERROR_MESSAGE);
+	}
     }//GEN-LAST:event_jbInvioActionPerformed
 
     private void jbCancellaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancellaActionPerformed
-        
-	    codiceInserito.delete(0,codiceInserito.length());
-	    visualizzazione.setText(null);
-	
+
+	codiceInserito.delete(0, codiceInserito.length());
+	visualizzazione.setText(null);
+
     }//GEN-LAST:event_jbCancellaActionPerformed
 
     private void visualizzazioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualizzazioneActionPerformed
-        
+
     }//GEN-LAST:event_visualizzazioneActionPerformed
 
     /**
@@ -373,14 +374,26 @@ public class Tastierino extends javax.swing.JFrame {
 		}
 	    }
 	} catch (ClassNotFoundException ex) {
-	    java.util.logging.Logger.getLogger(Tastierino.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	    java.util.logging.Logger.getLogger(NumberPad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	} catch (InstantiationException ex) {
-	    java.util.logging.Logger.getLogger(Tastierino.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	    java.util.logging.Logger.getLogger(NumberPad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	} catch (IllegalAccessException ex) {
-	    java.util.logging.Logger.getLogger(Tastierino.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	    java.util.logging.Logger.getLogger(NumberPad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-	    java.util.logging.Logger.getLogger(Tastierino.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	    java.util.logging.Logger.getLogger(NumberPad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	}
+	//</editor-fold>
+	//</editor-fold>
+	//</editor-fold>
+	//</editor-fold>
+	//</editor-fold>
+	//</editor-fold>
+	//</editor-fold>
+	//</editor-fold>
+	//</editor-fold>
+	//</editor-fold>
+	//</editor-fold>
+	//</editor-fold>
 	//</editor-fold>
 	//</editor-fold>
 	//</editor-fold>
@@ -389,7 +402,7 @@ public class Tastierino extends javax.swing.JFrame {
 	/* Create and display the form */
 	java.awt.EventQueue.invokeLater(new Runnable() {
 	    public void run() {
-		new Tastierino().setVisible(true);
+		new NumberPad().setVisible(true);
 	    }
 	});
     }

@@ -22,7 +22,6 @@ public enum CommandType {
     PLAY,
     READ,
     KICK,
-    EXIT,
-    SIT,
-    SLEEP
+    SLEEP,
+    EXIT
 }

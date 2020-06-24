@@ -212,7 +212,7 @@ public class Game extends GameDescription {
 	getRooms().add(medicalRoom);
 
 	Room meetingRoom = new Room(14, "Sala riunioni", "Sei nella sala riunioni, qui il comandante e l’equipaggio discutono le decisioni da prendere, ma visto che sei da solo non credo ci sia molto di cui discutere.");
-	meetingRoom.setLook("Vedi un sacco di poltrone, dei quadri e una gigantesca scrivania posta al centro della stanza.");
+	meetingRoom.setLook("Vedi un sacco di poltrone, dei quadri e un gigantesco tavolo di vetro posto al centro della stanza.");
 	getRooms().add(meetingRoom);
 
 	Room controlRoom = new Room(15, "Stanza di comando", "Sei nella stanza di comando. All’epoca gestita dal comandante, ora controllata dall’intelligenza artificiale dell’astronave.");

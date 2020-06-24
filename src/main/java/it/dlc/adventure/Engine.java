@@ -6,6 +6,7 @@ package it.dlc.adventure;
 import it.dlc.adventure.parser.Parser;
 import it.dlc.adventure.parser.ParserOutput;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
@@ -102,10 +103,7 @@ public class Engine {
      */
     public static void main(String[] args) {
 
-	//Music music = new Music();
-	//music.playMusic(); // Riproduzione della musica
-
-	Engine engine = new Engine(new Game());
+        Engine engine = new Engine(new Game());
 	engine.run(); // Avvio del gioco
 
     }

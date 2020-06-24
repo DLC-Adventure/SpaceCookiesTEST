@@ -130,7 +130,7 @@ public class Game extends GameDescription {
 	Command read = new Command(CommandType.READ);
 	read.setAlias(new String[]{"leggi"});
 	getCommands().add(read);
-	
+
 	Command clean = new Command(CommandType.CLEAN);
 	clean.setAlias(new String[]{"pulisci"});
 	getCommands().add(clean);
@@ -212,7 +212,7 @@ public class Game extends GameDescription {
 	getRooms().add(medicalRoom);
 
 	Room meetingRoom = new Room(14, "Sala riunioni", "Sei nella sala riunioni, qui il comandante e l’equipaggio discutono le decisioni da prendere, ma visto che sei da solo non credo ci sia molto di cui discutere.");
-	meetingRoom.setLook("Vedi un sacco di poltrone, dei quadri e un grande tavolo rotondo al centro della stanza.");
+	meetingRoom.setLook("Vedi un sacco di poltrone, dei quadri e una gigantesca scrivania posta al centro della stanza.");
 	getRooms().add(meetingRoom);
 
 	Room controlRoom = new Room(15, "Stanza di comando", "Sei nella stanza di comando. All’epoca gestita dal comandante, ora controllata dall’intelligenza artificiale dell’astronave.");
@@ -297,196 +297,209 @@ public class Game extends GameDescription {
 	setCurrentRoom(module1);
 
 	// Oggetti
-	Item goodsLift = new Item(1, "Montacarichi", "Trovi un pacco di Space Amazon. Incredibile! Amazon spedisce anche nello spazio.");
+	Item spaceSuit = new Item(0, "Tuta", "È una tuta spaziale, di quelle che vedi nei film.");
+	spaceSuit.setAlias(new String[]{"tute"});
+	airlock.getItems().add(spaceSuit);
+
+	Item exitDoor = new Item(1, "Porta", "Un'enorme porta che si affaccia all'esterno. Non ti consiglio di uscire!");
+	exitDoor.setAlias(new String[]{"portone"});
+	airlock.getItems().add(exitDoor);
+	exitDoor.setOpenable(true); // È apribile
+
+	Item goodsLift = new Item(2, "Montacarichi", "Trovi un pacco di Space Amazon. Incredibile! Amazon spedisce anche nello spazio.");
 	goodsLift.setAlias(new String[]{"montacarichi"});
 	module1.getItems().add(goodsLift);
 
-	Item packet = new Item(2, "Pacco", "È vuoto.");
+	Item packet = new Item(3, "Pacco", "È vuoto.");
 	packet.setAlias(new String[]{});
 	module1.getItems().add(packet);
 	packet.setOpenable(true); // È apribile
 
-	Item numberPad1 = new Item(3, "Tastierino", "");
-	numberPad1.setAlias(new String[]{});
-	module3.getItems().add(numberPad1);
-	numberPad1.setUsable(true); // È utilizzabile
+	Item module1to2door = new Item(4, "Porta", "Ha bisogno della chiave per essere aperta.");
+	module1to2door.setAlias(new String[]{"portone"});
+	module1.getItems().add(module1to2door);
+	packet.setOpenable(true); // È apribile
+
+	Item numberPad = new Item(5, "Tastierino", "Necessita di un codice. Potrei provare a inserire qualche combinazione.");
+	numberPad.setAlias(new String[]{"tastiera"});
+	module3.getItems().add(numberPad);
+	numberPad.setUsable(true); // È utilizzabile
 	
-	Item numberPad2 = new Item(23, "Tastierino", "");
-	numberPad2.setAlias(new String[]{"tastiera"});
-	researchLab.getItems().add(numberPad2);
-	numberPad2.setUsable(true); // È utilizzabile
-
-	Item kitchenTable = new Item(4, "Tavolo", "Non c'è niente.");
+	Item beer = new Item(6, "Birra", "Era alla ciliegia! Che schifo..."); // TODO: Spostare nel BEVI
+	beer.setAlias(new String[]{""});
+	beer.setPickupable(true); // Si può prendere
+	// TODO: BEVI
+	
+	ItemContainer fridge = new ItemContainer(7, "Frigorifero", "Chissà se c'è qualcosa di buono.");
+	fridge.setAlias(new String[]{"frigo"});
+	fridge.setOpenable(true); // È apribile
+	fridge.add(beer);
+	kitchen.getItems().add(fridge);
+	
+	Item shelf = new Item(8, "Scaffali", "Vedi un ripiano con un accendino.");
+	shelf.setAlias(new String[]{"scaffale"});
+	kitchen.getItems().add(shelf);
+	
+	Item lighter = new Item(9, "Accendino", "Un lussuoso clipper di ultima generazione! Se acceso emette luce.");
+	lighter.setAlias(new String[]{"zippo", "clipper"});
+	lighter.setPickupable(true); // Si può prendere
+	lighter.setUsable(true); // Si può utilizzare
+	
+	Item kitchenTable = new Item(10, "Tavolo", "Non c'è niente.");
 	kitchenTable.setAlias(new String[]{});
-	module3.getItems().add(kitchenTable);
+	kitchen.getItems().add(kitchenTable);
+	
+	Item key = new Item(11, "Chiave", "Una chiave! Chissà cosa apre.");
+	key.setAlias(new String[]{""});
+	key.setPickupable(true); // Si può prendere
+	key.setUsable(true); // Si può utilizzare
 
-	Item bed = new Item(5, "Lettino", "");
-	bed.setAlias(new String[]{});
+	ItemContainer locker = new ItemContainer(12, "Armadietto", "È chiuso, ma la serratura sembra rotta. Potresti far leva con qualcosa.");
+	locker.setAlias(new String[]{"armadio"});
+	locker.setOpenable(true); // È apribile
+	locker.add(key);
+	warehouse.getItems().add(locker);
+	// TODO: Apri con cacciavite
+
+	Item bed = new Item(13, "Letto", "Comodi letti in lattice, il tuo ha le lenzuola rosa... Quasi quasi viene voglia di farti una pennichella.");
+	bed.setAlias(new String[]{"letti"});
 	crewCabin.getItems().add(bed);
+	// TODO: DORMI-STENDITI
+	
+	Item barCounter = new Item(14, "Bancone", "Ci sono dei bicchieri da cocktail usati.");
+	barCounter.setAlias(new String[]{});
+	cafe.getItems().add(barCounter);
 
-	Item glass = new Item(6, "Bicchiere", "È sporco, ha un odore di menta e lime.");
+	Item glass = new Item(15, "Bicchiere", "È sporco, ha un odore di menta e lime.");
 	glass.setAlias(new String[]{"Bicchieri"});
 	cafe.getItems().add(glass);
 	// TODO: PULISCI
 
-	Item engineN = new Item(7, "Motori", "Non c'è nulla di utile qui.");
-	engineN.setAlias(new String[]{});
-	engineRoomN.getItems().add(engineN);
+	Item engine = new Item(16, "Motori", "I motori utilizzano una particolare miscela di idrogeno e delle celle ad energia solare. Sembra davvero innovativa!");
+	engine.setAlias(new String[]{"motore", "macchinario", "macchinari"});
+	engineRoomN.getItems().add(engine);
+	engineRoomS.getItems().add(engine);
+	
+	Item screwdriver = new Item(17, "Cacciavite", "Un cacciavite, non è neanche automatico, però potrebbe tormarmi utile!");
+	screwdriver.setAlias(new String[]{"giravite"});
+	screwdriver.setPickupable(true); // Si può prendere
+	screwdriver.setUsable(true); // Si può utilizzare
 
-	Item engineS = new Item(8, "Motori", "I motori utilizzano una particolare miscela di idrogeno e delle celle ad energia solare. Sembra davvero innovativa!");
-	engineS.setAlias(new String[]{});
-	engineRoomS.getItems().add(engineS);
+	ItemContainer toolbox = new ItemContainer(18, "Cassetta", "Una semplice cassetta degli attrezzi, forse contiene qualcosa di utile.");
+	toolbox.setAlias(new String[]{});
+	toolbox.setOpenable(true);
+	toolbox.add(screwdriver);
+	engineRoomS.getItems().add(toolbox);
 
-	Item window = new Item(9, "Finestra", "Che vista spettacolare, da qui riesci a vedere anche il pianeta Terra.");
+	Item window = new Item(19, "Finestra", "Che vista spettacolare, da qui riesci a vedere anche il pianeta Terra.");
 	window.setAlias(new String[]{"finestre"});
 	observationDome.getItems().add(window);
-	// TODO: PULISCI
 
-	Item wc = new Item(10, "Wc", "È un comune wc. \"Chissà dove finiscono le mie defecazioni\".");
+	Item wc = new Item(20, "Wc", "Un comune water. Chissà dove finiscono le mie defecazioni.");
 	wc.setAlias(new String[]{"cesso", "water", "gabinetto"});
 	toilette.getItems().add(wc);
 	// TODO: PULISCI
 
-	Item sink = new Item(11, "Lavandino", "È sporco di dentifricio.");
+	Item sink = new Item(21, "Lavandino", "È sporco di dentifricio.");
 	sink.setAlias(new String[]{"lavabo"});
 	toilette.getItems().add(sink);
 	// TODO: PULISCI
 
-	Item duct = new Item(12, "Condotto", "Sembra che ci si possa passare... chissà dove porta.");
+	Item duct = new Item(22, "Condotto", "Sembra che ci si possa passare... chissà dove porta.");
 	duct.setAlias(new String[]{});
 	toilette.getItems().add(duct);
 	// TODO: ATTRAVERSA
 
-	Item button = new Item(13, "Pulsante", ""); // PREMI
+	Item button = new Item(23, "Pulsante", "Un enorme pulsante rosso."); // PREMI
 	button.setAlias(new String[]{"bottone"});
 	escapePods.getItems().add(button);
-	button.setPushable(true); // È premibile
+	button.setPushable(true); // Si può premere
 
-	Item lever = new Item(14, "Leva", ""); // TIRA
+	Item lever = new Item(24, "Leva", "Una leva di medie dimensioni."); // TIRA
 	lever.setAlias(new String[]{});
 	escapePods.getItems().add(lever);
-	lever.setPullable(true); // È tirabile
+	lever.setPullable(true); // Si può tirare
+	
+	Item medicalBed = new Item(25, "Lettino", "È fatto di spugna, niente di eccezionale");
+	medicalBed.setAlias(new String[]{});
+	medicalRoom.getItems().add(medicalBed);
+	// TODO: DORMI-STENDITI
+	
+	Item syringe = new Item(26, "Siringa", "C’è uno strano liquido fluorescente al suo interno.");
+	syringe.setAlias(new String[]{});
+	syringe.setPickupable(true); // Si può prendere
+	syringe.setUsable(true); // Si può utilizzare
 
-	Item painting = new Item(15, "Quadro", "Dei quadri raffiguranti quello che probabilmente erano il precedente comandante dell’astronave, in compagnia del suo equipaggio.");
-	painting.setAlias(new String[]{});
+	Item armchair = new Item(27, "Poltrona", "Un sacco di poltrone color arcobaleno, sembrano molto comode...");
+	armchair.setAlias(new String[]{"poltrone"});
+	meetingRoom.getItems().add(armchair);
+	
+	Item painting = new Item(28, "Quadro", "Dei quadri raffiguranti quello che probabilmente erano il precedente comandante dell’astronave, in compagnia del suo equipaggio.");
+	painting.setAlias(new String[]{"quadri"});
 	meetingRoom.getItems().add(painting);
+	
+	Item glassTable = new Item(29, "Tavolo", "Un gigantesca tavolo di vetro, ha l'aria di essere molto fragile.");
+	glassTable.setAlias(new String[]{});
+	meetingRoom.getItems().add(glassTable);
+	
+	Item shrine = new Item(30, "Teca", "È chiusa. Sembra possa essere aperta tramite una particolare tessera.");
+	shrine.setAlias(new String[]{});
+	controlRoom.getItems().add(shrine);
+	shrine.setOpenable(true); // È apribile
+	// TODO: apribile solo se hai la tessera
 
-	Item meetingTable = new Item(16, "Tavolo", "Un grande tavolo rotondo.");
-	meetingTable.setAlias(new String[]{});
-	meetingRoom.getItems().add(meetingTable);
-
-	Item couch = new Item(16, "Divano", "Un comune divano a tre piazze.");
+	Item couch = new Item(31, "Divano", "Un bizzarro divano a 7 piazze.");
 	couch.setAlias(new String[]{"sofa"});
 	livingRoom.getItems().add(couch);
 	// TODO: SIEDITI-DORMI
 
-	Item projector = new Item(17, "Proiettore", "Un proiettore di ultima generazione che trasmette immagini a 5 dimensioni.");
+	Item projector = new Item(32, "Proiettore", "Un proiettore di ultima generazione che trasmette immagini a 5 dimensioni.");
 	projector.setAlias(new String[]{});
 	livingRoom.getItems().add(projector);
-	projector.setUsable(true); // È utilizzabile
+	
+	Item desktop = new Item(33, "Scrivania", ""); // TODO: "Esamina" mostra la foto dei plettri
+	desktop.setAlias(new String[]{});
+	captainsCabin.getItems().add(desktop);
 
-	Item piano = new Item(18, "Pianoforte", "Un vecchio pianoforte in mogano, avrà un centinaio di anni..sembra funzioni ancora.");
+	Item piano = new Item(34, "Pianoforte", "Un vecchio pianoforte in mogano, avrà un centinaio di anni... Sembra funzioni ancora.");
 	piano.setAlias(new String[]{"piano"});
 	captainsCabin.getItems().add(piano);
 	// TODO: SUONA
 
-	Item guitar = new Item(19, "Chitarra", "Una chitarra acustica, non ha le corde.");
+	Item guitar = new Item(35, "Chitarra", "Una chitarra acustica, non ha le corde.");
 	guitar.setAlias(new String[]{});
 	captainsCabin.getItems().add(guitar);
 	// TODO: SUONA
 
-	Item microscope = new Item(20, "Microscopio", "Un microscopio ottico con zoom fino a 1500x e un limite di risoluzione teorica di circa 0,2 µm.");
+	Item microscope = new Item(36, "Microscopio", "Un microscopio ottico con zoom fino a 1500x e un limite di risoluzione teorica di circa 0,2 µm.");
 	microscope.setAlias(new String[]{});
 	researchLab.getItems().add(microscope);
 	microscope.setUsable(true); // È utilizzabile
 
-	Item book = new Item(21, "Libro", "Un libro di biochimica.");
+	Item book = new Item(37, "Libro", "Un libro di biochimica.");
 	book.setAlias(new String[]{"libri"});
 	researchLab.getItems().add(book);
 	// TODO: LEGGI
 
-	Item elementTable = new Item(22, "Tavola", "Un'immagine della tavola periodica degli elementi."); // TODO: Mostra immagine (swing)
+	Item elementTable = new Item(38, "Tavola", ""); // TODO: "Esamina" mostra l'immagine (swing)
 	elementTable.setAlias(new String[]{});
 	researchLab.getItems().add(elementTable);
 
-	Item antenna = new Item(24, "Antenne", "Delle antenne 5G di ultimissima generazione.");
-	antenna.setAlias(new String[]{"antenna"});
-	secretLab.getItems().add(antenna);
-
-	Item bat = new Item(25, "Pipistelli", "Sembra stiano dormendo, io li lascerei in pace.");
+	Item bat = new Item(39, "Pipistelli", "Sembra stiano dormendo, io li lascerei in pace.");
 	bat.setAlias(new String[]{"pipistrello"});
 	secretLab.getItems().add(bat);
 	// TODO: CACCIA-UCCIDI
-
-	Item shrine = new Item(26, "Teca", "È chiusa. Sembra possa essere aperta tramite una particolare tessera.");
-	shrine.setAlias(new String[]{""});
-	controlRoom.getItems().add(shrine);
-	shrine.setOpenable(true); // È apribile
-	shrine.setOpen(false); // È chiusa
 	
-	Item desktop = new Item(27, "Scrivania", "");
-	desktop.setAlias(new String[]{""});
-	captainsCabin.getItems().add(desktop);
-	
-	Item shelf = new Item(35, "Scaffale", "Vedi un ripiano con un accendino.");
-	shelf.setAlias(new String[]{});
-	shelf.setOpenable(true);
-	kitchen.getItems().add(shelf);
+	Item antenna = new Item(40, "Antenne", "Delle antenne 5G di ultimissima generazione.");
+	antenna.setAlias(new String[]{"antenna"});
+	secretLab.getItems().add(antenna);
 
-	// Oggetti inventario
-	Item beer = new Item(28, "Birra", "Era alla ciliegia! Che schifo..."); // TODO: Spostare nel BEVI
-	beer.setAlias(new String[]{""});
-	beer.setPickupable(true); // Si può prendere
-	// TODO: BEVI
+	ItemContainer photo = new ItemContainer(41, "Foto", "Una normalissima foto del plurimiliardario Bill Gates, noti una tessera attaccata.");
+	photo.setAlias(new String[]{});
+	secretLab.getItems().add(photo);
 
-	Item lighter = new Item(29, "Accendino", "");
-	lighter.setAlias(new String[]{"zippo", "clipper"});
-	lighter.setPickupable(true); // Si può prendere
-	lighter.setUsable(true); // Si può utilizzare
-
-	Item syringe = new Item(33, "Siringa", "C’è uno strano liquido fluorescente al suo interno.");
-	syringe.setAlias(new String[]{""});
-	syringe.setPickupable(true); // Si può prendere
-	syringe.setUsable(true); // Si può utilizzare
-
-	// Oggetti contenitori
-	ItemContainer fridge = new ItemContainer(34, "Frigorifero", "Chissà se c'è qualcosa di buono.");
-	fridge.setAlias(new String[]{"frigo"});
-	fridge.setOpenable(true);
-	fridge.setOpen(false);
-	fridge.add(beer);
-	kitchen.getItems().add(fridge);
-
-	Item key = new Item(30, "Chiave", "");
-	key.setAlias(new String[]{""});
-	key.setPickupable(true); // Si può prendere
-	key.setUsable(true); // Si può utilizzare
-	
-	ItemContainer locker = new ItemContainer(36, "Armadietto", "È chiuso, la serratura sembra rotta. Potresti far leva con qualcosa.");
-	locker.setAlias(new String[]{"armadio"});
-	locker.setOpenable(true);
-	locker.setOpen(false);
-	locker.add(key);
-	warehouse.getItems().add(locker);
-
-	Item screwdriver = new Item(31, "Cacciavite", "");
-	screwdriver.setAlias(new String[]{"giravite"});
-	screwdriver.setPickupable(true); // Si può prendere
-	screwdriver.setUsable(true); // Si può utilizzare
-	
-	ItemContainer toolbox = new ItemContainer(37, "Cassetta", "È una semplice cassetta degli attrezzi, forse contiene qualcosa di utile.");
-	toolbox.setAlias(new String[]{});
-	toolbox.setOpenable(true);
-	toolbox.setOpen(false);
-	toolbox.add(screwdriver);
-	engineRoomS.getItems().add(toolbox);
-
-	ItemContainer pic = new ItemContainer(38, "Foto", "Una normalissima foto del plurimiliardario Bill Gates, noti una tessera attaccata.");
-	pic.setAlias(new String[]{});
-	secretLab.getItems().add(pic);
-	
-	Item card = new Item(32, "Tesserino", "");
-	card.setAlias(new String[]{"tessera"});
+	Item card = new Item(42, "Tessera", "Sembra si possa prendere, qui sopra c'è scritto \"Stanza di comando\".");
+	card.setAlias(new String[]{"tesserino"});
 	card.setPickupable(true); // Si può prendere
 	card.setUsable(true); // Si può utilizzare
 
@@ -537,7 +550,7 @@ public class Game extends GameDescription {
 		if (getCurrentRoom().getWest().getId() == 13) {
 		    getCurrentRoom().getWest().getNorth().setAccessible(true); // La stanza "modulo 3" diventa accessibile
 		}
-		
+
 		if (getCurrentRoom().getWest() != null) { // Se c'è una stanza a ovest
 		    if (getCurrentRoom().getWest().isAccessible()) { // Se la stanza a ovest è accessibile
 			setCurrentRoom(getCurrentRoom().getWest()); // Imposta la stanza a ovest come attuale
@@ -614,37 +627,40 @@ public class Game extends GameDescription {
 			} else { // Se l'oggetto è chiuso
 			    p.getItem().setOpen(true); // Cambio lo stato dell'oggetto in aperto
 			    out.println("Hai aperto: " + p.getItem().getName()); // Nome dell'oggetto
-			    
-			    ItemContainer container = (ItemContainer) p.getItem(); // Istanzio l'oggetto contenitore
 
-			    if (!container.getList().isEmpty()) { // Se l'oggetto contenitore non è vuoto
-				out.println(container.getName() + " contiene:"); // Nome dell'oggetto contenitore
-				
-				Iterator<Item> it = container.getList().iterator(); // Contenuto dell'oggetto contenitore
-				
-				while (it.hasNext()) { // Fintantoché l'oggetto ha un suo successivo
-				    Item nextItem = it.next(); // Restituisci l'elemento successivo
-				    getCurrentRoom().getItems().add(nextItem); // Aggiungi oggetto alla stanza attuale
-				    out.println("- " + nextItem.getName()); // Nome dell'oggetto
-				    it.remove(); // Rimuovi dalla lista
+			    if (p.getItem() instanceof ItemContainer) { // Se l'oggetto è di tipo contenitore
+
+				ItemContainer container = (ItemContainer) p.getItem(); // Istanzio l'oggetto contenitore
+
+				if (!container.getList().isEmpty()) { // Se l'oggetto contenitore non è vuoto
+				    out.println("Al suo interno vedi:"); // Nome dell'oggetto contenitore
+
+				    Iterator<Item> it = container.getList().iterator(); // Contenuto dell'oggetto contenitore
+
+				    while (it.hasNext()) { // Fintantoché l'oggetto ha un suo successivo
+					Item nextItem = it.next(); // Restituisci l'elemento successivo
+					getCurrentRoom().getItems().add(nextItem); // Aggiungi oggetto alla stanza attuale
+					out.println("- " + nextItem.getName()); // Nome dell'oggetto
+					it.remove(); // Rimuovi dalla lista
+				    }
+
+				} else { // Se l'oggetto contenitore è vuoto
+				    out.println("È vuoto.");
 				}
-				
-			    } else { // Se l'oggetto contenitore è vuoto
-				out.println("Niente di interessante.");
-			    }
-			    
-			    // if (richiede oggetto chiave) {
+
+				// if (richiede oggetto chiave) {
 				// if (possiedi oggetto chiave) {
-				    // p.getItem().setOpen(true); // Cambio lo stato dell'oggetto in aperto
-				    // out.println("Sei riuscito ad aprire: " + p.getItem().getName() + " con" + %chiave);
+				// p.getItem().setOpen(true); // Cambio lo stato dell'oggetto in aperto
+				// out.println("Sei riuscito ad aprire: " + p.getItem().getName() + " con" + %chiave);
 				// } else { // Non possiedi oggetto chiave
-				    // out.println("Al momento non sei in grado di aprire questo oggetto.");
+				// out.println("Al momento non sei in grado di aprire questo oggetto.");
 				// }
-			    // } else { // Se non richiede oggetto chiave
+				// } else { // Se non richiede oggetto chiave
 				// p.getItem().setOpen(true); // Cambio lo stato dell'oggetto in aperto
 				// out.println("Hai aperto: " + p.getItem().getName());
-			    // }
-			    
+				// }
+			    }
+
 			}
 		    } else { // Se l'oggetto non è apribile
 			out.println("Quest'oggetto non contiene nulla.");
@@ -653,7 +669,7 @@ public class Game extends GameDescription {
 		    noItem = true;
 		}
 		break;
-		
+
 	    case PICK:
 		if (p.getItem() != null) { // Se l'oggetto è nella stanza
 		    if (p.getItem().isPickupable()) { // Se l'oggetto si può prendere
@@ -683,12 +699,12 @@ public class Game extends GameDescription {
 	    case PUSH:
 		if (p.getItem() != null) { // Se l'oggetto è nella stanza
 		    if (p.getItem().isPushable()) { // Se si può premere
-			
+
 			if (p.getItem().getId() == 13) { // Se si tratta dell'oggetto con ID 13 (pulsante)
 			    out.println("La capsula di salvataggio viene immediatamente espulsa, vaghi nello spazio. Spera che qualcuno si accorga di te. Buona fortuna.");
 			    System.exit(0);
 			}
-			
+
 		    } else { // Se non si può premere
 			out.println("Non puoi farlo.");
 		    }
@@ -700,11 +716,11 @@ public class Game extends GameDescription {
 	    case PULL:
 		if (p.getItem() != null) { // Se l'oggetto è nella stanza
 		    if (p.getItem().isPullable()) { // Se si può tirare
-			
+
 			if (p.getItem().getId() == 14) { // Se si tratta dell'oggetto con ID 14 (leva)
 			    out.println("Hai acceso l’aria condizionata, brrr...");
 			}
-			
+
 		    } else { // Se non si può tirare
 			out.println("Non puoi farlo.");
 		    }
@@ -712,7 +728,7 @@ public class Game extends GameDescription {
 		    noItem = true;
 		}
 		break;
-		
+
 	    case TURN_ON:
 		if (p.getItem() != null) { // Se l'oggetto è nella stanza
 		    if (p.getItem().isTurnable()) { // Se si può accendere
@@ -728,7 +744,7 @@ public class Game extends GameDescription {
 		    noItem = true;
 		}
 		break;
-		
+
 	    case TURN_OFF:
 		if (p.getItem() != null) { // Se l'oggetto è nella stanza
 		    if (p.getItem().isTurnable()) { // Se si può accendere
@@ -744,7 +760,7 @@ public class Game extends GameDescription {
 		    noItem = true;
 		}
 		break;
-		
+
 	    case EXIT:
 		if (getCurrentRoom().getId() == 0) {
 		    out.println("La porta si sta aprendo... Vieni risucchiato all'esterno dell'astronave, il tuo cervello esplode... E MUORI.\n"
@@ -754,7 +770,7 @@ public class Game extends GameDescription {
 		break;
 
 	} // fine switch
-	
+
 	switch (move) {
 	    case 1:
 		// Se ti sei mosso e quindi hai cambiato stanza
@@ -773,7 +789,7 @@ public class Game extends GameDescription {
 	    default:
 		break;
 	}
-	
+
 	if (noItem) {
 	    out.println("Non vedo l'oggetto che mi stai chiedendo.");
 	}
@@ -781,12 +797,12 @@ public class Game extends GameDescription {
     } // fine funzione "nextMove"
 
     private PrintStream randomMessage(PrintStream out, byte move) {
-	
+
 	if (move == 3) { // Se c'è un muro
-	    
+
 	    Random random = new Random();
 	    int randomChoice = random.nextInt(4);
-	    
+
 	    switch (randomChoice) {
 		case 0:
 		    out.append("C'è un muro da quella parte.\n");
@@ -801,11 +817,11 @@ public class Game extends GameDescription {
 		    out.append("Ho preso il muro fratellì!\n");
 		    break;
 	    }
-	    
+
 	}
-	
+
 	return out;
-	
+
     } // fine funzione "PrintStream"
 
 } // fine funzione principale "Game"

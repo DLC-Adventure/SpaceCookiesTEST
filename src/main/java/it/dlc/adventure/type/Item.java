@@ -25,6 +25,13 @@ public class Item {
     private boolean pullable = false; // Se si può tirare
     private boolean turnable = false; // Se si può accendere-spegnere
     private boolean turned = false; // Se è acceso
+    
+    private boolean walkable = false; // Se è attraversabile
+    private boolean drinkable = false; // Se è bevibile
+    private boolean cleanable = false; // Se è pulibile
+    private boolean playable = false; // Se è giocabile
+    private boolean readable = false; // Se è leggibile
+    private boolean kickable = false; // Se è cacciabile
 
     // Id
     public Item(int id) {
@@ -158,6 +165,60 @@ public class Item {
 
     public void setTurned(boolean turned) {
 	this.turned = turned;
+    }
+    
+    // Se è attraversabile
+    public boolean isWalkable() {
+	return walkable;
+    }
+
+    public void setWalkable(boolean walkable) {
+	this.walkable = walkable;
+    }
+    
+    // Se è bevibile
+    public boolean isDrinkable() {
+	return drinkable;
+    }
+
+    public void setDrinkable(boolean drinkable) {
+	this.drinkable = drinkable;
+    }
+    
+    // Se è pulibile
+    public boolean isCleanable() {
+	return cleanable;
+    }
+
+    public void setCleanable(boolean cleanable) {
+	this.cleanable = cleanable;
+    }
+    
+    // Se è giocabile
+    public boolean isPlayable() {
+	return playable;
+    }
+
+    public void setPlayable(boolean playable) {
+	this.playable = playable;
+    }
+    
+    // Se è leggibile
+    public boolean isReadable() {
+	return readable;
+    }
+
+    public void setReadable(boolean readable) {
+	this.readable = readable;
+    }
+    
+    // Se è cacciabile
+    public boolean isKickable() {
+	return kickable;
+    }
+    
+    public void setKickable(boolean kickable) {
+	this.kickable = kickable;
     }
 
     // EQUALS + HASH CODE

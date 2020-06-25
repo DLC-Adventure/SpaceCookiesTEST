@@ -43,6 +43,17 @@ public class Parser {
 	return -1; // Articolo non trovato
     }
 
+    // Cerca la preposizione
+    private int searchPreposition(String token) {
+	String[] prepositions = {"con", "nel", "in"};
+	for (String preposition : prepositions) {
+	    if (preposition.equals(token)) {
+		return 1; // Preposizione trovata
+	    }
+	}
+	return -1; // Preposizione non trovata
+    }
+
     /**
      * Il parser è in grado di riconoscere le seguenti frasi.
      * <comando> // Esempio: "inventario"
@@ -69,10 +80,9 @@ public class Parser {
 
 	if (inputCommand > -1) { // Se ho trovato il comando
 
-	    i++; // Vai alla parola successiva
-	    
-	    if (nToken > 1) { // Se c'è più di una parola
+	    if (nToken > i + 1) { // Se c'è una parola successiva
 
+		i++; // Vai alla parola successiva
 		int inputArticle = searchArticle(token[i]); // Cerca l'articolo
 
 		if (inputArticle > -1) { // Se ho trovato un articolo
@@ -83,11 +93,55 @@ public class Parser {
 		int inputInventoryItem = searchItem(token[i], inventory); // Cerca l'oggetto nell'inventario
 
 		if (inputItem > -1) { // Se ho trovato l'oggetto nella stanza
+
+		    while (nToken > i + 1) { // Finché c'è un'altra parola
+
+			i++; // Vai alla parola successiva
+			int inputPreposition = searchPreposition(token[i]); // Cerca la preposizione
+
+			if (inputPreposition > -1) { // Se ho trovato una preposizione
+
+			    i++; // Vai alla parola successiva
+			    inputInventoryItem = searchItem(token[i], inventory); // Cerca l'oggetto nell'inventario
+
+			    if (inputInventoryItem > -1) { // Se ho trovato l'oggetto nell'inventario
+				return new ParserOutput(commands.get(inputCommand), items.get(inputItem), inventory.get(inputInventoryItem)); // Ritorna comando + oggetto + oggetto inventario
+			    } else { // Se non ho trovato l'oggetto nell'inventario
+				return new ParserOutput(null, null, null); // Non riconosciuto
+			    }
+
+			} // fine "if" preposizione
+
+		    } // fine "while"
+
 		    return new ParserOutput(commands.get(inputCommand), items.get(inputItem), null); // Ritorna comando + oggetto
+
 		} else if (inputInventoryItem > -1) { // Se ho trovato l'oggetto nell'inventario
+
+		    while (nToken > i + 1) { // Finché c'è un'altra parola
+
+			i++; // Vai alla parola successiva
+			int inputPreposition = searchPreposition(token[i]); // Cerca la preposizione
+
+			if (inputPreposition > -1) { // Se ho trovato una preposizione
+
+			    i++; // Vai alla parola successiva
+			    inputItem = searchItem(token[i], items); // Cerca l'oggetto nella stanza
+
+			    if (inputItem > -1) { // Se ho trovato l'oggetto nella stanza
+				return new ParserOutput(commands.get(inputCommand), items.get(inputItem), inventory.get(inputInventoryItem)); // Ritorna comando + oggetto + oggetto inventario
+			    } else { // Se non ho trovato l'oggetto nella stanza
+				return new ParserOutput(null, null, null); // Non riconosciuto
+			    }
+
+			} // fine "if" preposizione
+
+		    } // fine "while"
+
 		    return new ParserOutput(commands.get(inputCommand), null, inventory.get(inputInventoryItem)); // Ritorna comando + oggetto inventario
+
 		} else { // Se non ho trovato nessun oggetto
-		    return new ParserOutput(commands.get(inputCommand), null, null); // Oggetto non trovato
+		    return new ParserOutput(null, null, null); // Non riconosciuto
 		}
 
 	    } else { // Se c'è una sola parola
@@ -95,7 +149,7 @@ public class Parser {
 	    }
 
 	} else { // Se non ho trovato il comando
-	    return new ParserOutput(null, null, null); // Comando non trovato
+	    return new ParserOutput(null, null, null); // Non riconosciuto
 	}
 
     } // fine della funzione "parse"

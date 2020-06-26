@@ -13,6 +13,7 @@ import it.dlc.adventure.type.Room;
 import java.io.PrintStream;
 import java.util.Iterator;
 import java.util.Random;
+import java.util.Scanner;
 import javax.swing.JFrame;
 
 /**
@@ -156,6 +157,10 @@ public class Game extends GameDescription {
 	Command exit = new Command(CommandType.EXIT);
 	exit.setAlias(new String[]{"esci"});
 	getCommands().add(exit);
+
+	Command teleport = new Command(CommandType.TELEPORT);
+	teleport.setAlias(new String[]{"teleport"});
+	getCommands().add(teleport);
 
 	// Stanze
 	Room airlock = new Room(0, "Camera di equilibrio", "Ti trovi nella Camera di equilibrio, permette il passaggio di persone e materiali tra due ambienti con atmosfere diverse.");
@@ -773,7 +778,7 @@ public class Game extends GameDescription {
 				if (p.getInventoryItem().getId() == 17) { // Se nell'inventario ho il cacciavite (17)
 				    getCurrentRoom().getItems().get(12).setOpenable(true); // Rendo l'armadietto (12) apribile
 				    // TODO: Non funziona
-				    
+
 				    out.println("Hai forzato l'armadietto!");
 				} else {
 				    out.println("Non hai niente con cui poter forzare la serratura");
@@ -975,6 +980,53 @@ public class Game extends GameDescription {
 			    + "Il tuo corpo fluttuerà per sempre nello spazio più profondo.");
 		    System.exit(0);
 		}
+		break;
+
+	    case TELEPORT:
+
+		Scanner cheat = new Scanner(System.in);
+		out.println("Inserisci il punto cardinale: ");
+		String cardinal = cheat.next().toUpperCase();
+		
+		switch (cardinal) {
+		    case "N":
+			if (getCurrentRoom().getNorth() != null) { // Se c'è una stanza a nord
+			    setCurrentRoom(getCurrentRoom().getNorth()); // Imposta la stanza a nord come attuale
+			    move = 1; // Hai cambiato stanza
+			} else {
+			    move = 3; // C'è un muro
+			}
+			break;
+		    case "S":
+			if (getCurrentRoom().getSouth() != null) { // Se c'è una stanza a sud
+			    setCurrentRoom(getCurrentRoom().getSouth()); // Imposta la stanza a nord come attuale
+			    move = 1; // Hai cambiato stanza
+			} else {
+			    move = 3; // C'è un muro
+			}
+			break;
+		    case "W":
+			if (getCurrentRoom().getWest() != null) { // Se c'è una stanza a ovest
+			    setCurrentRoom(getCurrentRoom().getWest()); // Imposta la stanza a nord come attuale
+			    move = 1; // Hai cambiato stanza
+			} else {
+			    move = 3; // C'è un muro
+			}
+			break;
+		    case "E":
+			if (getCurrentRoom().getEast() != null) { // Se c'è una stanza a est
+			    setCurrentRoom(getCurrentRoom().getEast()); // Imposta la stanza a nord come attuale
+			    move = 1; // Hai cambiato stanza
+			} else {
+			    move = 3; // C'è un muro
+			}
+			break;
+		    default:
+			out.println("Non consentito.");
+			break;
+		} // fine switch "cardinal"
+		
+		out.println("================================================");
 		break;
 
 	} // fine switch

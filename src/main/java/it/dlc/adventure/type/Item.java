@@ -23,8 +23,7 @@ public class Item {
     private boolean usable = false; // Se si può utilizzare
     private boolean pushable = false; // Se si può premere
     private boolean pullable = false; // Se si può tirare
-    private boolean turnable = false; // Se si può accendere-spegnere
-    private boolean turned = false; // Se è acceso
+    private boolean turnable = false; // Se si può accendere
     
     private boolean walkable = false; // Se è attraversabile
     private boolean drinkable = false; // Se è bevibile
@@ -149,22 +148,13 @@ public class Item {
 	this.pullable = pullable;
     }
     
-    // Se si può accendere-spegnere
+    // Se si può accendere
     public boolean isTurnable() {
 	return turnable;
     }
 
     public void setTurnable(boolean turnable) {
 	this.turnable = turnable;
-    }
-    
-    // Se è acceso
-    public boolean isTurned() {
-	return turned;
-    }
-
-    public void setTurned(boolean turned) {
-	this.turned = turned;
     }
     
     // Se è attraversabile

@@ -60,7 +60,6 @@ public class Parser {
      * <comando> <articolo> <oggetto> // Esempio: "apri (l') armadio"
      * <comando> <articolo> <oggetto inventario> // Esempio: "usa (la) torcia"
      * <comando> <articolo> <oggetto> <preposizione> <articolo> <oggetto inventario> // Esempio: "apri (la) porta con (la) chiave"
-     * <comando> <articolo> <oggetto inventario> <preposizione> <articolo> <oggetto> // Esempio: "usa (la) chiave con (la) porta"
      * L'articolo è opzionale. Nel caso venga inserito o meno, la frase verrà riconosciuta lo stesso.
      *
      * @param console Stringa inserita in input
@@ -133,20 +132,8 @@ public class Parser {
 
 			if (inputPreposition > -1) { // Se ho trovato una preposizione
 
-			    if (nToken > i + 1) { // Se c'è un'altra parola
-				i++; // Vai alla parola successiva
-				inputItem = searchItem(token[i], items); // Cerca l'oggetto nella stanza
-
-				if (inputItem > -1) { // Se ho trovato l'oggetto nella stanza
-				    return new ParserOutput(commands.get(inputCommand), items.get(inputItem), inventory.get(inputInventoryItem)); // Ritorna comando + oggetto + oggetto inventario
-				} else { // Se non ho trovato l'oggetto nella stanza
-				    noItem();
-				    return new ParserOutput(null, null, null); // Non riconosciuto
-				}
-			    } else { // Se non c'è un'altra parola dopo la preposizione
-				noCommand();
-				return new ParserOutput(null, null, null); // Non riconosciuto
-			    }
+			    noCommand();
+			    return new ParserOutput(null, null, null); // Non riconosciuto
 
 			} // fine "if" preposizione
 

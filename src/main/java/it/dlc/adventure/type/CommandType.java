@@ -15,7 +15,7 @@ public enum CommandType {
     OPEN,
     PICK, USE,
     PUSH, PULL,
-    TURN_ON, TURN_OFF,
+    TURN_ON,
     WALK_TO,
     DRINK,
     CLEAN,

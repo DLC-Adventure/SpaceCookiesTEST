@@ -320,7 +320,7 @@ public class Game extends GameDescription {
 	goodsLift.setAlias(new String[]{"montacarichi"});
 	module1.getItems().add(goodsLift); // Aggiungi alla stanza
 
-	Item packet = new Item(3, "Pacco", "È vuoto.");
+	ItemContainer packet = new ItemContainer(3, "Pacco", "Un pacco di Space Amazon, chissà cosa c'è dentro!");
 	packet.setAlias(new String[]{});
 	module1.getItems().add(packet); // Aggiungi alla stanza
 	packet.setOpenable(true); // È apribile
@@ -605,10 +605,10 @@ public class Game extends GameDescription {
 		if (getInventory().isEmpty()) { // Se l'inventario è vuoto
 		    out.println("Il tuo inventario è vuoto.");
 		} else { // Se l'inventario non è vuoto
-		    out.println("Nel tuo inventario ci sono:");
+		    out.println("Nel tuo inventario c'è:");
 		}
 		for (Item item : getInventory()) { // Itera oggetti nell'inventario
-		    out.println(item.getName()); // Nome dell'oggetto
+		    out.println("- " + item.getName()); // Nome dell'oggetto
 		}
 		break;
 
@@ -639,9 +639,10 @@ public class Game extends GameDescription {
 	    case OPEN:
 		if (p.getItem() != null) { // Se l'oggetto è nella stanza
 		    if (p.getItem().isOpenable()) { // Se l'oggetto è apribile
-			out.println("Hai aperto: " + p.getItem().getName()); // Nome dell'oggetto
 
 			if (p.getItem() instanceof ItemContainer) { // Se l'oggetto è di tipo contenitore
+
+			    out.println("Hai aperto: " + p.getItem().getName()); // Nome dell'oggetto
 
 			    ItemContainer container = (ItemContainer) p.getItem(); // Istanzio l'oggetto contenitore
 
@@ -673,6 +674,48 @@ public class Game extends GameDescription {
 			    // out.println("Hai aperto: " + p.getItem().getName());
 			    // }
 			}
+
+			/*switch (getCurrentRoom().getId()) { // Se l'ID della stanza attuale è uguale a...
+			    case 1:
+				// Modulo 1 (ID: 1)
+				if (p.getInventoryItem().getId() == 11) { // Se nell'inventario ho la chiave (11)
+				    getCurrentRoom().getWest().setAccessible(true); // La stanza "modulo 2" diventa accessibile
+				    getInventory().remove(p.getInventoryItem()); // Rimuovo la chiave dall'inventario
+				    out.println("Hai aperto la porta!");
+				} else { // Se non hai la chiave
+				    out.println("Non hai la chiave.");
+				}
+				break;
+			    case 5:
+				// Stiva (ID: 5)
+				if (p.getInventoryItem().getId() == 17) { // Se nell'inventario ho il cacciavite (17)
+				    getCurrentRoom().getItems().get(12).setOpenable(true); // Rendo l'armadietto (12) apribile
+				    // TODO: Non funziona
+
+				    out.println("Hai forzato l'armadietto!");
+				} else {
+				    out.println("Non hai niente con cui poter forzare la serratura");
+				}
+				//
+				break;
+			    case 9:
+				// Motori Sud (ID: 9)
+				if (p.getInventoryItem().getId() == 9) { // Se nell'inventario ho l'accendino (9)
+				    getCurrentRoom().setVisible(true); // La stanza diventa visibile (luce accesa)
+				    out.println("Ora riesco a vedere!");
+				    out.println("Noto la presenza di molteplici macchinari, qui vedo anche una cassetta degli attrezzi.");
+				}
+				break;
+			    case 15:
+				// Stanza di comando (ID: 15)
+				if (p.getInventoryItem().getId() == 9) { // Se nell'inventario ho la tessera (42)
+				    theEnd(); // Fine del gioco.
+				}
+				break;
+			    default:
+				out.println("Non puoi utilizzare qui questo oggetto.");
+				break;
+			}*/
 
 		    } else { // Se l'oggetto non è apribile
 			out.println("Non puoi farlo.");
@@ -987,7 +1030,7 @@ public class Game extends GameDescription {
 		Scanner cheat = new Scanner(System.in);
 		out.println("Inserisci il punto cardinale: ");
 		String cardinal = cheat.next().toUpperCase();
-		
+
 		switch (cardinal) {
 		    case "N":
 			if (getCurrentRoom().getNorth() != null) { // Se c'è una stanza a nord
@@ -1025,7 +1068,7 @@ public class Game extends GameDescription {
 			out.println("Non consentito.");
 			break;
 		} // fine switch "cardinal"
-		
+
 		out.println("================================================");
 		break;
 
@@ -1051,7 +1094,7 @@ public class Game extends GameDescription {
 	}
 
 	if (noItem) {
-	    out.println("Non vedo l'oggetto che mi stai chiedendo.");
+	    out.println("Non capisco di cosa tu stia parlando.");
 	}
 
     } // fine funzione "nextMove"

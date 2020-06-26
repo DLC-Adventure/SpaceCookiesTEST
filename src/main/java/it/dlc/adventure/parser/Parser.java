@@ -59,13 +59,15 @@ public class Parser {
      * <comando> // Esempio: "inventario"
      * <comando> <articolo> <oggetto> // Esempio: "apri (l') armadio"
      * <comando> <articolo> <oggetto inventario> // Esempio: "usa (la) torcia"
+     * <comando> <articolo> <oggetto> <preposizione> <articolo> <oggetto inventario> // Esempio: "apri (la) porta con (la) chiave"
+     * <comando> <articolo> <oggetto inventario> <preposizione> <articolo> <oggetto> // Esempio: "usa (la) chiave con (la) porta"
      * L'articolo è opzionale. Nel caso venga inserito o meno, la frase verrà riconosciuta lo stesso.
      *
      * @param console Stringa inserita in input
      * @param commands Lista dei comandi
      * @param items Lista degli oggetti
-     * @param inventory Oggetti nell'inventario
-     * @return comando + oggetto + oggetto inventario
+     * @param inventory Lista degli oggetti nell'inventario
+     * @return comando + oggetto (nella stanza) + oggetto inventario (posseduto)
      */
     public ParserOutput parse(String console, List<Command> commands, List<Item> items, List<Item> inventory) {
 
@@ -101,13 +103,16 @@ public class Parser {
 
 			if (inputPreposition > -1) { // Se ho trovato una preposizione
 
-			    i++; // Vai alla parola successiva
-			    inputInventoryItem = searchItem(token[i], inventory); // Cerca l'oggetto nell'inventario
+			    if (nToken > i + 1) { // Se c'è un'altra parola
+				i++; // Vai alla parola successiva
+				inputInventoryItem = searchItem(token[i], inventory); // Cerca l'oggetto nell'inventario
 
-			    if (inputInventoryItem > -1) { // Se ho trovato l'oggetto nell'inventario
-				return new ParserOutput(commands.get(inputCommand), items.get(inputItem), inventory.get(inputInventoryItem)); // Ritorna comando + oggetto + oggetto inventario
-			    } else { // Se non ho trovato l'oggetto nell'inventario
-				return new ParserOutput(null, null, null); // Non riconosciuto
+				if (inputInventoryItem > -1) { // Se ho trovato l'oggetto nell'inventario
+				    return new ParserOutput(commands.get(inputCommand), items.get(inputItem), inventory.get(inputInventoryItem)); // Ritorna comando + oggetto + oggetto inventario
+				} else { // Se non ho trovato l'oggetto nell'inventario
+				    noInventoryItem();
+				    return new ParserOutput(null, null, null); // Non riconosciuto
+				}
 			    }
 
 			} // fine "if" preposizione
@@ -125,12 +130,18 @@ public class Parser {
 
 			if (inputPreposition > -1) { // Se ho trovato una preposizione
 
-			    i++; // Vai alla parola successiva
-			    inputItem = searchItem(token[i], items); // Cerca l'oggetto nella stanza
+			    if (nToken > i + 1) { // Se c'è un'altra parola
+				i++; // Vai alla parola successiva
+				inputItem = searchItem(token[i], items); // Cerca l'oggetto nella stanza
 
-			    if (inputItem > -1) { // Se ho trovato l'oggetto nella stanza
-				return new ParserOutput(commands.get(inputCommand), items.get(inputItem), inventory.get(inputInventoryItem)); // Ritorna comando + oggetto + oggetto inventario
-			    } else { // Se non ho trovato l'oggetto nella stanza
+				if (inputItem > -1) { // Se ho trovato l'oggetto nella stanza
+				    return new ParserOutput(commands.get(inputCommand), items.get(inputItem), inventory.get(inputInventoryItem)); // Ritorna comando + oggetto + oggetto inventario
+				} else { // Se non ho trovato l'oggetto nella stanza
+				    noItem();
+				    return new ParserOutput(null, null, null); // Non riconosciuto
+				}
+			    } else { // Se non c'è una parola dopo la preposizione
+				noCommand();
 				return new ParserOutput(null, null, null); // Non riconosciuto
 			    }
 
@@ -141,6 +152,7 @@ public class Parser {
 		    return new ParserOutput(commands.get(inputCommand), null, inventory.get(inputInventoryItem)); // Ritorna comando + oggetto inventario
 
 		} else { // Se non ho trovato nessun oggetto
+		    noItem();
 		    return new ParserOutput(null, null, null); // Non riconosciuto
 		}
 
@@ -149,9 +161,29 @@ public class Parser {
 	    }
 
 	} else { // Se non ho trovato il comando
+	    noCommand();
 	    return new ParserOutput(null, null, null); // Non riconosciuto
 	}
 
     } // fine della funzione "parse"
+
+    public void noCommand() {
+	System.out.println("================================================");
+	System.out.println("Non ho capito.");
+	System.out.println("================================================");
+    }
+
+    public void noItem() {
+	System.out.println("================================================");
+	System.out.println("Non vedo questo oggetto.");
+	System.out.println("================================================");
+    }
+
+    public void noInventoryItem() {
+	System.out.println("================================================");
+	System.out.println("Non possiedo questo oggetto.");
+	System.out.println("================================================");
+	System.exit(0);
+    }
 
 } // fine della classe principale "Parser"

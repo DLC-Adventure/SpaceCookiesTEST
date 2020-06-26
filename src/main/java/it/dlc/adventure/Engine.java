@@ -37,7 +37,7 @@ public class Engine {
 	    System.out.println("================================================");
 	    br.readLine();
 
-	    this.game.help(); // Mostra introduzione del gioco
+	    this.game.help(); // Mostra comandi principali
 
 	    BufferedReader br1 = new BufferedReader(new InputStreamReader(System.in));
 	    System.out.println("================================================");
@@ -62,6 +62,7 @@ public class Engine {
      */
     public void run() {
 
+	//System.out.println("================================================");
 	//System.out.println(game.getCurrentRoom().getName()); // Nome della stanza attuale
 	System.out.println("================================================");
 	System.out.println(game.getCurrentRoom().getDescription()); // Descrizione della stanza attuale

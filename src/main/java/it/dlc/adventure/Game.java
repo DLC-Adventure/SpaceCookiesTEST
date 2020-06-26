@@ -531,7 +531,7 @@ public class Game extends GameDescription {
     public void nextMove(ParserOutput p, PrintStream out) {
 
 	byte move = 0; // 1: hai cambiato stanza, 2: è chiusa a chiave, 3: c'è un muro
-	boolean noItem = false; // L'oggetto cercato non è nella stanza (true)
+	boolean noItem = false; // Non ho digitato il nome dell'oggetto (true)
 
 	switch (p.getCommand().getType()) { // Se il comando inserito corrisponde a...
 
@@ -631,7 +631,7 @@ public class Game extends GameDescription {
 		    } else {
 			out.println("Niente di interessante."); // Se non ha una descrizione
 		    }
-		} else { // Se l'oggetto non esiste
+		} else { // Se non ho digitato il nome dell'oggetto
 		    noItem = true;
 		}
 		break;
@@ -720,7 +720,7 @@ public class Game extends GameDescription {
 		    } else { // Se l'oggetto non è apribile
 			out.println("Non puoi farlo.");
 		    }
-		} else { // Se l'oggetto non esiste
+		} else { // Se non ho digitato il nome dell'oggetto
 		    noItem = true;
 		}
 		break;
@@ -734,7 +734,7 @@ public class Game extends GameDescription {
 		    } else {
 			out.println("Non puoi raccogliere questo oggetto.");
 		    }
-		} else { // Se l'oggetto non esiste
+		} else { // Se non ho digitato il nome dell'oggetto
 		    noItem = true;
 		}
 		break;
@@ -851,7 +851,7 @@ public class Game extends GameDescription {
 			out.println("Non puoi utilizzare questo oggetto.");
 		    }
 
-		} else { // Se l'oggetto non è né nella stanza, né nell'inventario
+		} else { // Se non ho digitato il nome dell'oggetto
 		    noItem = true;
 		}
 		break;
@@ -868,7 +868,7 @@ public class Game extends GameDescription {
 		    } else { // Se non si può premere
 			out.println("Non puoi farlo.");
 		    }
-		} else { // Se l'oggetto non esiste
+		} else { // Se non ho digitato il nome dell'oggetto
 		    noItem = true;
 		}
 		break;
@@ -884,7 +884,7 @@ public class Game extends GameDescription {
 		    } else { // Se non si può tirare
 			out.println("Non puoi farlo.");
 		    }
-		} else { // Se l'oggetto non esiste
+		} else { // Se non ho digitato il nome dell'oggetto
 		    noItem = true;
 		}
 		break;
@@ -900,7 +900,7 @@ public class Game extends GameDescription {
 		    } else { // Se non si può accendere
 			out.println("Non puoi farlo.");
 		    }
-		} else { // Se l'oggetto non esiste
+		} else { // Se non ho digitato il nome dell'oggetto
 		    noItem = true;
 		}
 		break;
@@ -916,7 +916,7 @@ public class Game extends GameDescription {
 		    } else { // Se non si può accendere
 			out.println("Non puoi farlo.");
 		    }
-		} else { // Se l'oggetto non esiste
+		} else { // Se non ho digitato il nome dell'oggetto
 		    noItem = true;
 		}
 		break;
@@ -929,7 +929,7 @@ public class Game extends GameDescription {
 		    } else { // Se non si può attraversare
 			out.println("Non puoi farlo.");
 		    }
-		} else { // Se l'oggetto non esiste
+		} else { // Se non ho digitato il nome dell'oggetto
 		    noItem = true;
 		}
 		break;
@@ -944,7 +944,7 @@ public class Game extends GameDescription {
 		    } else { // Se non si può bere
 			out.println("Non puoi farlo.");
 		    }
-		} else { // Se l'oggetto non esiste
+		} else { // Se non ho digitato il nome dell'oggetto
 		    noItem = true;
 		}
 		break;
@@ -956,7 +956,7 @@ public class Game extends GameDescription {
 		    } else { // Se non si può pulire
 			out.println("Non puoi farlo.");
 		    }
-		} else { // Se l'oggetto non esiste
+		} else { // Se non ho digitato il nome dell'oggetto
 		    noItem = true;
 		}
 		break;
@@ -974,7 +974,7 @@ public class Game extends GameDescription {
 		    } else { // Se non si può giocare
 			out.println("Non puoi farlo.");
 		    }
-		} else { // Se l'oggetto non esiste
+		} else { // Se non ho digitato il nome dell'oggetto
 		    noItem = true;
 		}
 		break;
@@ -990,7 +990,7 @@ public class Game extends GameDescription {
 		    } else { // Se non si può leggere
 			out.println("Non puoi farlo.");
 		    }
-		} else { // Se l'oggetto non esiste
+		} else { // Se non ho digitato il nome dell'oggetto
 		    noItem = true;
 		}
 		break;
@@ -1003,7 +1003,7 @@ public class Game extends GameDescription {
 		    } else { // Se non si può cacciare
 			out.println("Cosa stai cercando di fare?");
 		    }
-		} else { // Se l'oggetto non esiste
+		} else { // Se non ho digitato il nome dell'oggetto
 		    noItem = true;
 		}
 		break;

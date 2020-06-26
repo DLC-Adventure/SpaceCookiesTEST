@@ -16,7 +16,7 @@ public class Parser {
     private int searchCommand(String token, List<Command> commands) {
 	for (int i = 0; i < commands.size(); i++) {
 	    if (commands.get(i).getAlias().contains(token)) {
-		return i;
+		return i; // Posizione del comando
 	    }
 	}
 	return -1; // Comando non trovato
@@ -26,7 +26,7 @@ public class Parser {
     private int searchItem(String token, List<Item> items) {
 	for (int i = 0; i < items.size(); i++) {
 	    if (items.get(i).getName().equalsIgnoreCase(token) || items.get(i).getAlias().contains(token)) {
-		return i;
+		return i; // Posizione dell'oggetto
 	    }
 	}
 	return -1; // Oggetto non trovato
@@ -37,7 +37,7 @@ public class Parser {
 	String[] articles = {"il", "lo", "la", "i", "gli", "le", "l"};
 	for (String article : articles) {
 	    if (article.equals(token)) {
-		return 1;
+		return 1; // Articolo trovato
 	    }
 	}
 	return -1; // Articolo non trovato
@@ -55,7 +55,7 @@ public class Parser {
     }
 
     /**
-     * Il parser è in grado di riconoscere le seguenti frasi.
+     * Il parser è in grado di riconoscere il seguente tipo di frasi.
      * <comando> // Esempio: "inventario"
      * <comando> <articolo> <oggetto> // Esempio: "apri (l') armadio"
      * <comando> <articolo> <oggetto inventario> // Esempio: "usa (la) torcia"
@@ -65,7 +65,7 @@ public class Parser {
      *
      * @param console Stringa inserita in input
      * @param commands Lista dei comandi
-     * @param items Lista degli oggetti
+     * @param items Lista degli oggetti nella stanza
      * @param inventory Lista degli oggetti nell'inventario
      * @return comando + oggetto (nella stanza) + oggetto inventario (posseduto)
      */
@@ -113,6 +113,9 @@ public class Parser {
 				    noInventoryItem();
 				    return new ParserOutput(null, null, null); // Non riconosciuto
 				}
+			    } else { // Se non c'è un'altra parola dopo la preposizione
+				noCommand();
+				return new ParserOutput(null, null, null); // Non riconosciuto
 			    }
 
 			} // fine "if" preposizione
@@ -140,7 +143,7 @@ public class Parser {
 				    noItem();
 				    return new ParserOutput(null, null, null); // Non riconosciuto
 				}
-			    } else { // Se non c'è una parola dopo la preposizione
+			    } else { // Se non c'è un'altra parola dopo la preposizione
 				noCommand();
 				return new ParserOutput(null, null, null); // Non riconosciuto
 			    }
@@ -183,7 +186,6 @@ public class Parser {
 	System.out.println("================================================");
 	System.out.println("Non possiedo questo oggetto.");
 	System.out.println("================================================");
-	System.exit(0);
     }
 
 } // fine della classe principale "Parser"

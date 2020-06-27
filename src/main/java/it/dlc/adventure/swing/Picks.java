@@ -31,6 +31,7 @@ public class Picks extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Scrivania");
+        setResizable(false);
 
         jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\crist\\SpaceCookies\\img\\Picks.png")); // NOI18N
 

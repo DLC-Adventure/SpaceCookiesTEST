@@ -20,6 +20,10 @@ public class Picks {
         Picks.setBounds(100, 200, 800, 800);
         Picks.setVisible(true);
         Picks.add(new JLabel(new ImageIcon("img/Picks.png")));
+        Picks.setTitle("Scrivania");
+        Picks.setResizable(false);
+        Picks.setAlwaysOnTop(true);
         Picks.pack();
+        
     }
 }

@@ -4,6 +4,7 @@
 package it.dlc.adventure;
 
 import it.dlc.adventure.parser.ParserOutput;
+import it.dlc.adventure.swing.ElementTable;
 import it.dlc.adventure.swing.Picks;
 import it.dlc.adventure.type.Command;
 import it.dlc.adventure.type.CommandType;
@@ -14,9 +15,6 @@ import java.io.PrintStream;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Scanner;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 /**
  * Classe principale del gioco.
@@ -531,7 +529,7 @@ public class Game extends GameDescription {
         switcher.setTurnable(true); // Si può accendere
 
         // Stanza di INIZIO GIOCO
-        setCurrentRoom(captainsCabin);
+        setCurrentRoom(researchLab);
 
     } // fine funzione "init()"
 
@@ -646,6 +644,11 @@ public class Game extends GameDescription {
                         if (p.getItem().getId() == 33) {
                             Picks pic = new Picks();
                             pic.picks();
+                        }
+                        
+                        if (p.getItem().getId() == 38 ) {
+                            ElementTable pic = new ElementTable();
+                            pic.ElementTable();
                         }
                     } else {
                         out.println("Niente di interessante."); // Se non ha una descrizione

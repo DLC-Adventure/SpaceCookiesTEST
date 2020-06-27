@@ -618,9 +618,9 @@ public class Game extends GameDescription {
 		    out.println("Il tuo inventario è vuoto.");
 		} else { // Se l'inventario non è vuoto
 		    out.println("Nel tuo inventario c'è:");
-		}
-		for (Item item : getInventory()) { // Itera oggetti nell'inventario
-		    out.println("- " + item.getName()); // Nome dell'oggetto
+		    for (Item item : getInventory()) { // Itera oggetti nell'inventario
+			out.println("- " + item.getName()); // Nome dell'oggetto
+		    }
 		}
 		break;
 
@@ -665,10 +665,26 @@ public class Game extends GameDescription {
 
 				    while (it.hasNext()) { // Finché ha un suo successivo
 					Item nextItem = it.next(); // Restituisci l'elemento successivo
-					getCurrentRoom().getItems().add(nextItem); // Aggiungi oggetto alla stanza attuale
-					out.println("- " + nextItem.getName()); // Nome dell'oggetto
-					it.remove(); // Rimuovi dalla lista
-				    }
+
+					if (getInventory().isEmpty()) { // Se l'inventario è vuoto (quindi sicuramente non ho già preso l'oggetto)
+					    out.println("- " + nextItem.getName()); // Nome dell'oggetto
+					    getCurrentRoom().getItems().add(nextItem); // Aggiungi oggetto alla stanza attuale
+					    //it.remove(); // Rimuovi dalla lista
+					} else { // Se l'inventario non è vuoto (potrei già aver preso l'oggetto)
+
+					    for (Item item : getInventory()) { // Itero oggetti nell'inventario
+						if (item.getId() == nextItem.getId()) { // Se l'ID dell'oggetto nell'inventario è uguale all'oggetto nel contenitore
+						    out.println("È vuoto.");
+						    getCurrentRoom().getItems().remove(nextItem); // Rimuovi oggetto dalla stanza attuale
+						} else {
+						    out.println("- " + item.getName()); // Nome dell'oggetto
+						    getCurrentRoom().getItems().add(nextItem); // Aggiungi oggetto alla stanza attuale
+						}
+					    } // fine "for"
+
+					} // fine "isEmpty" (si/no)
+
+				    } // fine "while"
 
 				} else { // Se l'oggetto contenitore è vuoto
 				    out.println("È vuoto.");
@@ -722,12 +738,13 @@ public class Game extends GameDescription {
 		} else { // Se non ho digitato il nome dell'oggetto
 		    noItem = true;
 		}
+		break;
 
 	    case PICK:
 		if (p.getItem() != null) { // Se l'oggetto è nella stanza
 		    if (p.getItem().isPickupable()) { // Se l'oggetto si può prendere
-			getCurrentRoom().getItems().remove(p.getItem()); // Rimuovi oggetto dalla stanza corrente
 			getInventory().add(p.getItem()); // Aggiungi oggetto all'inventario
+			getCurrentRoom().getItems().remove(p.getItem()); // Rimuovi oggetto dalla stanza corrente
 			out.println("Hai preso: " + p.getItem().getName());
 		    } else {
 			out.println("Non puoi raccogliere questo oggetto.");

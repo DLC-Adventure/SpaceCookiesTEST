@@ -5,8 +5,6 @@ package it.dlc.adventure;
 
 import it.dlc.adventure.parser.ParserOutput;
 import it.dlc.adventure.swing.Picks;
-import java.awt.Image;
-import javax.swing.ImageIcon;
 import it.dlc.adventure.type.Command;
 import it.dlc.adventure.type.CommandType;
 import it.dlc.adventure.type.Item;
@@ -16,7 +14,9 @@ import java.io.PrintStream;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Scanner;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 /**
  * Classe principale del gioco.
@@ -644,9 +644,8 @@ public class Game extends GameDescription {
                     if (p.getItem().getDescription() != null) { // Se l'oggetto ha una descrizione
                         out.println(p.getItem().getDescription());// Descrizione dell'oggetto
                         if (p.getItem().getId() == 33) {
-                            Picks picks = new Picks();
-                            picks.setVisible(true);
-                            picks.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+                            Picks pic = new Picks();
+                            pic.picks();
                         }
                     } else {
                         out.println("Niente di interessante."); // Se non ha una descrizione

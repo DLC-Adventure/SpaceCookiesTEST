@@ -17,8 +17,8 @@ public class Item {
     private String description; // Descrizione dell'oggetto
     private Set<String> alias; // Alias dell'oggetto
 
-    private boolean openable = false; // Se si può aprire
-    private boolean open = false; // Se è aperto
+    private boolean openable = false; // Se è apribile
+    private boolean open = true; // Se è aperto
     private boolean pickupable = false; // Se si può prendere
     private boolean usable = false; // Se si può utilizzare
     private boolean pushable = false; // Se si può premere

@@ -34,7 +34,7 @@ public class Parser {
 
     // Cerca l'articolo
     private int searchArticle(String token) {
-	String[] articles = {"il", "lo", "la", "i", "gli", "le", "l"};
+	String[] articles = {"il", "lo", "la", "i", "gli", "le", "l", "nel"};
 	for (String article : articles) {
 	    if (article.equals(token)) {
 		return 1; // Articolo trovato

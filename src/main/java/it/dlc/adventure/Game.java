@@ -42,6 +42,7 @@ public class Game extends GameDescription {
 		+ "Per usare gli occhi digita il comando GUARDA o OSSERVA.\n"
 		+ "Se vuoi sembrare arguto digita il comando ESAMINA (QUALCOSA).\n"
 		+ "Inoltre la tua tuta spaziale può contenere vari oggetti, per vederne il contenuto digita il comando INVENTARIO o 'I'.\n"
+		+ "Cimentati nell'arte del bricolage digitando APRI (QUALCOSA) CON (QUALCOSA).\n"
 		+ "Se hai una memoria di pochi byte e dovessi dimenticare tutto, digita il comando '?' per rivedere questi comandi.\n"
 		+ "Probabilmente ce ne sono altri... Ma di certo non te li posso dire tutti io!");
     }
@@ -124,7 +125,7 @@ public class Game extends GameDescription {
 	getCommands().add(turnOn);
 
 	Command walkTo = new Command(CommandType.WALK_TO);
-	walkTo.setAlias(new String[]{"attraversa", "passa"});
+	walkTo.setAlias(new String[]{"attraversa", "passa", "entra"});
 	getCommands().add(walkTo);
 
 	Command drink = new Command(CommandType.DRINK);
@@ -879,7 +880,7 @@ public class Game extends GameDescription {
 		if (p.getItem() != null) { // Se l'oggetto è nella stanza
 		    if (p.getItem().isPushable()) { // Se si può premere
 
-			if (p.getItem().getId() == 13) { // Se si tratta dell'oggetto "pulsante" (13)
+			if (p.getItem().getId() == 23) { // Se si tratta dell'oggetto "pulsante" (23)
 			    out.println("La capsula di salvataggio viene immediatamente espulsa, vaghi nello spazio. Spera che qualcuno si accorga di te. Buona fortuna.");
 			    System.exit(0);
 			} else {
@@ -898,7 +899,7 @@ public class Game extends GameDescription {
 		if (p.getItem() != null) { // Se l'oggetto è nella stanza
 		    if (p.getItem().isPullable()) { // Se si può tirare
 
-			if (p.getItem().getId() == 14) { // Se si tratta dell'oggetto "leva" (14)
+			if (p.getItem().getId() == 24) { // Se si tratta dell'oggetto "leva" (24)
 			    out.println("Hai acceso l'aria condizionata, brrr...");
 			} else {
 			    out.println("Non capisco.");

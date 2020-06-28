@@ -22,7 +22,7 @@ public class Music {
     public void playMusic() {
 
 	try {
-	    File musicPath = new File("song.wav");
+	    File musicPath = new File("Soundtrack.wav");
 
 	    if (musicPath.exists()) {
 		AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
@@ -43,7 +43,7 @@ public class Music {
 		    clip.stop();
 		}
 	    } else {
-		System.out.println("File non trovato");
+		System.out.println("File non trovato.");
 	    }
 	    
 	} catch (HeadlessException | IOException | LineUnavailableException | UnsupportedAudioFileException ex) {

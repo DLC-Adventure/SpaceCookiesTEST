@@ -6,7 +6,6 @@ package it.dlc.adventure;
 import it.dlc.adventure.parser.Parser;
 import it.dlc.adventure.parser.ParserOutput;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
@@ -83,7 +82,7 @@ public class Engine {
 		    game.nextMove(p, System.out);
 		    System.out.println("================================================");
 		}
-		
+
 	    } else { // Se non ho digitato niente
 		System.out.println("================================================");
 		System.out.println("Digita qualcosa!");
@@ -101,7 +100,7 @@ public class Engine {
      */
     public static void main(String[] args) {
 
-        Engine engine = new Engine(new Game());
+	Engine engine = new Engine(new Game());
 	engine.run(); // Avvio del gioco
 
     }

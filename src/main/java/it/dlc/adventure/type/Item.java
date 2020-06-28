@@ -24,7 +24,7 @@ public class Item {
     private boolean pushable = false; // Se si può premere
     private boolean pullable = false; // Se si può tirare
     private boolean turnable = false; // Se si può accendere
-    
+
     private boolean walkable = false; // Se è attraversabile
     private boolean drinkable = false; // Se è bevibile
     private boolean cleanable = false; // Se è pulibile
@@ -102,7 +102,7 @@ public class Item {
     public void setOpenable(boolean openable) {
 	this.openable = openable;
     }
-    
+
     // Se è aperto (oggetto contenitore)
     public boolean isOpen() {
 	return open;
@@ -120,7 +120,7 @@ public class Item {
     public void setPickupable(boolean pickupable) {
 	this.pickupable = pickupable;
     }
-    
+
     // Se si può utilizzare (oggetto/oggetto inventario)
     public boolean isUsable() {
 	return usable;
@@ -138,7 +138,7 @@ public class Item {
     public void setPushable(boolean pushable) {
 	this.pushable = pushable;
     }
-    
+
     // Se si può tirare
     public boolean isPullable() {
 	return pullable;
@@ -147,7 +147,7 @@ public class Item {
     public void setPullable(boolean pullable) {
 	this.pullable = pullable;
     }
-    
+
     // Se si può accendere
     public boolean isTurnable() {
 	return turnable;
@@ -156,7 +156,7 @@ public class Item {
     public void setTurnable(boolean turnable) {
 	this.turnable = turnable;
     }
-    
+
     // Se è attraversabile
     public boolean isWalkable() {
 	return walkable;
@@ -165,7 +165,7 @@ public class Item {
     public void setWalkable(boolean walkable) {
 	this.walkable = walkable;
     }
-    
+
     // Se è bevibile
     public boolean isDrinkable() {
 	return drinkable;
@@ -174,7 +174,7 @@ public class Item {
     public void setDrinkable(boolean drinkable) {
 	this.drinkable = drinkable;
     }
-    
+
     // Se è pulibile
     public boolean isCleanable() {
 	return cleanable;
@@ -183,7 +183,7 @@ public class Item {
     public void setCleanable(boolean cleanable) {
 	this.cleanable = cleanable;
     }
-    
+
     // Se è giocabile
     public boolean isPlayable() {
 	return playable;
@@ -192,7 +192,7 @@ public class Item {
     public void setPlayable(boolean playable) {
 	this.playable = playable;
     }
-    
+
     // Se è leggibile
     public boolean isReadable() {
 	return readable;
@@ -201,12 +201,12 @@ public class Item {
     public void setReadable(boolean readable) {
 	this.readable = readable;
     }
-    
+
     // Se è cacciabile
     public boolean isKickable() {
 	return kickable;
     }
-    
+
     public void setKickable(boolean kickable) {
 	this.kickable = kickable;
     }

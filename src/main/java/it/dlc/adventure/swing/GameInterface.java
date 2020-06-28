@@ -33,7 +33,7 @@ public class GameInterface extends javax.swing.JFrame {
     private AudioInputStream audio;
     private Clip clip;
     private boolean music = true;
-   
+
 
     /*
     private Timer tm;
@@ -44,7 +44,6 @@ public class GameInterface extends javax.swing.JFrame {
     /**
      * Creates new form Interfaccia
      */
-
     public GameInterface() {
 	initComponents();
 	//init();
@@ -53,12 +52,12 @@ public class GameInterface extends javax.swing.JFrame {
 
     private void playMusic() {
 	try {
-	    audio = AudioSystem.getAudioInputStream(new File("C:\\Users\\crist\\Documents\\NetBeansProjects\\IOOOOOOO\\music\\SpaceCookies.wav"));
+	    audio = AudioSystem.getAudioInputStream(new File("Soundtrack.wav"));
 	    clip = AudioSystem.getClip();
 	    clip.open(audio);
 	    startMusic();
 	} catch (Exception exc) {
-	    JOptionPane.showMessageDialog(this, "Errore nella riproduzione della musica", "Errore", JOptionPane.ERROR_MESSAGE);
+	    JOptionPane.showMessageDialog(this, "Impossibile riprodurre la musica", "Errore", JOptionPane.ERROR_MESSAGE);
 	}
     }
 
@@ -553,24 +552,24 @@ public class GameInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_MusicMenuItemActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
+	// TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void EnterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnterButtonActionPerformed
-        // TODO add your handling code here:
+	// TODO add your handling code here:
     }//GEN-LAST:event_EnterButtonActionPerformed
 
     private void EstButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstButtonActionPerformed
-        // TODO add your handling code here:
+	// TODO add your handling code here:
     }//GEN-LAST:event_EstButtonActionPerformed
 
     private void EstButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EstButtonMouseClicked
-        // TODO add your handling code here:
+	// TODO add your handling code here:
     }//GEN-LAST:event_EstButtonMouseClicked
 
     private void NorthButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NorthButtonActionPerformed
 
-        //Parser p = parser.parse("nord", game.getCommands(), game.getInventory());
+	//Parser p = parser.parse("nord", game.getCommands(), game.getInventory());
 
     }//GEN-LAST:event_NorthButtonActionPerformed
 
@@ -578,16 +577,16 @@ public class GameInterface extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     /**
-    private void init() {
-	game = new Game(new Command(), new CommandType(), new Inventory(), new Item(), new ItemContainer(), new Room());
-	try {
-	    this.game.init();
-	} catch (Exception ex) {
-	    JOptionPane.showMessageDialog(this, ex.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
-	}
-	
-    
-*/
+     * private void init() {
+     * game = new Game(new Command(), new CommandType(), new Inventory(), new Item(), new ItemContainer(), new Room());
+     * try {
+     * this.game.init();
+     * } catch (Exception ex) {
+     * JOptionPane.showMessageDialog(this, ex.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
+     * }
+     *
+     *
+     */
     public static void main(String args[]) {
 	/* Set the Nimbus look and feel */
 	//<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

@@ -37,7 +37,7 @@ public class Room {
 	this.name = name;
 	this.description = description;
     }
-    
+
     // Id della stanza
     public int getId() {
 	return id;
@@ -78,7 +78,7 @@ public class Room {
     public void setAccessible(boolean accessible) {
 	this.accessible = accessible;
     }
-    
+
     // Se visibile (luci accese)
     public boolean isVisible() {
 	return visible;

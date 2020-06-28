@@ -42,7 +42,7 @@ public abstract class GameDescription {
     public Room getRoom() {
 	return room;
     }
-    
+
     // Restituisci la stanza attuale
     public Room getCurrentRoom() {
 	return currentRoom;
@@ -54,8 +54,11 @@ public abstract class GameDescription {
     }
 
     public abstract void intro(); // Introduzione del gioco
+
     public abstract void help(); // Elenco dei comandi principali
+
     public abstract void init() throws Exception; // Inizializzazione del gioco
+
     public abstract void nextMove(ParserOutput p, PrintStream out); // Prossima mossa
 
 } // fine della classe principale "GameDescription"

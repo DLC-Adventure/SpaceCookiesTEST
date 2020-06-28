@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * SPACE COOKIES by DLC © 2020
  */
 package it.dlc.adventure.swing;
 
@@ -9,8 +7,6 @@ import javax.swing.JOptionPane;
 
 /**
  * Tastierino numerico.
- *
- * @author DLC
  */
 public class NumberPad extends javax.swing.JFrame {
 
@@ -342,9 +338,9 @@ public class NumberPad extends javax.swing.JFrame {
     private void jbInvioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbInvioActionPerformed
 
 	if (password.equals(codiceInserito.toString())) {
-	    JOptionPane.showMessageDialog(null, "Complimenti, hai aperto la porta", "Accesso libero", JOptionPane.INFORMATION_MESSAGE);
+	    JOptionPane.showMessageDialog(null, "Complimenti, hai aperto la porta!", "Accesso consentito", JOptionPane.INFORMATION_MESSAGE);
 	} else {
-	    JOptionPane.showMessageDialog(null, "Hai sbagliato la password, riprova, se ti va", "Errore", JOptionPane.ERROR_MESSAGE);
+	    JOptionPane.showMessageDialog(null, "Hai sbagliato la password. Riprova, se ti va", "Respinto", JOptionPane.ERROR_MESSAGE);
 	}
     }//GEN-LAST:event_jbInvioActionPerformed
 
@@ -427,7 +423,4 @@ public class NumberPad extends javax.swing.JFrame {
     private javax.swing.JToggleButton visualizzazione;
     // End of variables declaration//GEN-END:variables
 
-    private void setText() {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

@@ -16,7 +16,7 @@ public class ElementTable {
 	JFrame ElementTable = new JFrame();
 	ElementTable.setBounds(100, 200, 800, 800);
 	ElementTable.setVisible(true);
-	ElementTable.add(new JLabel(new ImageIcon("img/ElementTable.png")));
+	ElementTable.add(new JLabel(new ImageIcon("src/main/resources/ElementTable.png")));
 	ElementTable.setTitle("Muro");
 	ElementTable.setResizable(false);
 	ElementTable.setAlwaysOnTop(true);

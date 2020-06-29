@@ -22,7 +22,7 @@ public class Music {
     public void playMusic() {
 
 	try {
-	    File musicPath = new File("Soundtrack.wav");
+	    File musicPath = new File("src/main/resources/Soundtrack.wav");
 
 	    if (musicPath.exists()) {
 		AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);

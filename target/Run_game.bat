@@ -1,1 +1,0 @@
-java -jar SpaceCookies-1.0-SNAPSHOT.jar

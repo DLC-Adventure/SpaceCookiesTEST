@@ -1,7 +1,7 @@
 /*
  * SPACE COOKIES by DLC © 2020
  */
-package it.dlc.adventure;
+package it.dlc.adventure.swing;
 
 import java.awt.HeadlessException;
 import java.io.File;
@@ -29,7 +29,7 @@ public class Music {
 		Clip clip = AudioSystem.getClip();
 		clip.open(audioInput);
 
-		Object[] message = {"Vuoi Attivare la musica?"};
+		Object[] message = {"Vuoi attivare la musica?"};
 
 		Object[] options = {"Si", "No"};
 		int n = JOptionPane.showOptionDialog(new JFrame(),

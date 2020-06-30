@@ -54,11 +54,9 @@ public abstract class GameDescription {
     }
 
     public abstract void intro(); // Introduzione del gioco
-
     public abstract void help(); // Elenco dei comandi principali
 
     public abstract void init() throws Exception; // Inizializzazione del gioco
-
     public abstract void nextMove(ParserOutput p, PrintStream out); // Prossima mossa
 
 } // fine della classe principale "GameDescription"

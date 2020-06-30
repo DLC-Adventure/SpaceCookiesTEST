@@ -334,7 +334,7 @@ public class Game extends GameDescription {
 	module1to2door.setOpenable(true); // È apribile
 	module1to2door.setOpen(false); // È chiuso (a chiave)
 
-	Item numberPad = new Item(5, "Tastierino", "Necessita di un codice. Potrei provare a inserire qualche combinazione.");
+	Item numberPad = new Item(5, "Tastierino", "Necessita di un codice. Potrei provare a utilizzarlo e inserire qualche combinazione.");
 	numberPad.setAlias(new String[]{"tastiera"});
 	module3.getItems().add(numberPad); // Aggiungi alla stanza
 	researchLab.getItems().add(numberPad); // Aggiungi alla stanza
@@ -356,7 +356,7 @@ public class Game extends GameDescription {
 	shelf.setAlias(new String[]{"scaffale"});
 	kitchen.getItems().add(shelf); // Aggiungi alla stanza
 
-	Item lighter = new Item(9, "Accendino", "Se acceso emette luce! Che innovazione tecnologica.");
+	Item lighter = new Item(9, "Accendino", "Su di esso leggi \"Giuseppe\". Forse il nome del suo ex proprietario.\nSe acceso emette luce! Che innovazione tecnologica.");
 	lighter.setAlias(new String[]{"zippo", "clipper"});
 	kitchen.getItems().add(lighter); // Aggiungi alla stanza
 	lighter.setPickupable(true); // Si può prendere
@@ -474,7 +474,7 @@ public class Game extends GameDescription {
 	projector.setAlias(new String[]{});
 	livingRoom.getItems().add(projector); // Aggiungi alla stanza
 
-	Item desktop = new Item(33, "Scrivania", ""); // TODO: "Esamina" mostra la foto dei plettri
+	Item desktop = new Item(33, "Scrivania", "Visualizzazione della scrivania..."); // "Esamina" mostra la foto dei plettri
 	desktop.setAlias(new String[]{});
 	captainsCabin.getItems().add(desktop); // Aggiungi alla stanza
 
@@ -498,7 +498,7 @@ public class Game extends GameDescription {
 	researchLab.getItems().add(book); // Aggiungi alla stanza
 	book.setReadable(true); // Si può leggere
 
-	Item elementTable = new Item(38, "Tavola", ""); // TODO: "Esamina" mostra l'immagine (swing)
+	Item elementTable = new Item(38, "Tavola", "Visualizzazione della tavola periodica degli elementi..."); // "Esamina" mostra l'immagine (swing)
 	elementTable.setAlias(new String[]{});
 	researchLab.getItems().add(elementTable); // Aggiungi alla stanza
 
@@ -531,7 +531,7 @@ public class Game extends GameDescription {
 	switcher.setTurnable(true); // Si può accendere
 
 	// Stanza di INIZIO GIOCO
-	setCurrentRoom(researchLab);
+	setCurrentRoom(module1);
 
     } // fine funzione "init()"
 
@@ -643,8 +643,6 @@ public class Game extends GameDescription {
 		if (p.getItem() != null) { // Se l'oggetto è nella stanza
 		    if (p.getItem().getDescription() != null) { // Se l'oggetto ha una descrizione
 
-			out.println(p.getItem().getDescription());// Descrizione dell'oggetto
-
 			if (p.getItem().getId() == 33) { // Se l'ID dell'oggetto corrisponde a "scrivania" (33)
 			    // Apri immagine con i plettri (swing)
 			    Picks pic = new Picks();
@@ -654,7 +652,7 @@ public class Game extends GameDescription {
 			    ElementTable pic = new ElementTable();
 			    pic.ElementTable();
 			} else {
-			    out.println("Non capisco.");
+			    out.println(p.getItem().getDescription());// Descrizione dell'oggetto
 			}
 
 		    } else {
@@ -679,29 +677,40 @@ public class Game extends GameDescription {
 
 				    out.println("Al suo interno vedi:"); // Nome dell'oggetto contenitore
 				    Iterator<Item> it = container.getList().iterator(); // Contenuto dell'oggetto contenitore
+				    boolean isFound = false; // L'oggetto non è già nell'inventario
 
 				    while (it.hasNext()) { // Finché ha un suo successivo
 					Item nextItem = it.next(); // Restituisci l'elemento successivo
 
 					if (getInventory().isEmpty()) { // Se l'inventario è vuoto (quindi sicuramente non ho già preso l'oggetto)
+
 					    out.println("- " + nextItem.getName()); // Nome dell'oggetto
 					    getCurrentRoom().getItems().add(nextItem); // Aggiungi oggetto alla stanza attuale
 					    //it.remove(); // Rimuovi dalla lista
+
 					} else { // Se l'inventario non è vuoto (potrei già aver preso l'oggetto)
 
-					    for (Item item : getInventory()) { // Itero oggetti nell'inventario
-						if (item.getId() == nextItem.getId()) { // Se l'ID dell'oggetto nell'inventario è uguale all'oggetto nel contenitore
-						    out.println("È vuoto.");
-						    getCurrentRoom().getItems().remove(nextItem); // Rimuovi oggetto dalla stanza attuale
-						} else {
-						    out.println("- " + item.getName()); // Nome dell'oggetto
-						    getCurrentRoom().getItems().add(nextItem); // Aggiungi oggetto alla stanza attuale
+					    for (Item inventoryItem : getInventory()) { // Itero oggetti nell'inventario
+						if (inventoryItem.getId() == nextItem.getId()) { // Se l'oggetto nell'inventario è uguale all'oggetto nel contenitore
+						    isFound = true; // L'oggetto è stato trovato nell'inventario
+						    break; // Esci dal for
 						}
 					    } // fine "for"
+
+					    if (isFound) { // Se l'oggetto è stato trovato nell'inventario
+						getCurrentRoom().getItems().remove(nextItem); // Rimuovi oggetto dalla stanza attuale
+					    } else { // Se l'oggetto non è nell'inventario
+						out.println("- " + nextItem.getName()); // Nome dell'oggetto
+						getCurrentRoom().getItems().add(nextItem); // Aggiungi oggetto alla stanza attuale
+					    }
 
 					} // fine "isEmpty" (si/no)
 
 				    } // fine "while"
+
+				    if (isFound) { // Gli oggetti nel contenitore sono già stati presi e messi nell'inventario
+					out.println("È vuoto.");
+				    }
 
 				} else { // Se l'oggetto contenitore è vuoto
 				    out.println("È vuoto.");

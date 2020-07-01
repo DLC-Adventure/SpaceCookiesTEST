@@ -58,6 +58,7 @@ public class NumberPad extends JDialog {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Tastierino Numerico");
         setResizable(false);
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));

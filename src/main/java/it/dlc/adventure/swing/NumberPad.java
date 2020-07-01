@@ -3,18 +3,21 @@
  */
 package it.dlc.adventure.swing;
 
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
  * Tastierino numerico.
  */
-public class NumberPad extends javax.swing.JFrame {
+public class NumberPad extends JDialog {
 
     StringBuilder codiceInserito = new StringBuilder("");
-    String password = "1234";
+    String passwordModule3 = "6180";
+    String passwordResearchLab = "169";
 
     public StringBuilder getText() {
-	return codiceInserito;
+	return  new StringBuilder(codiceInserito);
     }
 
     public void setText(java.awt.event.ActionEvent evt) {
@@ -25,6 +28,7 @@ public class NumberPad extends javax.swing.JFrame {
      * Creates new form Password
      */
     public NumberPad() {
+        super((JFrame) null, true);
 	initComponents();
     }
 
@@ -53,7 +57,8 @@ public class NumberPad extends javax.swing.JFrame {
         jb4 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
         jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -337,10 +342,8 @@ public class NumberPad extends javax.swing.JFrame {
 
     private void jbInvioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbInvioActionPerformed
 
-	if (password.equals(codiceInserito.toString())) {
-	    JOptionPane.showMessageDialog(null, "Complimenti, hai aperto la porta!", "Accesso consentito", JOptionPane.INFORMATION_MESSAGE);
-	} else {
-	    JOptionPane.showMessageDialog(null, "Hai sbagliato la password. Riprova, se ti va", "Respinto", JOptionPane.ERROR_MESSAGE);
+	if (codiceInserito.toString().equals(codiceInserito.toString())) {
+                this.dispose();
 	}
     }//GEN-LAST:event_jbInvioActionPerformed
 

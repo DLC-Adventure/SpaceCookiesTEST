@@ -11,6 +11,9 @@ import it.dlc.adventure.type.ItemContainer;
 import it.dlc.adventure.type.Room;
 import it.dlc.adventure.swing.ElementTable;
 import it.dlc.adventure.swing.Picks;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.util.Iterator;
 import java.util.Random;
@@ -26,9 +29,18 @@ public class Game extends GameDescription {
      */
     @Override
     public void intro() {
-	System.out.println("================================================");
-	System.out.println("Hai commesso un crimine sulla Terra e sei stato condannato a vivere in isolamento per 5 anni in una navicella spaziale, obbligato a svolgere le faccende \"di casa\" e riparare i circuiti danneggiati dell'astronave.\n"
-		+ "La prigionia è dura e snervante, tuttavia hai visto una teca contenente dei biscotti che potrebbero sollevarti un po' il morale. Chissà come si apre!\n"
+	System.out.println("================================================================================================");
+	System.out.println(""
+		+ "         ___  ___   _    __  ___    __  _    _   _    __ ___   ___\n"
+		+ "       ,' _/ / o |.' \\ ,'_/ / _/  ,'_/,' \\ ,' \\ / //7/ // _/ ,' _/\n"
+		+ "      _\\ `. / _,'/ o // /_ / _/  / /_/ o |/ o |/  ,'/ // _/ _\\ `.     by DLC © 2020\n"
+		+ "     /___,'/_/  /_n_/ |__//___/  |__/|_,' |_,'/_/\\\\/_//___//___,' \n");
+
+	System.out.println("Hai commesso un crimine sulla Terra e sei stato condannato a vivere in isolamento per 5 anni\n"
+		+ "in una navicella spaziale, obbligato a svolgere le faccende \"di casa\" e riparare i circuiti\n"
+		+ "danneggiati dell'astronave.\n"
+		+ "La prigionia è dura e snervante, tuttavia hai visto una teca contenente dei biscotti che\n"
+		+ "potrebbero sollevarti un po' il morale. Chissà come si apre!\n"
 		+ "L'astronave è gestita da un'intelligenza artificiale che esegue i tuoi comandi.");
     }
 
@@ -37,22 +49,47 @@ public class Game extends GameDescription {
      */
     @Override
     public void help() {
-	System.out.println("Ricordati che per utilizzare le tue funzioni motorie dovrai utilizzare i seguenti comandi:\n"
-		+ "NORD, SUD, OVEST, EST per spostarti. O più semplicemente N, S, O, E.\n"
-		+ "Per usare gli occhi digita il comando GUARDA o OSSERVA.\n"
-		+ "Se vuoi sembrare arguto digita il comando ESAMINA (QUALCOSA).\n"
-		+ "Inoltre la tua tuta spaziale può contenere vari oggetti, per vederne il contenuto digita il comando INVENTARIO o 'I'.\n"
-		+ "Cimentati nell'arte del bricolage digitando APRI (QUALCOSA) CON (QUALCOSA).\n"
-		+ "Se hai una memoria di pochi byte e dovessi dimenticare tutto, digita il comando '?' per rivedere questi comandi.\n"
-		+ "Probabilmente ce ne sono altri... Ma di certo non te li posso dire tutti io!");
+	System.out.println("Ricordati che per utilizzare le tue funzioni motorie dovrai eseguire i seguenti comandi:\n"
+		+ "- NORD, SUD, OVEST, EST per spostarti. O più semplicemente N, S, O, E.\n"
+		+ "- Per usare gli occhi digita il comando GUARDA o OSSERVA.\n"
+		+ "- Se vuoi sembrare arguto digita il comando ESAMINA (QUALCOSA).\n"
+		+ "- Inoltre la tua tuta spaziale può contenere vari oggetti,\n"
+		+ "  per vederne il contenuto digita INVENTARIO o 'I'.\n"
+		+ "- Cimentati nell'arte del bricolage digitando APRI (QUALCOSA) CON (QUALCOSA).\n"
+		+ "Probabilmente ce ne sono altri... Ma di certo non te li posso dire tutti io!\n\n"
+		+ "Se hai una memoria di pochi byte e dovessi dimenticare tutto,\n"
+		+ "digita '?' per rivedere questa schermata.");
     }
 
     /**
      * Testo di fine gioco.
      */
     public void theEnd() {
-	System.out.println("FINE");
-	System.exit(0);
+	System.out.println("La teca si apre, riesci a prendere un biscotto e si chiude un attimo dopo!\n"
+		+ "Riesci finalmente a gustare il tuo tanto desiderato biscotto.\n"
+		+ "La tua pena è stata prolungata di 2 settimane per questo sgarro,\n"
+		+ "ma a te non importa perché quel biscotto era troppo buono!"
+		+ "\n\nGrazie per aver giocato alla nostra avventura :D");
+	gameOver(); // Terminazione del gioco
+    }
+
+    /**
+     * Terminazione del gioco.
+     */
+    public void gameOver() {
+	try {
+	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	    System.out.println("\n################################################");
+	    System.out.println("Premi il tasto INVIO per chiudere il gioco...");
+	    System.out.println("################################################");
+	    br.readLine();
+	} catch (IOException ex) {
+	    System.out.println("\n################################################");
+	    System.err.println("Impossibile terminare il gioco.\nEccezione verificata: " + ex);
+	    System.out.println("################################################");
+	} finally {
+	    System.exit(0);
+	}
     }
 
     /**
@@ -161,12 +198,12 @@ public class Game extends GameDescription {
 	getCommands().add(teleport);
 
 	// Stanze
-	Room airlock = new Room(0, "Camera di equilibrio", "Ti trovi nella Camera di equilibrio, permette il passaggio di persone e materiali tra due ambienti con atmosfere diverse.");
-	airlock.setLook("Vedi, tra varie attrezzature, una di quelle tute da astronauta, utilizzate per resistere all'atmosfera esterna. Inoltre vedi un'enorme porta che si affaccia all'esterno. Non ti consiglio di uscire!");
+	Room airlock = new Room(0, "Camera di equilibrio", "Ti trovi nella Camera di equilibrio, permette il passaggio di persone e materiali\ntra due ambienti con atmosfere diverse.");
+	airlock.setLook("Vedi, tra varie attrezzature, una di quelle tute da astronauta, utilizzate per resistere all'atmosfera esterna.\nInoltre vedi un'enorme porta che si affaccia all'esterno. Non ti consiglio di uscire!");
 	getRooms().add(airlock);
 
-	Room module1 = new Room(1, "Modulo 1", "Ti trovi nel Modulo 1, una stanza pressurizzata di grandi dimensioni, intorno a te vedi alcuni oggetti spaziali dalla dubbia utilità.");
-	module1.setLook("Vedi un montacarichi, probabilmente è utilizzato per spostare carichi e rifornimenti da un Modulo all'altro.");
+	Room module1 = new Room(1, "Modulo 1", "Ti trovi nel Modulo 1, una stanza pressurizzata di grandi dimensioni,\nintorno a te vedi alcuni oggetti spaziali dalla dubbia utilità.");
+	module1.setLook("Vedi un montacarichi, probabilmente è utilizzato per spostare carichi e rifornimenti\nda un modulo all'altro.");
 	getRooms().add(module1);
 
 	Room module2 = new Room(2, "Modulo 2", "Sei nel modulo 2, una semplice stanza di passaggio.");
@@ -175,11 +212,11 @@ public class Game extends GameDescription {
 	module2.setAccessible(false); // Non è accessibile, è chiusa a chiave
 
 	Room module3 = new Room(3, "Modulo 3", "Sei nel modulo 3, è simile al modulo 1.");
-	module3.setLook("Vedi un tastierino numerico fissato al muro.");
+	module3.setLook("Vedi un tastierino numerico fissato nella parete.");
 	getRooms().add(module3);
 	module3.setAccessible(false); // Non è accessibile, è chiusa a chiave
 
-	Room kitchen = new Room(4, "Cucina", "Sei in una \"spaziosa\" cucina. Sembra che qualcuno abbia fatto rifornimento da poco.");
+	Room kitchen = new Room(4, "Cucina", "Sei in una \"spaziosa\" cucina.\nSembra che qualcuno abbia fatto rifornimento da poco.");
 	kitchen.setLook("Vedi un frigorifero, un tavolo con delle sedie, alcuni scaffali...");
 	getRooms().add(kitchen);
 
@@ -187,15 +224,15 @@ public class Game extends GameDescription {
 	warehouse.setLook("Vedi un sacco di robaccia e un armadietto.");
 	getRooms().add(warehouse);
 
-	Room crewCabin = new Room(6, "Cabina dell'equipaggio", "Sei nella cabina dell'equipaggio. Attualmente è qui che dormi. ");
+	Room crewCabin = new Room(6, "Cabina dell'equipaggio", "Sei nella cabina dell'equipaggio. Attualmente è qui che dormi.");
 	crewCabin.setLook("Ci sono dei letti a castello, il tuo è quello più vicino alla porta.");
 	getRooms().add(crewCabin);
 
 	Room cafe = new Room(7, "Bar", "Sei nel bar della navicella, sembra molto accogliente.");
-	cafe.setLook("Vedi un lungo bancone sul quale ci sono dei bicchieri da cocktail usati. Il vecchio equipaggio sembra aver fatto baldoria.");
+	cafe.setLook("Vedi un lungo bancone sul quale ci sono dei bicchieri da cocktail usati.\nIl vecchio equipaggio sembra aver fatto baldoria.");
 	getRooms().add(cafe);
 
-	Room engineRoomN = new Room(8, "Sala motori (nord)", "Sei nella sala motori, ci sono dei macchinari in movimento. Senti dei cigolii strani, spera che non ci siano problemi.");
+	Room engineRoomN = new Room(8, "Sala motori (nord)", "Sei nella sala motori, ci sono dei macchinari in movimento.\nSenti dei cigolii strani, spera che non ci siano problemi.");
 	engineRoomN.setLook("Ci sono tanti macchinari in funzione.");
 	getRooms().add(engineRoomN);
 
@@ -204,15 +241,15 @@ public class Game extends GameDescription {
 	getRooms().add(engineRoomS);
 	engineRoomS.setVisible(false); // Non è visibile, ha la luce spenta
 
-	Room observationDome = new Room(10, "Cupola di osservazione", "Sei nella cupola di osservazione, piccolo modulo progettato per l'osservazione delle operazioni di riparazione effettuate al di fuori della navicella.");
-	observationDome.setLook("Vedi 6 finestre laterali, ognuna delle quali è dotata di serrande per la protezione dalla contaminazione e dalle collisioni con detriti orbitanti.");
+	Room observationDome = new Room(10, "Cupola di osservazione", "Sei nella cupola di osservazione, piccolo modulo progettato per\nl'osservazione delle operazioni di riparazione effettuate al di fuori della navicella.");
+	observationDome.setLook("Vedi 6 finestre laterali, ognuna delle quali è dotata di serrande per la protezione\ndalla contaminazione e dalle collisioni con detriti orbitanti.");
 	getRooms().add(observationDome);
 
-	Room toilette = new Room(11, "Toilette", "Ti trovi nella toilette. L'aria di questa stanza viene sottoposta ad processo di igienizzazione per rimuovere odori e batteri.");
+	Room toilette = new Room(11, "Toilette", "Ti trovi nella toilette. L'aria di questa stanza viene sottoposta ad un processo\ndi igienizzazione per rimuovere odori e batteri.");
 	toilette.setLook("Vedi un wc e un lavandino. Affianco al lavandino vedi un condotto di aerazione.");
 	getRooms().add(toilette);
 
-	Room escapePods = new Room(12, "Capsula di salvataggio", "Sei nella capsula di salvataggio, un dispositivo di fuga installato per l'abbandono della navicella in caso di pericolo.");
+	Room escapePods = new Room(12, "Capsula di salvataggio", "Sei nella capsula di salvataggio, un dispositivo di fuga\ninstallato per l'abbandono della navicella in caso di pericolo.");
 	escapePods.setLook("Vedi un pulsante e una leva.");
 	getRooms().add(escapePods);
 
@@ -221,12 +258,12 @@ public class Game extends GameDescription {
 	getRooms().add(medicalRoom);
 	medicalRoom.setAccessible(false); // Non è accessibile, c'è un muro
 
-	Room meetingRoom = new Room(14, "Sala riunioni", "Sei nella sala riunioni, qui il comandante e l'equipaggio discutono le decisioni da prendere, ma visto che sei da solo non credo ci sia molto di cui discutere.");
-	meetingRoom.setLook("Vedi un sacco di poltrone, dei quadri e un gigantesco tavolo di vetro posto al centro della stanza.");
+	Room meetingRoom = new Room(14, "Sala riunioni", "Sei nella sala riunioni, qui il comandante e l'equipaggio discutono le decisioni da prendere,\nma visto che sei da solo non credo ci sia molto di cui discutere.");
+	meetingRoom.setLook("Vedi tante poltrone, dei quadri e un gigantesco tavolo di vetro posto al centro della stanza.");
 	getRooms().add(meetingRoom);
 	meetingRoom.setAccessible(false); // Non è accessibile, è chiusa a chiave
 
-	Room controlRoom = new Room(15, "Stanza di comando", "Sei nella stanza di comando. All'epoca gestita dal comandante, ora controllata dall'intelligenza artificiale dell'astronave.");
+	Room controlRoom = new Room(15, "Stanza di comando", "Sei nella stanza di comando.\nAll'epoca gestita dal comandante, ora controllata dall'intelligenza artificiale dell'astronave.");
 	controlRoom.setLook("Riesci finalmente a vedere la teca contenente i biscotti, che acquolina!");
 	getRooms().add(controlRoom);
 
@@ -238,12 +275,12 @@ public class Game extends GameDescription {
 	captainsCabin.setLook("Vedi una scrivania, un pianoforte e una chitarra.");
 	getRooms().add(captainsCabin);
 
-	Room researchLab = new Room(18, "Laboratorio di ricerca", "Sei nel laboratorio di ricerca, qui venivano condotti esperimenti e altre ricerche in un ambiente a gravità zero impossibile da riprodurre sulla Terra.");
-	researchLab.setLook("Vedi un microscopio, un libro e un tastierino numerico... Appesa al muro c'è anche una tavola periodica degli elementi.");
+	Room researchLab = new Room(18, "Laboratorio di ricerca", "Sei nel laboratorio di ricerca, qui venivano condotti esperimenti e altre ricerche\nin un ambiente a gravità zero impossibile da riprodurre sulla Terra.");
+	researchLab.setLook("Vedi un microscopio, un libro e un tastierino numerico...\nAppesa al muro c'è anche una tavola periodica degli elementi.");
 	getRooms().add(researchLab);
 
-	Room secretLab = new Room(19, "Laboratorio segreto COVID-19", "Sei entrato in una stanza dall'aspetto molto cupo e tenebroso, sulla targhetta della porta da cui sei entrato leggi \"Laboratorio segreto COVID-19\"");
-	secretLab.setLook("Il soffitto è pieno di pipistrelli e sulle pareti ci sono delle antenne. Noti anche una foto appesa al muro.");
+	Room secretLab = new Room(19, "Laboratorio segreto COVID-19", "Sei entrato in una stanza dall'aspetto molto cupo e tenebroso,\nsulla targhetta della porta da cui sei entrato leggi \"Laboratorio segreto COVID-19\"");
+	secretLab.setLook("Il soffitto è pieno di pipistrelli e sulle pareti ci sono delle antenne.\nNoti anche una foto appesa al muro.");
 	getRooms().add(secretLab);
 	secretLab.setAccessible(false); // Non è accessibile, è chiusa a chiave
 
@@ -284,7 +321,7 @@ public class Game extends GameDescription {
 	observationDome.setSouth(module2);
 
 	toilette.setNorth(module2);
-	toilette.setWest(medicalRoom); // Non accessibile
+	toilette.setWest(medicalRoom);
 
 	escapePods.setSouth(module3);
 
@@ -312,13 +349,13 @@ public class Game extends GameDescription {
 	spaceSuit.setAlias(new String[]{"tute"});
 	airlock.getItems().add(spaceSuit); // Aggiungi alla stanza
 
-	Item exitDoor = new Item(1, "Porta", "Un'enorme porta che si affaccia all'esterno. Non ti consiglio di uscire!");
+	Item exitDoor = new Item(1, "Porta", "Un'enorme porta che si affaccia all'esterno.\nNon ti consiglio di uscire!");
 	exitDoor.setAlias(new String[]{"portone"});
 	airlock.getItems().add(exitDoor); // Aggiungi alla stanza
 	exitDoor.setOpenable(true); // È apribile
 	exitDoor.setOpen(true); // È aperto
 
-	Item goodsLift = new Item(2, "Montacarichi", "Trovi un pacco di Space Amazon. Incredibile! Amazon spedisce anche nello spazio.");
+	Item goodsLift = new Item(2, "Montacarichi", "Trovi un pacco di Space Amazon.\nIncredibile! Amazon spedisce anche nello spazio.");
 	goodsLift.setAlias(new String[]{"montacarichi"});
 	module1.getItems().add(goodsLift); // Aggiungi alla stanza
 
@@ -334,13 +371,13 @@ public class Game extends GameDescription {
 	module1to2door.setOpenable(true); // È apribile
 	module1to2door.setOpen(false); // È chiuso (a chiave)
 
-	Item numberPad = new Item(5, "Tastierino", "Necessita di un codice. Potrei provare a utilizzarlo e inserire qualche combinazione.");
+	Item numberPad = new Item(5, "Tastierino", "Necessita di un codice.\nPotrei provare a utilizzarlo e inserire qualche combinazione.");
 	numberPad.setAlias(new String[]{"tastiera"});
 	module3.getItems().add(numberPad); // Aggiungi alla stanza
 	researchLab.getItems().add(numberPad); // Aggiungi alla stanza
 	numberPad.setUsable(true); // È utilizzabile
 
-	Item beer = new Item(6, "Birra", "Chissà che sapore ha.");
+	Item beer = new Item(6, "Birra", "Chissà se è buona.");
 	beer.setAlias(new String[]{});
 	beer.setPickupable(true); // Si può prendere
 	beer.setDrinkable(true); // È bevibile
@@ -371,14 +408,14 @@ public class Game extends GameDescription {
 	key.setPickupable(true); // Si può prendere
 	key.setUsable(true); // Si può utilizzare
 
-	ItemContainer locker = new ItemContainer(12, "Armadietto", "È chiuso, ma la serratura sembra rotta. Potresti far leva con qualcosa.");
+	ItemContainer locker = new ItemContainer(12, "Armadietto", "È chiuso, ma la serratura sembra rotta.\nPotresti far leva con qualcosa.");
 	locker.setAlias(new String[]{"armadio"});
 	warehouse.getItems().add(locker); // Aggiungi alla stanza
 	locker.add(key); // Aggiungi nell'oggetto contenitore
 	locker.setOpenable(true); // È apribile
 	locker.setOpen(false); // È chiuso (a chiave)
 
-	Item bed = new Item(13, "Letto", "Comodi letti in lattice, il tuo ha le lenzuola rosa... Quasi quasi viene voglia di farti una pennichella.");
+	Item bed = new Item(13, "Letto", "Comodi letti in lattice, il tuo ha le lenzuola rosa...\nQuasi quasi viene voglia di farti una pennichella.");
 	bed.setAlias(new String[]{"letti"});
 	crewCabin.getItems().add(bed); // Aggiungi alla stanza
 
@@ -392,7 +429,7 @@ public class Game extends GameDescription {
 	cafe.getItems().add(glass); // Aggiungi alla stanza
 	glass.setCleanable(true); // Si può pulire
 
-	Item engine = new Item(16, "Motori", "I motori utilizzano una particolare miscela di idrogeno e delle celle ad energia solare. Sembra davvero innovativa!");
+	Item engine = new Item(16, "Motori", "I motori utilizzano una particolare miscela di idrogeno e delle celle ad energia solare.\nSembra davvero innovativa!");
 	engine.setAlias(new String[]{"motore", "macchinario", "macchinari"});
 	engineRoomN.getItems().add(engine); // Aggiungi alla stanza
 	engineRoomS.getItems().add(engine); // Aggiungi alla stanza
@@ -448,11 +485,11 @@ public class Game extends GameDescription {
 	syringe.setPickupable(true); // Si può prendere
 	syringe.setUsable(true); // Si può utilizzare
 
-	Item armchair = new Item(27, "Poltrona", "Un sacco di poltrone color arcobaleno, sembrano molto comode...");
+	Item armchair = new Item(27, "Poltrona", "Un tante poltrone color arcobaleno, sembrano molto comode...");
 	armchair.setAlias(new String[]{"poltrone"});
 	meetingRoom.getItems().add(armchair); // Aggiungi alla stanza
 
-	Item painting = new Item(28, "Quadro", "Dei quadri raffiguranti quello che probabilmente erano il precedente comandante dell'astronave, in compagnia del suo equipaggio.");
+	Item painting = new Item(28, "Quadro", "Dei quadri raffiguranti quello che probabilmente erano il precedente comandante dell'astronave,\nin compagnia del suo equipaggio.");
 	painting.setAlias(new String[]{"quadri"});
 	meetingRoom.getItems().add(painting); // Aggiungi alla stanza
 
@@ -473,6 +510,7 @@ public class Game extends GameDescription {
 	Item projector = new Item(32, "Proiettore", "Un proiettore di ultima generazione che trasmette immagini a 5 dimensioni.");
 	projector.setAlias(new String[]{});
 	livingRoom.getItems().add(projector); // Aggiungi alla stanza
+	projector.setTurnable(true); // Si può accendere
 
 	Item desktop = new Item(33, "Scrivania", "Visualizzazione della scrivania..."); // "Esamina" mostra la foto dei plettri
 	desktop.setAlias(new String[]{});
@@ -511,7 +549,7 @@ public class Game extends GameDescription {
 	antenna.setAlias(new String[]{"antenna"});
 	secretLab.getItems().add(antenna); // Aggiungi alla stanza
 
-	ItemContainer photo = new ItemContainer(41, "Foto", "Una normalissima foto del plurimiliardario Bill Gates, noti una tessera attaccata.");
+	ItemContainer photo = new ItemContainer(41, "Foto", "Una normalissima foto del plurimiliardario Bill Gates,\nnoti una tessera attaccata.");
 	photo.setAlias(new String[]{});
 	secretLab.getItems().add(photo); // Aggiungi alla stanza
 
@@ -614,7 +652,8 @@ public class Game extends GameDescription {
 
 	    case END:
 		out.println("L'avventura per te... FINISCE QUI!\nPOLLO");
-		System.exit(0);
+		gameOver(); // Terminazione del gioco
+		break;
 
 	    case INVENTORY:
 		if (getInventory().isEmpty()) { // Se l'inventario è vuoto
@@ -718,9 +757,10 @@ public class Game extends GameDescription {
 			    } else { // Se non è di tipo contenitore
 
 				if (p.getItem().getId() == 1) { // Se si tratta dell'oggetto "porta" (1) nella camera di equilibrio
-				    out.println("La porta si sta aprendo... Vieni risucchiato all'esterno dell'astronave, il tuo cervello esplode... E MUORI.\n"
+				    out.println("La porta si sta aprendo...\n"
+					    + "Vieni risucchiato all'esterno dell'astronave, il tuo cervello esplode...      E MUORI.\n"
 					    + "Il tuo corpo fluttuerà per sempre nello spazio più profondo.");
-				    System.exit(0);
+				    gameOver(); // Terminazione del gioco
 				} else {
 				    out.println("È già aperto.");
 				}
@@ -739,6 +779,8 @@ public class Game extends GameDescription {
 					    getCurrentRoom().getWest().setAccessible(true); // La stanza "modulo 2" diventa accessibile
 					    getInventory().remove(p.getInventoryItem()); // Rimuovo la chiave dall'inventario
 					    out.println("Hai aperto la porta!");
+					} else {
+					    out.println("È blindata, hai bisogno della chiave.");
 					}
 					break;
 
@@ -747,6 +789,8 @@ public class Game extends GameDescription {
 					if (p.getInventoryItem().getId() == 17) { // Se nell'inventario ho il cacciavite (17)
 					    p.getItem().setOpen(true); // Rendo l'armadietto (12) aperto
 					    out.println("Hai forzato l'armadietto!");
+					} else {
+					    out.println("Non va bene. Prova con un altro oggetto.");
 					}
 					break;
 
@@ -754,6 +798,8 @@ public class Game extends GameDescription {
 					// Teca nella stanza di comando (30)
 					if (p.getInventoryItem().getId() == 42) { // Se nell'inventario ho la tessera (42)
 					    theEnd(); // Fine del gioco.
+					} else {
+					    out.println("Non mi sembra l'oggetto adatto per aprirla.");
 					}
 					break;
 
@@ -808,7 +854,7 @@ public class Game extends GameDescription {
 				    if (password.equals(check)) { // Se la password inserita è uguale a quella richiesta
 					getCurrentRoom().getWest().setAccessible(true); // La stanza "Sala riunioni" diventa accessibile
 					getCurrentRoom().getItems().remove(p.getItem()); // Rimuovo il tastierino dalla stanza
-					out.println("================================================");
+					System.out.println("================================================================================================");
 					out.println("Hai aperto la porta!");
 				    } else {
 					out.println("Codice errato!");
@@ -825,7 +871,7 @@ public class Game extends GameDescription {
 				    if (password.equals(check)) { // Se la password inserita è uguale a quella richiesta
 					getCurrentRoom().getNorth().setAccessible(true); // La stanza "Laboratorio segreto" diventa accessibile
 					getCurrentRoom().getItems().remove(p.getItem()); // Rimuovo il tastierino dalla stanza
-					out.println("================================================");
+					System.out.println("================================================================================================");
 					out.println("Hai aperto la porta!");
 				    } else {
 					out.println("Codice errato!");
@@ -868,9 +914,9 @@ public class Game extends GameDescription {
 			    case 26:
 				// Siringa (26)
 				out.println("Inizi a vedere tutto verde, il tuo corpo si gonfia, i tuoi vestiti si strappano...\n"
-					+ "La tua massa corporea diventa superiore a quella della navicella provocando un'enorme esplosione.\n"
-					+ "SEI MORTO.");
-				System.exit(0);
+					+ "La tua massa corporea diventa superiore a quella della navicella provocando"
+					+ "un'enorme esplosione.           SEI MORTO.");
+				gameOver(); // Terminazione del gioco
 			    default:
 				out.println("Non capisco.");
 				break;
@@ -890,8 +936,8 @@ public class Game extends GameDescription {
 		    if (p.getItem().isPushable()) { // Se si può premere
 
 			if (p.getItem().getId() == 23) { // Se si tratta dell'oggetto "pulsante" (23)
-			    out.println("La capsula di salvataggio viene immediatamente espulsa, vaghi nello spazio. Spera che qualcuno si accorga di te. Buona fortuna.");
-			    System.exit(0);
+			    out.println("La capsula di salvataggio viene immediatamente espulsa, vaghi nello spazio.\nSpera che qualcuno si accorga di te. Buona fortuna.");
+			    gameOver(); // Terminazione del gioco
 			} else {
 			    out.println("Non capisco.");
 			}
@@ -954,6 +1000,7 @@ public class Game extends GameDescription {
 
 			if (p.getItem().getId() == 22) { // Se si tratta dell'oggetto "condotto" (22)
 			    setCurrentRoom(getCurrentRoom().getWest()); // Imposto la stanza a ovest (stanza medica) come attuale
+			    getCurrentRoom().setAccessible(true); // La stanza attuale (stanza medica) diventa accessibile
 
 			    out.println("Stai attraversando il condotto...");
 			    move = 1; // Hai cambiato stanza
@@ -1053,8 +1100,9 @@ public class Game extends GameDescription {
 		    if (p.getItem().isKickable()) { // Se si può cacciare via
 
 			if (p.getItem().getId() == 39) { // Se si tratta dell'oggetto "pipistrelli" (39)
-			    out.println("Si innervosiscono, ti attaccano in massa, ti trasmettono il Covid... E MUORI.");
-			    System.exit(0);
+			    out.println("Si innervosiscono, ti attaccano in massa, ti trasmettono il Covid...      E MUORI."
+				    + "È stato bello conoscerti.");
+			    gameOver(); // Terminazione del gioco
 			} else {
 			    out.println("Non capisco.");
 			}
@@ -1073,15 +1121,16 @@ public class Game extends GameDescription {
 		if (getCurrentRoom().getId() == 6 || getCurrentRoom().getId() == 13 || getCurrentRoom().getId() == 16) {
 		    out.println("Ti sembra il momento?!");
 		} else {
-		    out.println("Vuoi farti un pisolino sul pavimento?");
+		    out.println("Ti vuoi fare un pisolino sul pavimento?");
 		}
 		break;
 
 	    case EXIT:
 		if (getCurrentRoom().getId() == 0) { // Se ti trovi nella camera di equilibrio (ID = 0)
-		    out.println("La porta si sta aprendo... Vieni risucchiato all'esterno dell'astronave, il tuo cervello esplode... E MUORI.\n"
+		    out.println("La porta si sta aprendo...\n"
+			    + "Vieni risucchiato all'esterno dell'astronave, il tuo cervello esplode...      E MUORI.\n"
 			    + "Il tuo corpo fluttuerà per sempre nello spazio più profondo.");
-		    System.exit(0);
+		    gameOver(); // Terminazione del gioco
 		} else {
 		    out.println("Cosa stai cercando di fare?");
 		}
@@ -1131,7 +1180,7 @@ public class Game extends GameDescription {
 			break;
 		} // fine switch "cardinal"
 
-		out.println("================================================");
+		System.out.println("================================================================================================");
 		break;
 
 	} // fine switch
@@ -1140,7 +1189,7 @@ public class Game extends GameDescription {
 	    case 1:
 		// Se ti sei mosso e quindi hai cambiato stanza
 		//out.println(getCurrentRoom().getName()); // Nome della stanza attuale
-		//out.println("================================================");
+		//System.out.println("================================================");
 		out.println(getCurrentRoom().getDescription()); // Descrizione della stanza attuale
 		break;
 	    case 2:

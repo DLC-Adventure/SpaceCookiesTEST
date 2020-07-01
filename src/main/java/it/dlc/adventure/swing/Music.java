@@ -22,7 +22,7 @@ public class Music {
     public void playMusic() {
 
 	try {
-	    File musicPath = new File("src/main/resources/Soundtrack.wav");
+	    File musicPath = new File("src/main/resources/media/Soundtrack.wav");
 
 	    if (musicPath.exists()) {
 		AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
@@ -43,11 +43,16 @@ public class Music {
 		    clip.stop();
 		}
 	    } else {
-		System.out.println("File non trovato.");
+		System.out.println("Musica non trovata.");
+	    System.out.println("\n################################################");
+	    System.err.println("Impossibile riprodurre la musica, file non trovato.");
+	    System.out.println("################################################");
 	    }
 	    
 	} catch (HeadlessException | IOException | LineUnavailableException | UnsupportedAudioFileException ex) {
-	    System.out.println("Impossibile riprodurre la musica.\nEccezione verificata: " + ex);
+	    System.out.println("\n################################################");
+	    System.err.println("Impossibile riprodurre la musica.\nEccezione verificata: " + ex);
+	    System.out.println("################################################");
 	}
 	
     }

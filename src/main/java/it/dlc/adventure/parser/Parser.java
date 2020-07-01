@@ -104,6 +104,11 @@ public class Parser {
 
 			    if (nToken > i + 1) { // Se c'è un'altra parola
 				i++; // Vai alla parola successiva
+				
+				if (inputArticle > -1) { // Se ho trovato un articolo
+				    i++; // Vai alla parola successiva
+				}
+				
 				inputInventoryItem = searchItem(token[i], inventory); // Cerca l'oggetto nell'inventario
 
 				if (inputInventoryItem > -1) { // Se ho trovato l'oggetto nell'inventario

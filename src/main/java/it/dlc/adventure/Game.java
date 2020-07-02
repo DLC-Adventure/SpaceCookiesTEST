@@ -571,7 +571,7 @@ public class Game extends GameDescription {
 	switcher.setTurnable(true); // Si può accendere
 
 	// Stanza di INIZIO GIOCO
-	setCurrentRoom(researchLab);
+	setCurrentRoom(module1);
 
     } // fine funzione "init()"
 

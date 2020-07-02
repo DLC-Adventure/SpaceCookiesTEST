@@ -5,7 +5,6 @@ package it.dlc.adventure.swing;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 /**
  * Tastierino numerico.
@@ -17,7 +16,7 @@ public class NumberPad extends JDialog {
     String passwordResearchLab = "169";
 
     public StringBuilder getText() {
-	return  new StringBuilder(codiceInserito);
+	return new StringBuilder(codiceInserito);
     }
 
     public void setText(java.awt.event.ActionEvent evt) {
@@ -28,7 +27,7 @@ public class NumberPad extends JDialog {
      * Creates new form Password
      */
     public NumberPad() {
-        super((JFrame) null, true);
+	super((JFrame) null, true);
 	initComponents();
     }
 
@@ -344,7 +343,7 @@ public class NumberPad extends JDialog {
     private void jbInvioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbInvioActionPerformed
 
 	if (codiceInserito.toString().equals(codiceInserito.toString())) {
-                this.dispose();
+	    this.dispose();
 	}
     }//GEN-LAST:event_jbInvioActionPerformed
 

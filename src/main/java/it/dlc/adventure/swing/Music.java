@@ -44,17 +44,17 @@ public class Music {
 		}
 	    } else {
 		System.out.println("Musica non trovata.");
-	    System.out.println("\n################################################");
-	    System.err.println("Impossibile riprodurre la musica, file non trovato.");
-	    System.out.println("################################################");
+		System.out.println("\n################################################");
+		System.err.println("Impossibile riprodurre la musica, file non trovato.");
+		System.out.println("################################################");
 	    }
-	    
+
 	} catch (HeadlessException | IOException | LineUnavailableException | UnsupportedAudioFileException ex) {
 	    System.out.println("\n################################################");
 	    System.err.println("Impossibile riprodurre la musica.\nEccezione verificata: " + ex);
 	    System.out.println("################################################");
 	}
-	
+
     }
 
 }

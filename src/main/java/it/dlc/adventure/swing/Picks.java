@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 /**
- * Immagine swing con i plettri numerati.
+ * Immagine swing della scrivania con i plettri colorati.
  */
 public class Picks {
 

@@ -87,7 +87,12 @@ public class Parser {
 		int inputArticle = searchArticle(token[i]); // Cerca l'articolo
 
 		if (inputArticle > -1) { // Se ho trovato un articolo
-		    i++; // Vai alla parola successiva
+		    if (nToken > i + 1) { // Se c'è una parola successiva
+			i++; // Vai alla parola successiva
+		    } else { // Se non c'è un'altra parola dopo l'articolo
+			noCommand();
+			return new ParserOutput(null, null, null); // Non riconosciuto
+		    }
 		}
 
 		int inputItem = searchItem(token[i], items); // Cerca l'oggetto nella stanza
@@ -104,11 +109,16 @@ public class Parser {
 
 			    if (nToken > i + 1) { // Se c'è un'altra parola
 				i++; // Vai alla parola successiva
-				
+
 				if (inputArticle > -1) { // Se ho trovato un articolo
-				    i++; // Vai alla parola successiva
+				    if (nToken > i + 1) { // Se c'è una parola successiva
+					i++; // Vai alla parola successiva
+				    } else { // Se non c'è un'altra parola dopo l'articolo
+					noCommand();
+					return new ParserOutput(null, null, null); // Non riconosciuto
+				    }
 				}
-				
+
 				inputInventoryItem = searchItem(token[i], inventory); // Cerca l'oggetto nell'inventario
 
 				if (inputInventoryItem > -1) { // Se ho trovato l'oggetto nell'inventario

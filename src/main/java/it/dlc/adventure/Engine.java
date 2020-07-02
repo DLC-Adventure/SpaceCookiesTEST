@@ -77,7 +77,7 @@ public class Engine {
 
 	    String console = scanner.nextLine(); // Quando premo INVIO, tutto ciò che ho scritto viene passato nella stringa "console"
 
-	    if (!console.isEmpty() && !console.equals("'")) { // Se la stringa digitata non è vuota e non è uguale a un apostrofo
+	    if (!console.isEmpty()) { // Se la stringa digitata non è vuota
 		// Stringa digitata + lista comandi + oggetti nella stanza + inventario
 		ParserOutput p = parser.parse(console, game.getCommands(), game.getCurrentRoom().getItems(), game.getInventory());
 

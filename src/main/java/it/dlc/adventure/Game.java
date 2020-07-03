@@ -321,7 +321,7 @@ public class Game extends GameDescription {
         crewCabin.setNorth(module1);
         crewCabin.setSouth(cafe);
         
-        cafe.setNorth(module1);
+        cafe.setNorth(crewCabin);
         cafe.setEast(engineRoomS);
         
         engineRoomN.setWest(warehouse);

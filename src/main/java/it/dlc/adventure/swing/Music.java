@@ -23,7 +23,7 @@ public class Music extends JDialog {
     public void playMusic() {
 
 	try {
-	    File musicPath = new File("src/main/resources/media/Soundtracke.wav");
+	    File musicPath = new File("src/main/resources/media/Soundtrack.wav");
 
 	    if (musicPath.exists()) {
 		AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);

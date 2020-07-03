@@ -67,11 +67,19 @@ public class Game extends GameDescription {
      * Testo di fine gioco.
      */
     public void theEnd() {
-	System.out.println("La teca si apre, riesci a prendere un biscotto e si chiude un attimo dopo!\n"
-		+ "Riesci finalmente a gustare il tuo tanto desiderato biscotto.\n"
-		+ "La tua pena è stata prolungata di 2 settimane per questo sgarro,\n"
-		+ "ma a te non importa perché quel biscotto era troppo buono!"
-		+ "\n\nGrazie per aver giocato alla nostra avventura :D");
+	System.out.println("================================================================================================");
+	System.out.println(""
+		+ "         ___  ___   _    __  ___    __  _    _   _    __ ___   ___\n"
+		+ "       ,' _/ / o |.' \\ ,'_/ / _/  ,'_/,' \\ ,' \\ / //7/ // _/ ,' _/\n"
+		+ "      _\\ `. / _,'/ o // /_ / _/  / /_/ o |/ o |/  ,'/ // _/ _\\ `.     by DLC © 2020\n"
+		+ "     /___,'/_/  /_n_/ |__//___/  |__/|_,' |_,'/_/\\\\/_//___//___,' \n");
+
+	System.out.println("La teca si apre, riesci a prendere i tuoi tanto agognati biscotti!\n"
+		+ "Dopo averli mangiati tutti, vieni sorpreso dalle telecamere di sorveglianza.\n"
+		+ "Per questo sgarro la tua pena è stata prolungata di 2 settimane, e anche la tua dieta.\n"
+		+ "Alla fine non ti è andata così male, quei biscotti erano troppo buoni!"
+		+ "\n\nGrazie per aver giocato alla nostra avventura :D\n");
+	System.out.println("================================================================================================");
 	gameOver(); // Terminazione del gioco
     }
 
@@ -487,7 +495,7 @@ public class Game extends GameDescription {
 	syringe.setPickupable(true); // Si può prendere
 	syringe.setUsable(true); // Si può utilizzare
 
-	Item armchair = new Item(27, "Poltrona", "Un tante poltrone color arcobaleno, sembrano molto comode...");
+	Item armchair = new Item(27, "Poltrona", "Tante poltrone color arcobaleno, sembrano molto comode...");
 	armchair.setAlias(new String[]{"poltrone"});
 	meetingRoom.getItems().add(armchair); // Aggiungi alla stanza
 
@@ -514,7 +522,7 @@ public class Game extends GameDescription {
 	livingRoom.getItems().add(projector); // Aggiungi alla stanza
 	projector.setTurnable(true); // Si può accendere
 
-	Item desktop = new Item(33, "Scrivania", "Visualizzazione della scrivania..."); // "Esamina" mostra la foto dei plettri
+	Item desktop = new Item(33, "Scrivania", "Vedi una scrivania con dei plettri colorati..."); // "Esamina" mostra la foto dei plettri
 	desktop.setAlias(new String[]{});
 	captainsCabin.getItems().add(desktop); // Aggiungi alla stanza
 
@@ -528,7 +536,7 @@ public class Game extends GameDescription {
 	captainsCabin.getItems().add(guitar); // Aggiungi alla stanza
 	guitar.setPlayable(true); // È suonabile
 
-	Item microscope = new Item(36, "Microscopio", "Un microscopio ottico con zoom fino a 1500x e un limite di risoluzione teorica di circa 0,2 µm.");
+	Item microscope = new Item(36, "Microscopio", "Un microscopio ottico con zoom fino a 1500x\ne un limite di risoluzione teorica di circa 0,2 µm.");
 	microscope.setAlias(new String[]{});
 	researchLab.getItems().add(microscope); // Aggiungi alla stanza
 	microscope.setUsable(true); // È utilizzabile
@@ -538,7 +546,7 @@ public class Game extends GameDescription {
 	researchLab.getItems().add(book); // Aggiungi alla stanza
 	book.setReadable(true); // Si può leggere
 
-	Item elementTable = new Item(38, "Tavola", "Visualizzazione della tavola periodica degli elementi..."); // "Esamina" mostra l'immagine (swing)
+	Item elementTable = new Item(38, "Tavola", "Vedi una particolare tavola periodica degli elementi..."); // "Esamina" mostra l'immagine (swing)
 	elementTable.setAlias(new String[]{});
 	researchLab.getItems().add(elementTable); // Aggiungi alla stanza
 
@@ -551,7 +559,7 @@ public class Game extends GameDescription {
 	antenna.setAlias(new String[]{"antenna"});
 	secretLab.getItems().add(antenna); // Aggiungi alla stanza
 
-	ItemContainer photo = new ItemContainer(41, "Foto", "Una normalissima foto del plurimiliardario Bill Gates,\nnoti una tessera attaccata.");
+	ItemContainer photo = new ItemContainer(41, "Foto", "Una normalissima foto del plurimiliardario Bill Gates, chissà qual è il nesso.\nNoti anche una tessera attaccata.");
 	photo.setAlias(new String[]{});
 	secretLab.getItems().add(photo); // Aggiungi alla stanza
 
@@ -569,6 +577,12 @@ public class Game extends GameDescription {
 	switcher.setAlias(new String[]{"luce", "luci"});
 	engineRoomS.getItems().add(switcher); // Aggiungi alla stanza
 	switcher.setTurnable(true); // Si può accendere
+	
+	Item numberpadDoor = new Item(44, "Porta", "Non ha una serratura.\nDevi trovare un modo alternativo per aprirla.");
+	exitDoor.setAlias(new String[]{"portone"});
+	module3.getItems().add(numberpadDoor); // Aggiungi alla stanza (modulo 3)
+	researchLab.getItems().add(numberpadDoor); // Aggiungi alla stanza (laboratorio di ricerca)
+	numberpadDoor.setOpenable(true); // È apribile
 
 	// Stanza di INIZIO GIOCO
 	setCurrentRoom(module1);
@@ -692,9 +706,9 @@ public class Game extends GameDescription {
 			    // Apri foto della Tavola degli elementi (swing)
 			    ElementTable pic = new ElementTable();
 			    pic.ElementTable();
-			} else {
-			    out.println(p.getItem().getDescription());// Descrizione dell'oggetto
 			}
+
+			out.println(p.getItem().getDescription());// Descrizione dell'oggetto
 
 		    } else {
 			out.println("Niente di interessante."); // Se non ha una descrizione
@@ -706,6 +720,7 @@ public class Game extends GameDescription {
 
 	    case OPEN:
 		if (p.getItem() != null) { // Se l'oggetto è nella stanza
+
 		    if (p.getItem().isOpenable()) { // Se l'oggetto è apribile
 
 			if (p.getItem().isOpen()) { // Se l'oggetto è aperto
@@ -811,6 +826,7 @@ public class Game extends GameDescription {
 					// Armadietto nella stiva (12)
 					if (p.getInventoryItem().getId() == 17) { // Se nell'inventario ho il cacciavite (17)
 					    p.getItem().setOpen(true); // Rendo l'armadietto (12) aperto
+					    getInventory().remove(p.getInventoryItem()); // Rimuovo il cacciavite dall'inventario
 					    out.println("Hai forzato l'armadietto!");
 					} else {
 					    out.println("Non va bene. Prova con un altro oggetto.");
@@ -837,7 +853,10 @@ public class Game extends GameDescription {
 
 			} // fine "isOpen" (si/no)
 
-		    } // fine "isOpenable"
+		    } else { // Se l'oggetto non è apribile
+			out.println("Non puoi aprire questo oggetto.");
+		    } // fine "isOpenable" (si/no)
+
 		} else { // Se non ho digitato il nome dell'oggetto
 		    noItem = true;
 		}
@@ -1029,7 +1048,7 @@ public class Game extends GameDescription {
 			    setCurrentRoom(getCurrentRoom().getWest()); // Imposto la stanza a ovest (stanza medica) come attuale
 			    getCurrentRoom().setAccessible(true); // La stanza attuale (stanza medica) diventa accessibile
 
-			    out.println("Stai attraversando il condotto...");
+			    out.println("Stai attraversando il condotto... Cadi giù.");
 			    move = 1; // Hai cambiato stanza
 
 			    // Entri nella stanza medica (13), il modulo 3 (3) diventa accessibile
@@ -1221,7 +1240,7 @@ public class Game extends GameDescription {
 		break;
 	    case 2:
 		// Se la stanza è chiusa
-		out.println("La porta è chiusa a chiave!");
+		out.println("La porta è chiusa!");
 		break;
 	    case 3:
 		// Se c'è un muro

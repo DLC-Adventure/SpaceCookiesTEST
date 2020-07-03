@@ -108,8 +108,10 @@ public class Parser {
 			if (inputPreposition > -1) { // Se ho trovato una preposizione
 
 			    if (nToken > i + 1) { // Se c'è un'altra parola
+				
 				i++; // Vai alla parola successiva
-
+				inputArticle = searchArticle(token[i]); // Cerca l'articolo
+				
 				if (inputArticle > -1) { // Se ho trovato un articolo
 				    if (nToken > i + 1) { // Se c'è una parola successiva
 					i++; // Vai alla parola successiva

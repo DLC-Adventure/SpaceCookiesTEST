@@ -11,15 +11,16 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
  * Riproduzione della musica in sottofondo.
  */
-public class Music {
+public class Music extends JDialog {
 
-    public void playMusic() {
+    public void playMusic()  {
 
 	try {
 	    File musicPath = new File("src/main/resources/media/Soundtrack.wav");
@@ -38,12 +39,13 @@ public class Music {
 			options, options[1]);
 		if (n == JOptionPane.OK_OPTION) { // Risposta affermativa
 		    clip.start();
+                    clip.loop(Clip.LOOP_CONTINUOUSLY);
 		}
 		if (n == JOptionPane.NO_OPTION) { // Risposta negativa
 		    clip.stop();
+                    clip.close();
 		}
 	    } else {
-		System.out.println("Musica non trovata.");
 		System.out.println("\n################################################");
 		System.err.println("Impossibile riprodurre la musica, file non trovato.");
 		System.out.println("################################################");

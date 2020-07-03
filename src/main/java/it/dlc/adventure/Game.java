@@ -891,7 +891,6 @@ public class Game extends GameDescription {
                                     NumberPad padModule3 = new NumberPad();
                                     padModule3.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
                                     padModule3.setVisible(true);
-                                    padModule3.setAlwaysOnTop(true);
                                     
                                     System.out.println("Codice inserito: " + padModule3.getText().toString());
                                     String password = "6180";
@@ -911,7 +910,6 @@ public class Game extends GameDescription {
                                     NumberPad padResarchLab = new NumberPad();
                                     padResarchLab.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
                                     padResarchLab.setVisible(true);
-                                    padResarchLab.setAlwaysOnTop(true);
                                     
                                     System.out.println("Codice inserito: " + padResarchLab.getText().toString());
                                     String password = "169";

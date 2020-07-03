@@ -20,10 +20,10 @@ import javax.swing.JOptionPane;
  */
 public class Music extends JDialog {
 
-    public void playMusic()  {
+    public void playMusic() {
 
 	try {
-	    File musicPath = new File("src/main/resources/media/Soundtrack.wav");
+	    File musicPath = new File("src/main/resources/media/Soundtracke.wav");
 
 	    if (musicPath.exists()) {
 		AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
@@ -39,20 +39,20 @@ public class Music extends JDialog {
 			options, options[1]);
 		if (n == JOptionPane.OK_OPTION) { // Risposta affermativa
 		    clip.start();
-                    clip.loop(Clip.LOOP_CONTINUOUSLY);
+		    clip.loop(Clip.LOOP_CONTINUOUSLY);
 		}
 		if (n == JOptionPane.NO_OPTION) { // Risposta negativa
 		    clip.stop();
-                    clip.close();
+		    clip.close();
 		}
 	    } else {
-		System.out.println("\n################################################");
+		System.out.println("######################################################");
 		System.err.println("Impossibile riprodurre la musica, file non trovato.");
-		System.out.println("################################################");
+		System.out.println("######################################################");
 	    }
 
 	} catch (HeadlessException | IOException | LineUnavailableException | UnsupportedAudioFileException ex) {
-	    System.out.println("\n################################################");
+	    System.out.println("################################################");
 	    System.err.println("Impossibile riprodurre la musica.\nEccezione verificata: " + ex);
 	    System.out.println("################################################");
 	}

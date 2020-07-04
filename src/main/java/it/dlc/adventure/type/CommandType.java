@@ -23,6 +23,5 @@ public enum CommandType {
     READ,
     KICK,
     SLEEP,
-    EXIT,
     TELEPORT // Comando segreto
 }

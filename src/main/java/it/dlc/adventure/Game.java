@@ -199,17 +199,13 @@ public class Game extends GameDescription {
 	sleep.setAlias(new String[]{"dormi", "stenditi"});
 	getCommands().add(sleep);
 
-	Command exit = new Command(CommandType.EXIT);
-	exit.setAlias(new String[]{"esci"});
-	getCommands().add(exit);
-
 	Command teleport = new Command(CommandType.TELEPORT);
 	teleport.setAlias(new String[]{"teleport"});
 	getCommands().add(teleport);
 
 	// Stanze
 	Room airlock = new Room(0, "Camera di equilibrio", "Ti trovi nella Camera di equilibrio, permette il passaggio di persone e materiali\ntra due ambienti con atmosfere diverse.");
-	airlock.setLook("Vedi, tra varie attrezzature, una di quelle tute da astronauta, utilizzate per resistere all'atmosfera esterna.\nInoltre vedi un'enorme porta che si affaccia all'esterno. Non ti consiglio di uscire!");
+	airlock.setLook("Vedi, tra varie attrezzature, una di quelle tute da astronauta,\nutilizzate per resistere all'atmosfera esterna.\nInoltre vedi un'enorme porta che si affaccia all'esterno. Non ti consiglio di uscire!");
 	getRooms().add(airlock);
 
 	Room module1 = new Room(1, "Modulo 1", "Ti trovi nel Modulo 1, una stanza pressurizzata di grandi dimensioni,\nintorno a te vedi alcuni oggetti spaziali dalla dubbia utilità.");
@@ -475,7 +471,7 @@ public class Game extends GameDescription {
 	toilette.getItems().add(duct); // Aggiungi alla stanza
 	duct.setWalkable(true); // Si può attraversare
 
-	Item button = new Item(23, "Pulsante", "Un enorme pulsante rosso."); // PREMI
+	Item button = new Item(23, "Pulsante", "Un enorme pulsante rosso. Non credo sia il caso di premerlo."); // PREMI
 	button.setAlias(new String[]{"bottone"});
 	escapePods.getItems().add(button); // Aggiungi alla stanza
 	button.setPushable(true); // Si può premere
@@ -578,8 +574,13 @@ public class Game extends GameDescription {
 	engineRoomS.getItems().add(switcher); // Aggiungi alla stanza
 	switcher.setTurnable(true); // Si può accendere
 
-	Item numberpadDoor = new Item(44, "Porta", "Non ha una serratura.\nDevi trovare un modo alternativo per aprirla.");
-	exitDoor.setAlias(new String[]{"portone"});
+	Item inaccessibleDoor = new Item(44, "Porta", "Non sembra che si possa aprire.\nDevi trovare un modo alternativo per passare dall'altro lato.");
+	inaccessibleDoor.setAlias(new String[]{"portone"});
+	module2.getItems().add(inaccessibleDoor); // Aggiungi alla stanza (modulo 2)
+	inaccessibleDoor.setOpenable(true); // È apribile
+
+	Item numberpadDoor = new Item(45, "Porta", "Non ha una serratura.\nDevi trovare un modo alternativo per aprirla.");
+	numberpadDoor.setAlias(new String[]{"portone"});
 	module3.getItems().add(numberpadDoor); // Aggiungi alla stanza (modulo 3)
 	researchLab.getItems().add(numberpadDoor); // Aggiungi alla stanza (laboratorio di ricerca)
 	numberpadDoor.setOpenable(true); // È apribile
@@ -667,7 +668,10 @@ public class Game extends GameDescription {
 		break;
 
 	    case END:
-		out.println("L'avventura per te... FINISCE QUI!\nPOLLO");
+		out.println("\nL'avventura per te... FINISCE QUI!");
+		out.println("      __   __             __"
+			+ "\n     |__) /  \\ |    |    /  \\"
+			+ "\n     |    \\__/ |___ |___ \\__/");
 		gameOver(); // Terminazione del gioco
 		break;
 
@@ -794,13 +798,29 @@ public class Game extends GameDescription {
 				}
 			    } else { // Se non è di tipo contenitore
 
-				if (p.getItem().getId() == 1) { // Se si tratta dell'oggetto "porta" (1) nella camera di equilibrio
-				    out.println("La porta si sta aprendo...\n"
-					    + "Vieni risucchiato all'esterno dell'astronave, il tuo cervello esplode...      E MUORI.\n"
-					    + "Il tuo corpo fluttuerà per sempre nello spazio più profondo.");
-				    gameOver(); // Terminazione del gioco
-				} else {
-				    out.println("È già aperto.");
+				switch (p.getItem().getId()) {
+				    case 1:
+					// Se si tratta dell'oggetto "porta" (1) nella camera di equilibrio
+					out.println("La porta si sta aprendo...\n"
+						+ "Vieni risucchiato all'esterno dell'astronave, il tuo cervello esplode...      E MUORI.\n"
+						+ "Il tuo corpo fluttuerà per sempre nello spazio più profondo.\n");
+					out.println("       __            _    _        _  _"
+						+ "\n      /__  /\\  |\\/| |_   / \\ \\  / |_ |_)"
+						+ "\n      \\_| /--\\ |  | |_   \\_/  \\/  |_ | \\");
+					System.out.print("\n================================================================================================");
+					gameOver(); // Terminazione del gioco
+					break;
+				    case 44:
+					// Se si tratta dell'oggetto "porta" (44) nel modulo 2
+					out.println("Non sembra che si possa aprire.\nDevi trovare un modo alternativo per passare dall'altro lato.");
+					break;
+				    case 45:
+					// Se si tratta dell'oggetto "porta" (45) nel modulo 3
+					out.println("Non ha una serratura.\nDevi trovare un modo alternativo per aprirla.");
+					break;
+				    default:
+					out.println("È già aperto.");
+					break;
 				}
 
 			    }
@@ -959,9 +979,13 @@ public class Game extends GameDescription {
 				break;
 			    case 26:
 				// Siringa (26)
-				out.println("Inizi a vedere tutto verde, il tuo corpo si gonfia, i tuoi vestiti si strappano...\n"
-					+ "La tua massa corporea diventa superiore a quella della navicella provocando"
-					+ "un'enorme esplosione.           SEI MORTO.");
+				out.println("\nInizi a vedere tutto verde, il tuo corpo si gonfia, i tuoi vestiti si strappano...\n"
+					+ "La tua massa corporea diventa superiore a quella della navicella provocando\n"
+					+ "un'enorme esplosione.           SEI MORTO.\n");
+				out.println("       __            _    _        _  _"
+					+ "\n      /__  /\\  |\\/| |_   / \\ \\  / |_ |_)"
+					+ "\n      \\_| /--\\ |  | |_   \\_/  \\/  |_ | \\");
+				System.out.print("\n================================================================================================");
 				gameOver(); // Terminazione del gioco
 			    default:
 				out.println("Non capisco.");
@@ -982,7 +1006,11 @@ public class Game extends GameDescription {
 		    if (p.getItem().isPushable()) { // Se si può premere
 
 			if (p.getItem().getId() == 23) { // Se si tratta dell'oggetto "pulsante" (23)
-			    out.println("La capsula di salvataggio viene immediatamente espulsa, vaghi nello spazio.\nSpera che qualcuno si accorga di te. Buona fortuna.");
+			    out.println("\nLa capsula di salvataggio viene immediatamente espulsa, vaghi nello spazio.\nSpera che qualcuno si accorga di te.      Buona fortuna.\n");
+			    out.println("       __            _    _        _  _"
+				    + "\n      /__  /\\  |\\/| |_   / \\ \\  / |_ |_)"
+				    + "\n      \\_| /--\\ |  | |_   \\_/  \\/  |_ | \\");
+			    System.out.print("\n================================================================================================");
 			    gameOver(); // Terminazione del gioco
 			} else {
 			    out.println("Non capisco.");
@@ -1146,8 +1174,12 @@ public class Game extends GameDescription {
 		    if (p.getItem().isKickable()) { // Se si può cacciare via
 
 			if (p.getItem().getId() == 39) { // Se si tratta dell'oggetto "pipistrelli" (39)
-			    out.println("Si innervosiscono, ti attaccano in massa, ti trasmettono il Covid...      E MUORI."
-				    + "È stato bello conoscerti.");
+			    out.println("\nSi innervosiscono, ti attaccano in massa, ti trasmettono il Covid...      E MUORI.\n"
+				    + "È stato bello conoscerti.\n");
+			    out.println("       __            _    _        _  _"
+				    + "\n      /__  /\\  |\\/| |_   / \\ \\  / |_ |_)"
+				    + "\n      \\_| /--\\ |  | |_   \\_/  \\/  |_ | \\");
+			    System.out.print("\n================================================================================================");
 			    gameOver(); // Terminazione del gioco
 			} else {
 			    out.println("Non capisco.");
@@ -1168,17 +1200,6 @@ public class Game extends GameDescription {
 		    out.println("Ti sembra il momento?!");
 		} else {
 		    out.println("Ti vuoi fare un pisolino sul pavimento?");
-		}
-		break;
-
-	    case EXIT:
-		if (getCurrentRoom().getId() == 0) { // Se ti trovi nella camera di equilibrio (ID = 0)
-		    out.println("La porta si sta aprendo...\n"
-			    + "Vieni risucchiato all'esterno dell'astronave, il tuo cervello esplode...      E MUORI.\n"
-			    + "Il tuo corpo fluttuerà per sempre nello spazio più profondo.");
-		    gameOver(); // Terminazione del gioco
-		} else {
-		    out.println("Cosa stai cercando di fare?");
 		}
 		break;
 

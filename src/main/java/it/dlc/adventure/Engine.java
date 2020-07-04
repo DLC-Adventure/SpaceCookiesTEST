@@ -7,9 +7,9 @@ package it.dlc.adventure;
 import it.dlc.adventure.parser.Parser;
 import it.dlc.adventure.parser.ParserOutput;
 import it.dlc.adventure.swing.Music;
+import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Scanner;
 
 /**
  * Motore di gioco.

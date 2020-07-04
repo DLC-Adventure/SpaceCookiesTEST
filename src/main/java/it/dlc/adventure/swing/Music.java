@@ -36,8 +36,8 @@ public class Music extends JDialog {
                 JFrame jf = new JFrame();
                 jf.setAlwaysOnTop(true);
                 int selectedOption = JOptionPane.showOptionDialog(jf,
-                        message, "Impostazione Musica",
-                        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+                        message, "Space Cookies",
+                        JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null,
                         options, options[1]);
 
                 if (selectedOption == JOptionPane.OK_OPTION) { // Risposta affermativa

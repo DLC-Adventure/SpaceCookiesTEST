@@ -17,7 +17,7 @@ public class ElementTable {
 	ElementTable.setBounds(100, 200, 800, 800);
 	ElementTable.setVisible(true);
 	ElementTable.add(new JLabel(new ImageIcon("media/ElementTable.png")));
-	ElementTable.setTitle("Parete");
+	ElementTable.setTitle("Tavola periodica");
 	ElementTable.setResizable(false);
 	ElementTable.setAlwaysOnTop(true);
 	ElementTable.pack();

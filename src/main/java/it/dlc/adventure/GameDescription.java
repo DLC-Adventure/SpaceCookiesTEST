@@ -7,12 +7,12 @@ import it.dlc.adventure.parser.ParserOutput;
 import it.dlc.adventure.type.Item;
 import it.dlc.adventure.type.Command;
 import it.dlc.adventure.type.Room;
+import java.util.ArrayList;
+import java.util.List;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Metodi che gestiscono il gioco.

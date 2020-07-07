@@ -3,10 +3,10 @@
  */
 package it.dlc.adventure.type;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.io.Serializable;
 
 /**
  * Metodi degli oggetti.

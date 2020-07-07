@@ -63,11 +63,12 @@ public class Game extends GameDescription {
 		+ "- Inoltre la tua tuta spaziale può contenere vari oggetti,\n"
 		+ "  per vederne il contenuto digita INVENTARIO o 'I'.\n"
 		+ "- Cimentati nell'arte del bricolage digitando APRI (QUALCOSA) CON (QUALCOSA).\n"
-		+ "- Ci potrebbero essere pericoli, ricordati di salvare la partita con SALVA,\n"
-		+ "  per caricare la partita precedente usa CARICA.\n"
-		+ "Probabilmente ce ne sono altri... Ma di certo non te li posso dire tutti io!\n\n"
+		+ "- Ci potrebbero essere pericoli, ricordati di salvare la partita con SALVA.\n"
+		+ "  Per caricare la partita precedente usa CARICA.\n"
+		+ "Probabilmente ce ne sono altri... Ma di certo non te li posso dire tutti io!\n"
+		+ "\n"
 		+ "Se hai una memoria di pochi byte e dovessi dimenticare tutto,\n"
-		+ "digita '?' per rivedere questa schermata.\n");
+		+ "  digita '?' per rivedere questa schermata.\n");
     }
 
     /**
@@ -689,7 +690,8 @@ public class Game extends GameDescription {
 
 	    case END:
 
-		out.println("Sei sicuro di voler uscire dal gioco? Tutti i progressi non salvati andranno perduti.");
+		out.println("Sei sicuro di voler uscire dal gioco? Tutti i progressi non salvati andranno perduti.\n");
+		out.println("Digita SI o NO:");
 		boolean exit = false;
 		
 		do {
@@ -709,7 +711,7 @@ public class Game extends GameDescription {
 			    exit = true;
 			    break;
 			default:
-			    out.println("Digita SI o NO.");
+			    out.println("\nDigita SI o NO:");
 			    exit = false;
 		    }
 		    

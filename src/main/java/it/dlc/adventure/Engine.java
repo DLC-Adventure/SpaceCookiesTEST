@@ -80,22 +80,32 @@ public class Engine {
 
 	    if (!console.isEmpty()) { // Se la stringa digitata non è vuota
 
-		if (console.equalsIgnoreCase("SALVA")) {
+		// Se è stato digitato "salva" o "salva partita"
+		if (console.equalsIgnoreCase("SALVA") || console.equalsIgnoreCase("SALVA PARTITA")) {
 
 		    try {
 			game.save();
+			System.out.println("================================================");
 			System.out.println("Salvataggio partita completato.");
+			System.out.println("================================================");
 		    } catch (IOException | ClassNotFoundException ex) {
-			System.out.println("Impossibile salvare la partita.\nEccezione verificata: " + ex);
+			System.out.println("######################################################");
+			System.err.println("Impossibile salvare la partita.\n" + ex.getMessage());
+			System.out.println("######################################################");
 		    }
 
-		} else if (console.equalsIgnoreCase("CARICA")) {
+		    // Se è stato digitato "carica" o "carica partita"
+		} else if (console.equalsIgnoreCase("CARICA") || console.equalsIgnoreCase("CARICA PARTITA")) {
 
 		    try {
 			game = game.load();
+			System.out.println("================================================");
 			System.out.println("Caricamento partita completato.");
+			System.out.println("================================================");
 		    } catch (IOException | ClassNotFoundException ex) {
-			System.out.println("Impossibile caricare la partita.\nEccezione verificata: " + ex);
+			System.out.println("######################################################");
+			System.err.println("Impossibile caricare la partita.\n" + ex.getMessage());
+			System.out.println("######################################################");
 		    }
 
 		} else {

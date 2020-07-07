@@ -9,6 +9,7 @@ import it.dlc.adventure.parser.ParserOutput;
 import it.dlc.adventure.swing.Music;
 import java.util.Scanner;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
@@ -16,7 +17,7 @@ import java.io.InputStreamReader;
  */
 public class Engine {
 
-    private final GameDescription game;
+    private GameDescription game;
     private final Parser parser;
 
     /**
@@ -78,13 +79,34 @@ public class Engine {
 	    String console = scanner.nextLine(); // Quando premo INVIO, tutto ciò che ho scritto viene passato nella stringa "console"
 
 	    if (!console.isEmpty()) { // Se la stringa digitata non è vuota
-		// Stringa digitata + lista comandi + oggetti nella stanza + inventario
-		ParserOutput p = parser.parse(console, game.getCommands(), game.getCurrentRoom().getItems(), game.getInventory());
 
-		if (p.getCommand() != null) { // Se ho trovato il comando
-		    System.out.println("================================================================================================");
-		    game.nextMove(p, System.out);
-		    System.out.println("================================================================================================");
+		if (console.equalsIgnoreCase("SALVA")) {
+
+		    try {
+			game.save();
+			System.out.println("Salvataggio partita completato.");
+		    } catch (IOException | ClassNotFoundException ex) {
+			System.out.println("Impossibile salvare la partita.\nEccezione verificata: " + ex);
+		    }
+
+		} else if (console.equalsIgnoreCase("CARICA")) {
+
+		    try {
+			game = game.load();
+			System.out.println("Caricamento partita completato.");
+		    } catch (IOException | ClassNotFoundException ex) {
+			System.out.println("Impossibile caricare la partita.\nEccezione verificata: " + ex);
+		    }
+
+		} else {
+		    // Stringa digitata + lista comandi + oggetti nella stanza + inventario
+		    ParserOutput p = parser.parse(console, game.getCommands(), game.getCurrentRoom().getItems(), game.getInventory());
+
+		    if (p.getCommand() != null) { // Se ho trovato il comando
+			System.out.println("================================================================================================");
+			game.nextMove(p, System.out);
+			System.out.println("================================================================================================");
+		    }
 		}
 
 	    } else { // Se non ho digitato niente

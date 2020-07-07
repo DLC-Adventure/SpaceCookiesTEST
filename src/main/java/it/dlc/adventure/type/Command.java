@@ -3,6 +3,7 @@
  */
 package it.dlc.adventure.type;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Objects;
@@ -11,7 +12,7 @@ import java.util.Set;
 /**
  * Metodi dei comandi.
  */
-public class Command {
+public class Command implements Serializable {
 
     private final CommandType type; // Tipo di comando
     private Set<String> alias; // Nome e alias del comando

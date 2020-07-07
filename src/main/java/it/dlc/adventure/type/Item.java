@@ -3,6 +3,7 @@
  */
 package it.dlc.adventure.type;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,12 +11,14 @@ import java.util.Set;
 /**
  * Metodi degli oggetti.
  */
-public class Item {
+public class Item implements Serializable {
 
     private final int id; // Id dell'oggetto
     private String name; // Nome dell'oggetto
     private String description; // Descrizione dell'oggetto
     private Set<String> alias; // Alias dell'oggetto
+    
+    private boolean used = false; // Se è stato utilizzato
 
     private boolean openable = false; // Se è apribile
     private boolean open = true; // Se è aperto
@@ -92,6 +95,15 @@ public class Item {
 
     public void setAlias(String[] alias) {
 	this.alias = new HashSet<>(Arrays.asList(alias));
+    }
+    
+    // Se l'oggetto è stato utilizzato
+    public boolean isUsed() {
+	return used;
+    }
+
+    public void setUsed(boolean used) {
+	this.used = used;
     }
 
     // Se si può aprire (oggetto contenitore)

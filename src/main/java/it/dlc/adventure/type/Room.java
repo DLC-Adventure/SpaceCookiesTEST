@@ -3,13 +3,14 @@
  */
 package it.dlc.adventure.type;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Metodi delle stanze.
  */
-public class Room {
+public class Room implements Serializable {
 
     private final int id; // Id della stanza
     private String name; // Nome della stanza

@@ -7,14 +7,17 @@ import it.dlc.adventure.parser.ParserOutput;
 import it.dlc.adventure.type.Item;
 import it.dlc.adventure.type.Command;
 import it.dlc.adventure.type.Room;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Metodi che gestiscono il gioco.
  */
-public abstract class GameDescription {
+public abstract class GameDescription implements Serializable {
 
     private final List<Room> rooms = new ArrayList<>(); // Lista contenente le stanze
     private final List<Command> commands = new ArrayList<>(); // Lista contenente i comandi
@@ -58,5 +61,8 @@ public abstract class GameDescription {
 
     public abstract void init() throws Exception; // Inizializzazione del gioco
     public abstract void nextMove(ParserOutput p, PrintStream out); // Prossima mossa
+    
+    public abstract void save() throws FileNotFoundException, IOException, ClassNotFoundException; // Salvataggio della partita
+    public abstract GameDescription load() throws FileNotFoundException, IOException, ClassNotFoundException; // Caricamento della partita
 
 } // fine della classe principale "GameDescription"

@@ -13,8 +13,13 @@ import it.dlc.adventure.swing.ElementTable;
 import it.dlc.adventure.swing.NumberPad;
 import it.dlc.adventure.swing.Picks;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintStream;
 import java.util.Iterator;
 import java.util.Random;
@@ -58,6 +63,8 @@ public class Game extends GameDescription {
 		+ "- Inoltre la tua tuta spaziale può contenere vari oggetti,\n"
 		+ "  per vederne il contenuto digita INVENTARIO o 'I'.\n"
 		+ "- Cimentati nell'arte del bricolage digitando APRI (QUALCOSA) CON (QUALCOSA).\n"
+		+ "- Ci potrebbero essere pericoli, ricordati di salvare la partita con SALVA,\n"
+		+ "  per caricare la partita precedente usa CARICA.\n"
 		+ "Probabilmente ce ne sono altri... Ma di certo non te li posso dire tutti io!\n\n"
 		+ "Se hai una memoria di pochi byte e dovessi dimenticare tutto,\n"
 		+ "digita '?' per rivedere questa schermata.\n");
@@ -635,6 +642,12 @@ public class Game extends GameDescription {
 		    if (getCurrentRoom().getWest().isAccessible()) { // Se la stanza a ovest è accessibile
 			setCurrentRoom(getCurrentRoom().getWest()); // Imposta la stanza a ovest come attuale
 			move = 1; // Hai cambiato stanza
+
+			// Se sto entrando nel modulo 2 (2), la stanza a est (modulo 1) diventa inaccessibile
+			if (getCurrentRoom().getId() == 2) {
+			    getCurrentRoom().getEast().setAccessible(false);
+			}
+
 		    } else {
 
 			// Muro tra la stanza medica (13) e la toilette (11)
@@ -656,7 +669,14 @@ public class Game extends GameDescription {
 			setCurrentRoom(getCurrentRoom().getEast()); // Imposta la stanza a est come attuale
 			move = 1; // Hai cambiato stanza
 		    } else {
-			move = 2; // È chiusa a chiave
+
+			// Se mi trovo nel modulo 2 (2) e sto cercando di tornare nel modulo 1
+			if (getCurrentRoom().getId() == 2) {
+			    out.println("La porta si è chiusa, non puoi più tornare indietro.");
+			} else {
+			    move = 2; // È chiusa a chiave
+			}
+
 		    }
 		} else {
 		    move = 3; // C'è un muro
@@ -668,21 +688,56 @@ public class Game extends GameDescription {
 		break;
 
 	    case END:
-		out.println("\nL'avventura per te... FINISCE QUI!");
-		out.println("      __   __             __"
-			+ "\n     |__) /  \\ |    |    /  \\"
-			+ "\n     |    \\__/ |___ |___ \\__/");
-		gameOver(); // Terminazione del gioco
+
+		out.println("Sei sicuro di voler uscire dal gioco? Tutti i progressi non salvati andranno perduti.");
+		boolean exit = false;
+		
+		do {
+		    Scanner end = new Scanner(System.in);
+		    String confirm = end.next().toUpperCase();
+
+		    switch (confirm) {
+			case "SI":
+			    System.out.println("================================================================================================");
+			    out.println("\nL'avventura per te... FINISCE QUI!");
+			    out.println("      __   __             __"
+				    + "\n     |__) /  \\ |    |    /  \\"
+				    + "\n     |    \\__/ |___ |___ \\__/");
+			    gameOver(); // Terminazione del gioco
+			    break;
+			case "NO":
+			    exit = true;
+			    break;
+			default:
+			    out.println("Digita SI o NO.");
+			    exit = false;
+		    }
+		    
+		} while (exit == false);
+
 		break;
 
 	    case INVENTORY:
 		if (getInventory().isEmpty()) { // Se l'inventario è vuoto
+		    
 		    out.println("Il tuo inventario è vuoto.");
+		    
 		} else { // Se l'inventario non è vuoto
+
+		    int i = 0; // Numero di oggetti nell'inventario non ancora utilizzati
+
 		    out.println("Nel tuo inventario c'è:");
 		    for (Item item : getInventory()) { // Itera oggetti nell'inventario
-			out.println("- " + item.getName()); // Nome dell'oggetto
+			if (!item.isUsed()) { // Se l'oggetto è non è stato utilizzato
+			    out.println("- " + item.getName()); // Nome dell'oggetto
+			    i++;
+			}
 		    }
+
+		    if (i == 0) { // Se gli oggetti presenti nell'inventario sono già stati utilizzati
+			out.println("Niente.");
+		    }
+
 		}
 		break;
 
@@ -835,8 +890,9 @@ public class Game extends GameDescription {
 					if (p.getInventoryItem().getId() == 11) { // Se nell'inventario ho la chiave (11)
 					    p.getItem().setOpen(true); // Imposto l'oggetto "porta" come aperto
 					    getCurrentRoom().getWest().setAccessible(true); // La stanza "modulo 2" diventa accessibile
-					    getInventory().remove(p.getInventoryItem()); // Rimuovo la chiave dall'inventario
+					    //getInventory().remove(p.getInventoryItem()); // Rimuovo la chiave dall'inventario
 					    out.println("Hai aperto la porta!");
+					    p.getInventoryItem().setUsed(true); // Imposto l'oggetto "chiave" come utilizzato
 					} else {
 					    out.println("È blindata, hai bisogno della chiave.");
 					}
@@ -846,8 +902,9 @@ public class Game extends GameDescription {
 					// Armadietto nella stiva (12)
 					if (p.getInventoryItem().getId() == 17) { // Se nell'inventario ho il cacciavite (17)
 					    p.getItem().setOpen(true); // Rendo l'armadietto (12) aperto
-					    getInventory().remove(p.getInventoryItem()); // Rimuovo il cacciavite dall'inventario
+					    //getInventory().remove(p.getInventoryItem()); // Rimuovo il cacciavite dall'inventario
 					    out.println("Hai forzato l'armadietto!");
+					    p.getInventoryItem().setUsed(true); // Imposto l'oggetto "cacciavite" come utilizzato
 					} else {
 					    out.println("Non va bene. Prova con un altro oggetto.");
 					}
@@ -970,9 +1027,10 @@ public class Game extends GameDescription {
 				// Accendino (9)
 				if (getCurrentRoom().getId() == 9) { // Se la stanza attuale è Motori Sud (9)
 				    getCurrentRoom().setVisible(true); // La stanza diventa visibile (luce accesa)
-				    getInventory().remove(p.getInventoryItem()); // Rimuovo l'accendino dall'inventario
+				    //getInventory().remove(p.getInventoryItem()); // Rimuovo l'accendino dall'inventario
 				    out.println("Ora riesco a vedere!");
 				    out.println("Noto la presenza di molteplici macchinari, qui vedo anche una cassetta degli attrezzi.");
+				    p.getInventoryItem().setUsed(true); // Imposto l'oggetto "accendino" come utilizzato
 				} else {
 				    out.println("Non si gioca col fuoco.");
 				}
@@ -1311,5 +1369,22 @@ public class Game extends GameDescription {
 	return out;
 
     } // fine "randomMessage"
+
+    // Salvataggio della partita
+    @Override
+    public void save() throws FileNotFoundException, IOException, ClassNotFoundException {
+	ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("save.dat"));
+	out.writeObject(this);
+	out.close();
+    }
+
+    // Caricamento della partita salvata
+    @Override
+    public GameDescription load() throws FileNotFoundException, IOException, ClassNotFoundException {
+	ObjectInputStream in = new ObjectInputStream(new FileInputStream("save.dat"));
+	Game game = (Game) in.readObject();
+	in.close();
+	return game;
+    }
 
 } // fine funzione principale "Game"

@@ -34,7 +34,7 @@ public class Parser {
 
     // Cerca l'articolo
     private int searchArticle(String token) {
-	String[] articles = {"il", "lo", "la", "i", "gli", "le", "l", "nel"};
+	String[] articles = {"il", "lo", "la", "i", "gli", "le", "l"};
 	for (String article : articles) {
 	    if (article.equals(token)) {
 		return 1; // Articolo trovato
@@ -85,8 +85,9 @@ public class Parser {
 
 		i++; // Vai alla parola successiva
 		int inputArticle = searchArticle(token[i]); // Cerca l'articolo
+		int inputPreposition = searchPreposition(token[i]); // Cerca la preposizione
 
-		if (inputArticle > -1) { // Se ho trovato un articolo
+		if (inputArticle > -1 || inputPreposition > -1) { // Se ho trovato un articolo
 		    if (nToken > i + 1) { // Se c'è una parola successiva
 			i++; // Vai alla parola successiva
 		    } else { // Se non c'è un'altra parola dopo l'articolo
@@ -103,15 +104,15 @@ public class Parser {
 		    while (nToken > i + 1) { // Finché c'è un'altra parola
 
 			i++; // Vai alla parola successiva
-			int inputPreposition = searchPreposition(token[i]); // Cerca la preposizione
+			inputPreposition = searchPreposition(token[i]); // Cerca la preposizione
 
 			if (inputPreposition > -1) { // Se ho trovato una preposizione
 
 			    if (nToken > i + 1) { // Se c'è un'altra parola
-				
+
 				i++; // Vai alla parola successiva
 				inputArticle = searchArticle(token[i]); // Cerca l'articolo
-				
+
 				if (inputArticle > -1) { // Se ho trovato un articolo
 				    if (nToken > i + 1) { // Se c'è una parola successiva
 					i++; // Vai alla parola successiva
@@ -145,7 +146,7 @@ public class Parser {
 		    while (nToken > i + 1) { // Finché c'è un'altra parola
 
 			i++; // Vai alla parola successiva
-			int inputPreposition = searchPreposition(token[i]); // Cerca la preposizione
+			inputPreposition = searchPreposition(token[i]); // Cerca la preposizione
 
 			if (inputPreposition > -1) { // Se ho trovato una preposizione
 

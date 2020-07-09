@@ -693,7 +693,7 @@ public class Game extends GameDescription {
 		out.println("Sei sicuro di voler uscire dal gioco? Tutti i progressi non salvati andranno perduti.\n");
 		out.println("Digita SI o NO:");
 		boolean exit = false;
-		
+
 		do {
 		    Scanner end = new Scanner(System.in);
 		    String confirm = end.next().toUpperCase();
@@ -714,16 +714,16 @@ public class Game extends GameDescription {
 			    out.println("\nDigita SI o NO:");
 			    exit = false;
 		    }
-		    
+
 		} while (exit == false);
 
 		break;
 
 	    case INVENTORY:
 		if (getInventory().isEmpty()) { // Se l'inventario è vuoto
-		    
+
 		    out.println("Il tuo inventario è vuoto.");
-		    
+
 		} else { // Se l'inventario non è vuoto
 
 		    int i = 0; // Numero di oggetti nell'inventario non ancora utilizzati
@@ -1372,7 +1372,13 @@ public class Game extends GameDescription {
 
     } // fine "randomMessage"
 
-    // Salvataggio della partita
+    /**
+     * Salvataggio della partita.
+     *
+     * @throws FileNotFoundException
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     @Override
     public void save() throws FileNotFoundException, IOException, ClassNotFoundException {
 	ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("save.dat"));
@@ -1380,7 +1386,14 @@ public class Game extends GameDescription {
 	out.close();
     }
 
-    // Caricamento della partita salvata
+    /**
+     * Caricamento della partita salvata.
+     *
+     * @return game
+     * @throws FileNotFoundException
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     @Override
     public GameDescription load() throws FileNotFoundException, IOException, ClassNotFoundException {
 	ObjectInputStream in = new ObjectInputStream(new FileInputStream("save.dat"));

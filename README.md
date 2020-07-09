@@ -9,7 +9,7 @@ DLC
 
 ## Contenuto del progetto
 
-- **media**: Cartella contenente i file multimediali (musica e immagini) inseriti all'interno del gioco.
+- **media**: Cartella contenente i file multimediali (musica e immagini) presenti all'interno del gioco.
 - **Docs/Mappa.xlsx**: Mappa del gioco, creata su Microsoft Excel.
 - **Docs/Stanze e comandi.docx**: Documento Word contenente l'elenco di tutte le stanze, con la loro descrizione e i loro comandi.
 - **Run game.bat**: Eseguibile utile per avviare istantaneamente il file jar.

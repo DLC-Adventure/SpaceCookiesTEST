@@ -1,1 +1,1 @@
-java -jar target/SpaceCookies-1.0-SNAPSHOT.jar
+java -jar SpaceCookies-1.0-STABLE.jar

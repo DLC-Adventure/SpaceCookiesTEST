@@ -57,9 +57,9 @@ public class Parser {
     /**
      * Il parser è in grado di riconoscere il seguente tipo di frasi.
      * <comando> // Esempio: "inventario"
-     * <comando> <articolo> <oggetto> // Esempio: "apri (l') armadio"
-     * <comando> <articolo> <oggetto inventario> // Esempio: "usa (la) torcia"
-     * <comando> <articolo> <oggetto> <preposizione> <articolo> <oggetto inventario> // Esempio: "apri (la) porta con (la) chiave"
+     * <comando> <articolo/preposizione> <oggetto> // Esempio: "apri (l') armadio"
+     * <comando> <articolo/preposizione> <oggetto inventario> // Esempio: "usa (la) torcia"
+     * <comando> <articolo/preposizione> <oggetto> <preposizione> <articolo> <oggetto inventario> // Esempio: "apri (la) porta con (la) chiave"
      * L'articolo è opzionale. Nel caso venga inserito o meno, la frase verrà riconosciuta lo stesso.
      *
      * @param console Stringa inserita in input

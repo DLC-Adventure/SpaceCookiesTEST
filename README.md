@@ -12,6 +12,6 @@ DLC
 - **media**: Cartella contenente i file multimediali (musica e immagini) inseriti all'interno del gioco.
 - **Docs/Mappa.xlsx**: Mappa del gioco, creata su Microsoft Excel.
 - **Docs/Stanze e comandi.docx**: Documento Word contenente l'elenco di tutte le stanze, con la loro descrizione e i loro comandi.
-- **Run game.bat**: Eseguibile utile per avviare istantaneamente il file jar
+- **Run game.bat**: Eseguibile utile per avviare istantaneamente il file jar.
 - **Relazione finale.docx**: Relazione di fine progetto, contenente i dettagli e le scelte progettuali effettuate.
 

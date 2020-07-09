@@ -42,7 +42,7 @@ public class Engine {
 
 	    this.game.help(); // Mostra comandi principali
 
-	    System.out.println("================================================================================================");
+	    System.out.println("\n================================================================================================");
 	    System.out.println("Premi il tasto INVIO per continuare...");
 	    System.out.println("================================================\n");
 	    br.readLine();

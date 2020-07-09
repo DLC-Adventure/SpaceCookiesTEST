@@ -68,7 +68,7 @@ public class Game extends GameDescription {
 		+ "Probabilmente ce ne sono altri... Ma di certo non te li posso dire tutti io!\n"
 		+ "\n"
 		+ "Se hai una memoria di pochi byte e dovessi dimenticare tutto,\n"
-		+ "  digita '?' per rivedere questa schermata.\n");
+		+ "  digita '?' per rivedere questa schermata.");
     }
 
     /**

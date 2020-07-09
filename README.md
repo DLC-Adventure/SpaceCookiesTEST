@@ -13,5 +13,6 @@ DLC
 - **Mappa.xlsx**: Mappa del gioco, creata su Microsoft Excel.
 - **Stanze e comandi.docx**: Documento Word contenente l'elenco di tutte le stanze, con la loro descrizione e i loro comandi.
 - **Run game.bat**: Eseguibile utile per avviare istantaneamente il file jar
+
 - **Relazione finale.docx**: Relazione di fine progetto, contenente i dettagli e le scelte progettuali effettuate.
 

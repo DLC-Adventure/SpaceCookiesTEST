@@ -299,64 +299,26 @@ public class Game extends GameDescription {
 	secretLab.setAccessible(false); // Non è accessibile, è chiusa a chiave
 
 	// Mappa del gioco
-	airlock.setWest(module1);
-
-	module1.setNorth(kitchen);
-	module1.setSouth(crewCabin);
-	module1.setWest(module2);
-	module1.setEast(airlock);
-
-	module2.setNorth(observationDome);
-	module2.setSouth(toilette);
-	module2.setWest(module3);
-	module2.setEast(module1);
-
-	module3.setNorth(escapePods);
-	module3.setSouth(medicalRoom);
-	module3.setWest(meetingRoom);
-	module3.setEast(module2);
-
-	kitchen.setNorth(warehouse);
-	kitchen.setSouth(module1);
-
-	warehouse.setEast(engineRoomN);
-	warehouse.setSouth(kitchen);
-
-	crewCabin.setNorth(module1);
-	crewCabin.setSouth(cafe);
-
-	cafe.setNorth(crewCabin);
-	cafe.setEast(engineRoomS);
-
-	engineRoomN.setWest(warehouse);
-
-	engineRoomS.setWest(cafe);
-
-	observationDome.setSouth(module2);
-
-	toilette.setNorth(module2);
-	toilette.setWest(medicalRoom);
-
-	escapePods.setSouth(module3);
-
-	medicalRoom.setNorth(module3);
-	medicalRoom.setWest(livingRoom);
-
-	meetingRoom.setNorth(researchLab);
-	meetingRoom.setWest(controlRoom);
-	meetingRoom.setEast(module3);
-
-	controlRoom.setEast(meetingRoom);
-
-	livingRoom.setSouth(captainsCabin);
-	livingRoom.setEast(medicalRoom);
-
-	captainsCabin.setNorth(livingRoom);
-
-	researchLab.setNorth(secretLab);
-	researchLab.setSouth(meetingRoom);
-
-	secretLab.setSouth(researchLab);
+	airlock.setBorders(null, null, module1, null);
+	module1.setBorders(kitchen, crewCabin, module2, airlock);
+	module2.setBorders(observationDome, toilette, module3, module1);
+	module3.setBorders(escapePods, medicalRoom, meetingRoom, module2);
+	kitchen.setBorders(warehouse, module1, null, null);
+	warehouse.setBorders(null, kitchen, null, engineRoomN);
+	crewCabin.setBorders(module1, cafe, null, null);
+	cafe.setBorders(crewCabin, null, null, engineRoomS);
+	engineRoomN.setBorders(null, null, warehouse, null);
+	engineRoomS.setBorders(null, null, cafe, null);
+	observationDome.setBorders(null, module2, null, null);
+	toilette.setBorders(module2, null, medicalRoom, null);
+	escapePods.setBorders(null, module3, null, null);
+	medicalRoom.setBorders(module3, null, livingRoom, null);
+	meetingRoom.setBorders(researchLab, null, controlRoom, module3);
+	controlRoom.setBorders(null, null, null, meetingRoom);
+	livingRoom.setBorders(null, captainsCabin, null, medicalRoom);
+	captainsCabin.setBorders(livingRoom, null, null, null);
+	researchLab.setBorders(secretLab, meetingRoom, null, null);
+	secretLab.setBorders(null, researchLab, null, null);
 
 	// Oggetti
 	Item spaceSuit = new Item(0, "Tuta", "È una tuta spaziale, di quelle che vedi nei film.");

@@ -89,40 +89,29 @@ public class Room implements Serializable {
 	this.visible = visible;
     }
 
-    // Nord
+    // Stanze adiacenti (N/S/W/E)
+    public void setBorders(Room north, Room south, Room west, Room east) {
+	this.north = north;
+	this.south = south;
+	this.west = west;
+	this.east = east;
+    }
+
+    // Stanza a nord, sud, ovest, est
     public Room getNorth() {
 	return north;
     }
 
-    public void setNorth(Room north) {
-	this.north = north;
-    }
-
-    // Sud
     public Room getSouth() {
 	return south;
     }
 
-    public void setSouth(Room south) {
-	this.south = south;
-    }
-
-    // Ovest
     public Room getWest() {
 	return west;
     }
 
-    public void setWest(Room west) {
-	this.west = west;
-    }
-
-    // Est
     public Room getEast() {
 	return east;
-    }
-
-    public void setEast(Room east) {
-	this.east = east;
     }
 
     // Oggetti presenti nella stanza
